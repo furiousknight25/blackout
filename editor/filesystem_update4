@@ -1,1 +1,4 @@
 res://test_level1.tscn
+res://Scenes/FirstPersonController.tscn
+res://scripts/first_person_controller.gd
+res://scripts/director.gd
