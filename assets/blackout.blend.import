@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://d8he72s6cjh3"
-path="res://.godot/imported/blackout.blend-509d188855639a48aad0766358e74c6b.scn"
+path="res://.godot/imported/blackout.blend-73b142f33ad2e3266a99f5bc2427e21e.scn"
 
 [deps]
 
-source_file="res://blackout.blend"
-dest_files=["res://.godot/imported/blackout.blend-509d188855639a48aad0766358e74c6b.scn"]
+source_file="res://assets/blackout.blend"
+dest_files=["res://.godot/imported/blackout.blend-73b142f33ad2e3266a99f5bc2427e21e.scn"]
 
 [params]
 

@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhjt1cdfsdu1i"]
+
+[ext_resource type="PackedScene" uid="uid://d8he72s6cjh3" path="res://assets/blackout.blend" id="1_dqgex"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5bgma"]
+sky_top_color = Color(0.0122071, 0.0182652, 0.0291443, 1)
+sky_horizon_color = Color(0.00528813, 0.00528895, 0.063099, 1)
+ground_bottom_color = Color(0.000146983, 0.000107235, 6.99384e-05, 1)
+ground_horizon_color = Color(0.0322376, 0.034035, 0.0369887, 1)
+
+[sub_resource type="Sky" id="Sky_mots3"]
+sky_material = SubResource("ProceduralSkyMaterial_5bgma")
+
+[sub_resource type="Environment" id="Environment_geduq"]
+background_mode = 2
+sky = SubResource("Sky_mots3")
+tonemap_mode = 3
+sdfgi_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_emission = Color(0.0132294, 0.0132269, 0.0244194, 1)
+adjustment_enabled = true
+adjustment_brightness = 1.25
+
+[node name="Node3D" type="Node3D"]
+
+[node name="blackout" parent="." instance=ExtResource("1_dqgex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4799, -4.76837e-07, 1.60755)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_geduq")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.94541, 3.49654, 11.4116)
+light_color = Color(0.889966, 0.847363, 0.715669, 1)
+omni_range = 7.0659
+omni_attenuation = 1.404
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5068, 3.69791, 3.48259)
+light_color = Color(0.889966, 0.847363, 0.715669, 1)
+omni_range = 7.0659
+omni_attenuation = 1.404
