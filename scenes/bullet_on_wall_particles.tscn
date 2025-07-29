@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6rby77nq88d4"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_kiwyn"]
+
+[node name="bullet_on_wall_particles" type="CPUParticles3D"]
+emitting = false
+lifetime = 3.21
+one_shot = true
+explosiveness = 0.98
+mesh = SubResource("SphereMesh_kiwyn")
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
+scale_amount_min = 0.05
+scale_amount_max = 0.1

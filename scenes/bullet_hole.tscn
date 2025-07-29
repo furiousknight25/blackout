@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b22kkrn40sku0"]
+
+[ext_resource type="Texture2D" uid="uid://c4lnevvwab7e7" path="res://assets/decal_on_wall.png" id="1_10m7h"]
+
+[node name="bullet_hole" type="Decal"]
+transform = Transform3D(0.235813, 0, 0, 0, 0.235813, 0, 0, 0, 0.235813, 0, 0, 0)
+size = Vector3(0.5, 0.5, 0.5)
+texture_albedo = ExtResource("1_10m7h")
