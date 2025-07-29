@@ -4,6 +4,7 @@ extends CharacterBody3D
 @onready var gun_ray_casts = $Camera3D/GunRayCasts.get_children()
 @onready var bullet_hole = preload("res://scenes/bullet_hole.tscn")
 @onready var bullet_hole_particles = preload("res://scenes/bullet_on_wall_particles.tscn")
+@onready var face_ray_cast: RayCast3D = $Camera3D/Rig/FaceRayCast
 
 enum STATE {GROUNDED, AIR}
 var cur_state = STATE.GROUNDED
@@ -31,6 +32,11 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("reload"):
 		animation_tree.play_animation('reload')
+	
+	if Input.is_action_just_pressed("interact") or Input.is_action_just_released("interact"):
+		if face_ray_cast.is_colliding():
+			if face_ray_cast.get_collider().is_in_group('interact'):
+				face_ray_cast.get_collider().interact()
 	
 	match cur_state:
 		STATE.GROUNDED:

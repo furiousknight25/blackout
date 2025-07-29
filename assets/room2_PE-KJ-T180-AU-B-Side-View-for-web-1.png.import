@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://dvktnyl3sfr5j"
+path.s3tc="res://.godot/imported/room2_PE-KJ-T180-AU-B-Side-View-for-web-1.png-59705a2c3f00086c533cfe15091be89e.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "c65b1f1169b7818b9f98d4a5cb968762"
+}
+
+[deps]
+
+source_file="res://assets/room2_PE-KJ-T180-AU-B-Side-View-for-web-1.png"
+dest_files=["res://.godot/imported/room2_PE-KJ-T180-AU-B-Side-View-for-web-1.png-59705a2c3f00086c533cfe15091be89e.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0
