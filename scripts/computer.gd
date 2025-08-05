@@ -1,0 +1,16 @@
+class_name Computer
+extends StaticBody3D
+
+@onready var progress_bar: ProgressBar = $Sprite3D/SubViewport/ProgressBar
+
+
+var incrementTimer : float = 2.0 #time it takes to increase a chunk of progress
+var percentIncrease : int = 10 #the amount of progress in percentage is increased
+var currentIncrementTime : float = 0 #The amount of time held down so far
+
+
+func interact(delta : float):
+	currentIncrementTime += delta
+	if currentIncrementTime >= incrementTimer and progress_bar.value < 100:
+		progress_bar.value += percentIncrease
+		currentIncrementTime = 0

@@ -9,3 +9,7 @@ extends Node
 @warning_ignore("unused_signal") signal attackGenerator
 @warning_ignore("unused_signal") signal resetSpawnTimer
 ###############
+
+## AMMO BOX ##
+@warning_ignore("unused_signal") signal refillAmmo
+##############

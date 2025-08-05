@@ -15,12 +15,17 @@ var air_acceleration = .3
 var speed = 1
 
 var spread = 8
+var totalAmmo = 3 #total ammo you can hold
+var ammoCapacity = 3 #how much ammo the shotgun can hold at one time
+var currentAmmo = 3 #how much ammo is currently in the gun
 
-var lastInteractedObject : Node3D
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
+	SignalBus.connect("refillAmmo", refillAmmo)
+
+
 func _physics_process(delta: float) -> void:
 	#velocity -= transform.basis.z
 	
@@ -29,24 +34,13 @@ func _physics_process(delta: float) -> void:
 	var movement_dir = transform.basis * Vector3(input.x, 0, input.y) * speed #makes sure the forward is the forward you are facing
 	
 	if Input.is_action_just_pressed("shoot"):
-		animation_tree.play_animation('shoot')
-		shoot()
-
-	if Input.is_action_just_pressed("reload"):
-		animation_tree.play_animation('reload')
+		if currentAmmo > 0:
+			shoot()
 	
-	
-	if Input.is_action_just_pressed("interact") or Input.is_action_just_released("interact"):
+	if Input.is_action_pressed("interact"):
 		if face_ray_cast.is_colliding():
 			if face_ray_cast.get_collider().is_in_group('interact'):
-				face_ray_cast.get_collider().interact()
-				lastInteractedObject = face_ray_cast.get_collider()
-	
-	
-	if Input.is_action_just_released("interact"):
-		if lastInteractedObject != null:
-			lastInteractedObject.interact()
-			lastInteractedObject = null
+				face_ray_cast.get_collider().interact(delta)
 	
 	match cur_state:
 		STATE.GROUNDED:
@@ -93,6 +87,11 @@ func _input(event: InputEvent) -> void:
 
 
 func shoot():
+	currentAmmo -= 1
+	totalAmmo -= 1
+	
+	animation_tree.play_animation('shoot')
+	
 	for i : RayCast3D in gun_ray_casts:
 		i.rotation = Vector3(randf_range(-0.1,0.1), randf_range(-0.1,0.1), 0.0)
 		if i.get_collider():
@@ -106,5 +105,14 @@ func shoot():
 				hole.global_position = i.get_collision_point()
 				particles.global_position = i.get_collision_point()
 				particles.emitting = true
+
+
 func reload():
-	pass
+	currentAmmo = totalAmmo
+	
+	animation_tree.play_animation('reload')
+
+
+func refillAmmo():
+	totalAmmo = ammoCapacity
+	reload()
