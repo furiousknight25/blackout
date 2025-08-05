@@ -15,9 +15,9 @@ var air_acceleration = .3
 var speed = 1
 
 var spread = 8
-var totalAmmo = 2 #total ammo you can hold
-var ammoCapacity = 2 #how much ammo the shotgun can hold at one time
-var currentAmmo = 2 #how much ammo is currently in the gun
+var totalAmmo = 3 #total ammo you can hold
+var ammoCapacity = 3 #how much ammo the shotgun can hold at one time
+var currentAmmo = 3 #how much ammo is currently in the gun
 
 
 func _ready() -> void:
