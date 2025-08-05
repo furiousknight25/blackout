@@ -1,5 +1,6 @@
 extends Node
 @onready var progress_bar: ProgressBar = $Sprite3D/SubViewport/ProgressBar
+@onready var idle_loop_sfx: AudioStreamPlayer3D = $IdleLoopSFX
 
 var total_power = 100
 var delta_power = -5
@@ -38,3 +39,7 @@ func increasePowerDrain(drainAmount : int) -> void:
 
 func decreasePowerDrain(drainAmount : int) -> void:
 	delta_power += drainAmount
+
+
+func _on_idle_start_finished() -> void:
+	idle_loop_sfx.play()
