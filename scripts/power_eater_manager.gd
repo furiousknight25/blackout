@@ -1,6 +1,8 @@
 extends Node3D
 
 @export var timeToSpawn : float = 15.0
+
+## Give a PathFollow3D node to be used as the route the enemy will follow (Remember that a PathFollow3D node needs a Path3D as a parent)
 @export var followPath : PathFollow3D #give the follow path/s for the manager to use to spawn Power Eaters on
 
 @onready var spawn_timer : Timer = $SpawnTimer

@@ -1,9 +1,11 @@
-[gd_scene load_steps=56 format=3 uid="uid://bhjt1cdfsdu1i"]
+[gd_scene load_steps=57 format=3 uid="uid://bhjt1cdfsdu1i"]
 
 [ext_resource type="PackedScene" uid="uid://bcx63mqj80yes" path="res://scenes/FirstPersonController.tscn" id="2_gt4fr"]
 [ext_resource type="PackedScene" uid="uid://b7m1msuc4mlpj" path="res://assets/room2.glb" id="2_jx57p"]
 [ext_resource type="PackedScene" uid="uid://matvsk3n3cn0" path="res://scenes/generator.tscn" id="3_jx57p"]
 [ext_resource type="PackedScene" uid="uid://cxepa5s7n3dbw" path="res://scenes/power_eater_manager.tscn" id="4_kq5yr"]
+[ext_resource type="PackedScene" uid="uid://c367agvaos08b" path="res://scenes/shell_box.tscn" id="5_4ch7m"]
+[ext_resource type="PackedScene" uid="uid://fw7c4slsj38b" path="res://scenes/computer.tscn" id="6_ok512"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5bgma"]
 sky_top_color = Color(0.0122071, 0.0182652, 0.0291443, 1)
@@ -43,9 +45,6 @@ points = PackedVector3Array(0.0836744, 0.412792, 0.354781, 0.0836744, 0.412792, 
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qm6ux"]
 points = PackedVector3Array(0.206475, 0.0665271, 0.275077, 0.177048, 0.0665271, 0.305734, 0.206475, -0.0665271, 0.275077, 0.206475, 0.0665271, -0.275171, 0.177048, -0.0665271, 0.305734, -0.182788, 0.0665271, 0.305734, 0.206475, -0.0665271, -0.275171, 0.177048, 0.0665271, -0.314388, -0.182788, -0.0665271, 0.305734, -0.206475, 0.0665271, 0.275077, 0.177048, -0.0665271, -0.314388, -0.182788, 0.0665271, -0.314388, -0.206475, -0.0665271, 0.275077, -0.206475, 0.0665271, -0.275171, -0.182788, -0.0665271, -0.314388, -0.206475, -0.0665271, -0.275171)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ugbyc"]
-points = PackedVector3Array(-0.819188, -0.456089, -0.831047, -1.03579, -0.640873, 0.224829, -0.819188, 0.37745, -0.831047, 0.85424, -0.456089, -0.831047, -1.03579, -0.640873, 0.513609, -1.03579, 0.644933, 0.224829, 1.05569, -0.640873, 0.224829, 0.85424, 0.37745, -0.831047, -1.03579, 0.644933, 0.513609, 1.05569, -0.640873, 0.513609, 1.05569, 0.644933, 0.224829, 1.05569, 0.644933, 0.513609)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_k5wlj"]
 points = PackedVector3Array(0.104965, 0.0289925, 0.296712, 0.104965, -0.0289982, 0.296712, 0.104965, 0.0289925, -0.296712, -0.104965, 0.0289925, 0.296712, -0.104965, -0.0289982, 0.296712, 0.104965, -0.0289982, -0.296712, -0.104965, 0.0289925, -0.296712, -0.104965, -0.0289982, -0.296712)
@@ -251,11 +250,7 @@ shape = SubResource("ConvexPolygonShape3D_qm6ux")
 
 [node name="Cube_010" parent="room2" index="7"]
 transform = Transform3D(-1.02181e-07, 0.285718, -1.25758e-14, 2.55452e-08, 7.61305e-16, -0.429062, -0.285718, -1.02181e-07, -3.83612e-08, -2.16491, 2.36997, 1.99727)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="room2/Cube_010" index="0"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="room2/Cube_010/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_ugbyc")
+visible = false
 
 [node name="Cube_011" parent="room2" index="8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.74338, 2.1786, 1.99361)
@@ -267,6 +262,7 @@ shape = SubResource("ConvexPolygonShape3D_k5wlj")
 
 [node name="Cube_012" parent="room2" index="9"]
 transform = Transform3D(0, 0, -0.930949, 0, 1.41359, 0, 0.678826, 0, 0, -1.07065, 2.22238, 4.09185)
+visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="room2/Cube_012" index="0"]
 
@@ -275,6 +271,7 @@ shape = SubResource("ConvexPolygonShape3D_6q7vh")
 
 [node name="Cylinder" parent="room2" index="10"]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -0.647069, 0, -0.954687, 2.2066, 4.08793)
+visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="room2/Cylinder" index="0"]
 
@@ -283,6 +280,7 @@ shape = SubResource("ConvexPolygonShape3D_k8rj1")
 
 [node name="Cylinder_001" parent="room2" index="11"]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -0.647069, 0, -1.02477, 2.2066, 4.08793)
+visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="room2/Cylinder_001" index="0"]
 
@@ -600,5 +598,11 @@ curve = SubResource("Curve3D_kq5yr")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="PowerEaterManager/Path3D"]
 transform = Transform3D(-0.962084, 0, 0.272672, 0, 0.999999, 0, -0.27267, 0, -0.962093, 0, 0, 0)
+
+[node name="ShellBox" parent="." instance=ExtResource("5_4ch7m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0807505, 3.07981, 6.63999)
+
+[node name="Computer" parent="." instance=ExtResource("6_ok512")]
+transform = Transform3D(-2.88495e-08, 0.66, -2.88495e-08, 0, -2.88495e-08, -0.66, -0.66, -2.88495e-08, 1.26105e-15, -1.60851, 3.26402, 3.74345)
 
 [editable path="room2"]
