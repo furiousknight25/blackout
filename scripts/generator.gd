@@ -12,10 +12,13 @@ func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
 	timer.wait_time = 1.0
 	timer.start()
+	
+	SignalBus.connect("increasePowerDrain", increasePowerDrain)
+	SignalBus.connect("decreasePowerDrain", decreasePowerDrain)
 
 
 func _on_timer_timeout(): #reducing power on here
-	total_power += delta_power
+	total_power = clampf(total_power + delta_power, 0.0, 100.0)
 	
 	progress_bar.value = total_power
 	print(total_power)
@@ -27,3 +30,11 @@ func interact():
 		delta_power += 20
 	else:
 		delta_power -= 20
+
+
+func increasePowerDrain(drainAmount : int) -> void:
+	delta_power -= drainAmount
+
+
+func decreasePowerDrain(drainAmount : int) -> void:
+	delta_power += drainAmount

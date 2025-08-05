@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://t61g0ki4ru3t"]
+
+[ext_resource type="Script" uid="uid://cikd7h66f25vi" path="res://scripts/power_eater.gd" id="1_f12um"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o53h7"]
+size = Vector3(0.279297, 0.126953, 0.801758)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f12um"]
+size = Vector3(0.3, 0.3, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jr2ux"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tg4c2"]
+size = Vector3(0.1, 0.1, 0.2)
+
+[node name="PowerEater" type="CharacterBody3D" groups=["enemy"]]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+collision_layer = 2
+script = ExtResource("1_f12um")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_o53h7")
+
+[node name="Meshes" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Meshes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.203905)
+mesh = SubResource("BoxMesh_f12um")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Meshes"]
+mesh = SubResource("BoxMesh_jr2ux")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Meshes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.186727)
+mesh = SubResource("BoxMesh_tg4c2")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

@@ -16,6 +16,8 @@ var speed = 1
 
 var spread = 8
 
+var lastInteractedObject : Node3D
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
@@ -33,15 +35,23 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("reload"):
 		animation_tree.play_animation('reload')
 	
+	
 	if Input.is_action_just_pressed("interact") or Input.is_action_just_released("interact"):
 		if face_ray_cast.is_colliding():
 			if face_ray_cast.get_collider().is_in_group('interact'):
 				face_ray_cast.get_collider().interact()
+				lastInteractedObject = face_ray_cast.get_collider()
+	
+	
+	if Input.is_action_just_released("interact"):
+		if lastInteractedObject != null:
+			lastInteractedObject.interact()
+			lastInteractedObject = null
 	
 	match cur_state:
 		STATE.GROUNDED:
 			var current_friction: Vector2 = Vector2(velocity.x, velocity.z).rotated(PI) * friction
-			var friction_dir = transform.basis * Vector3(current_friction.x, 0, current_friction.y)
+			var _friction_dir = transform.basis * Vector3(current_friction.x, 0, current_friction.y)
 			velocity += Vector3(current_friction.x, 0, current_friction.y)
 			velocity += Vector3(movement_dir.x, 0, movement_dir.z)
 		STATE.AIR:
@@ -87,7 +97,7 @@ func shoot():
 		i.rotation = Vector3(randf_range(-0.1,0.1), randf_range(-0.1,0.1), 0.0)
 		if i.get_collider():
 			if i.get_collider().is_in_group('enemy'):
-				pass
+				i.get_collider().damage() #this is temp if you want to switch it to some damage function later, you should also prob check to see if they even have the func
 			else:
 				var hole = bullet_hole.instantiate()
 				var particles = bullet_hole_particles.instantiate()

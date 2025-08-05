@@ -18,10 +18,12 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 Director="*res://scripts/director.gd"
+SignalBus="*res://scripts/SignalBus.gd"
 
 [global_group]
 
 interact=""
+enemy=""
 
 [input]
 
