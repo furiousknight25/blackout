@@ -1,6 +1,7 @@
 extends StaticBody3D
 
 @onready var use_timer: Timer = $UseTimer
+@onready var reload_sfx: AudioStreamPlayer = $ReloadSFX
 
 var scaleTween : Tween
 var rotationTween : Tween
@@ -9,7 +10,7 @@ var rotSide : bool = true
 func interact(_delta : float):
 	if use_timer.is_stopped():
 		use_timer.start()
-		
+		reload_sfx.play()
 		wiggle()
 		
 		SignalBus.emit_signal("refillAmmo")

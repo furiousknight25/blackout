@@ -46,4 +46,4 @@ stream = ExtResource("3_rqoq6")
 volume_db = -20.0
 autoplay = true
 
-[connection signal="finished" from="IdleStart" to="." method="_on_idle_start_finished"]
+[connection signal="finished" from="IdleStart" to="IdleLoopSFX" method="play"]
