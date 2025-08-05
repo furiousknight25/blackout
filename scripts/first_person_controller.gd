@@ -16,7 +16,6 @@ var speed = 1
 
 var spread = 8
 
-var lastInteractedObject : Node3D
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -40,13 +39,7 @@ func _physics_process(delta: float) -> void:
 		if face_ray_cast.is_colliding():
 			if face_ray_cast.get_collider().is_in_group('interact'):
 				face_ray_cast.get_collider().interact()
-				lastInteractedObject = face_ray_cast.get_collider()
 	
-	
-	if Input.is_action_just_released("interact"):
-		if lastInteractedObject != null:
-			lastInteractedObject.interact()
-			lastInteractedObject = null
 	
 	match cur_state:
 		STATE.GROUNDED:
