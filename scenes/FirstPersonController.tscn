@@ -624,7 +624,6 @@ animation = &"tpose"
 animation = &"walk"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tmpcr"]
-graph_offset = Vector2(-493.908, -67.9203)
 nodes/Add2/node = SubResource("AnimationNodeAdd2_epali")
 nodes/Add2/position = Vector2(360, 160)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_x6l86")
@@ -685,7 +684,7 @@ bones/2/parent = 1
 bones/2/rest = Transform3D(0.996715, 0.0800761, -0.0120921, -0.0791005, 0.930606, -0.357372, -0.017364, 0.357155, 0.933884, -7.75321e-09, 0.28851, -1.86265e-09)
 bones/2/enabled = true
 bones/2/position = Vector3(-7.75321e-09, 0.28851, -1.86265e-09)
-bones/2/rotation = Quaternion(0.301338, 0.00415403, -0.0889641, 0.949349)
+bones/2/rotation = Quaternion(0.301339, 0.00415403, -0.0889641, 0.949349)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/name = "hand.L"
 bones/3/parent = 2
@@ -881,7 +880,7 @@ bones/30/parent = 29
 bones/30/rest = Transform3D(-0.243773, -0.249725, -0.93713, 0.413902, 0.847073, -0.333395, 0.877074, -0.469153, -0.103132, -0.00779151, 0.200791, -0.0203849)
 bones/30/enabled = true
 bones/30/position = Vector3(-0.00779151, 0.200791, -0.0203849)
-bones/30/rotation = Quaternion(0.194917, -0.56055, 0.526136, 0.609076)
+bones/30/rotation = Quaternion(0.195308, -0.560381, 0.526012, 0.609212)
 bones/30/scale = Vector3(1, 1, 1)
 bones/31/name = "forearm.R"
 bones/31/parent = 30
@@ -1076,7 +1075,7 @@ bones/58/name = "ik_R"
 bones/58/parent = -1
 bones/58/rest = Transform3D(-0.596785, -0.798394, 0.0800866, 0.802401, -0.593807, 0.0595475, 1.36234e-05, 0.0997987, 0.995008, -0.660237, 1.30948, -0.0179886)
 bones/58/enabled = true
-bones/58/position = Vector3(-0.234178, 1.56442, 0.342521)
+bones/58/position = Vector3(-0.234159, 1.56478, 0.342516)
 bones/58/rotation = Quaternion(0.0224393, 0.0446392, 0.892412, 0.448446)
 bones/58/scale = Vector3(1, 1, 1)
 bones/59/name = "cam"
@@ -1084,7 +1083,7 @@ bones/59/parent = -1
 bones/59/rest = Transform3D(1, 0, 0, 0, 1, -2.0067e-07, 0, 2.0067e-07, 1, 0, 1.70112, 2.77148e-07)
 bones/59/enabled = true
 bones/59/position = Vector3(0, 1.70112, 2.77148e-07)
-bones/59/rotation = Quaternion(1.0326e-07, 2.50338e-10, -8.27752e-10, 1)
+bones/59/rotation = Quaternion(1.00335e-07, 0, 0, 1)
 bones/59/scale = Vector3(1, 1, 1)
 
 [node name="Base" type="MeshInstance3D" parent="Camera3D/Rig/blacoutrig/ArmRIG/Skeleton3D"]
@@ -1096,7 +1095,7 @@ mesh = SubResource("ArrayMesh_0s7jx")
 skin = SubResource("Skin_joo77")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Camera3D/Rig/blacoutrig/ArmRIG/Skeleton3D"]
-transform = Transform3D(1, 1.6555e-09, 5.00676e-10, -1.6555e-09, 1, -2.0652e-07, -5.00676e-10, 2.0652e-07, 1, 0, 1.70112, 2.77148e-07)
+transform = Transform3D(1, 0, 0, 0, 1, -2.0067e-07, 0, 2.0067e-07, 1, 0, 1.70112, 2.77148e-07)
 bone_name = "cam"
 bone_idx = 59
 
@@ -1130,6 +1129,7 @@ visible = false
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D/GunRayCasts"]
 target_position = Vector3(0, 0, -12)
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast3D2" type="RayCast3D" parent="Camera3D/GunRayCasts"]
 target_position = Vector3(0, 0, -12)

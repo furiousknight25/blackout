@@ -217,7 +217,10 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.9811
 [node name="EnemyStuff" type="Node3D" parent="."]
 
 [node name="BigEnemy" parent="EnemyStuff" instance=ExtResource("4_kq5yr")]
-transform = Transform3D(-0.6, 0, -9.05975e-08, 0, 0.6, 0, 9.05975e-08, 0, -0.6, 16.1093, 3.18524, -0.83761)
+transform = Transform3D(-0.6, 0, -9.05975e-08, 0, 0.6, 0, 9.05975e-08, 0, -0.6, 24.2119, 3.18524, -0.83761)
+
+[node name="Reset" type="Marker3D" parent="EnemyStuff"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.8257, 3.1847, -0.901123)
 
 [node name="room2" parent="." instance=ExtResource("2_jx57p")]
 transform = Transform3D(1.37724, 0, 0, 0, 1.37724, 0, 0, 0, 1.37724, 1.37309, 1.19209e-07, 0.992735)

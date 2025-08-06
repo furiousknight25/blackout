@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://x6vsw1owjg5r"]
+[gd_scene load_steps=7 format=3 uid="uid://x6vsw1owjg5r"]
 
-[ext_resource type="Script" uid="uid://c5crlxf5p6tdu" path="res://scenes/big_enemy.gd" id="1_naoby"]
+[ext_resource type="Script" uid="uid://c5crlxf5p6tdu" path="res://scripts/big_enemy.gd" id="1_naoby"]
+[ext_resource type="Script" uid="uid://b8i24m775ug56" path="res://scripts/enemy_nav_agent.gd" id="2_eyc52"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_1pgoc"]
 height = 3.78247
@@ -14,16 +15,18 @@ height = 1.0
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_utvuj"]
 radius = 0.3
 
-[node name="BigEnemy" type="CharacterBody3D"]
+[node name="BigEnemy" type="CharacterBody3D" groups=["enemy"]]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 collision_mask = 0
 script = ExtResource("1_naoby")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 2.0
 path_height_offset = -1.5
 avoidance_enabled = true
 radius = 1.6
 use_3d_avoidance = true
+script = ExtResource("2_eyc52")
 
 [node name="Hitbox" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.353001, 0)
@@ -38,7 +41,6 @@ mesh = SubResource("CapsuleMesh_1pgoc")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Placeholder Mesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_eyc52")
 skeleton = NodePath("")
 
