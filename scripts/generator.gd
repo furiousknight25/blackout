@@ -1,5 +1,6 @@
 extends Node
 @onready var progress_bar: ProgressBar = $Sprite3D/SubViewport/ProgressBar
+@onready var idle_loop_sfx: AudioStreamPlayer3D = $IdleLoopSFX
 
 var total_power = 100
 var delta_power_decrease = -5

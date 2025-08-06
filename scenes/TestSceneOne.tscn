@@ -199,7 +199,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.06788, 3.64809, 2.83942)
 transform = Transform3D(1.37724, 0, 0, 0, 1.37724, 0, 0, 0, 1.37724, 1.37309, 0, 0.992735)
 
 [node name="Plane" parent="room2" index="0"]
-transform = Transform3D(2.1528, 0, 0, 0, 2.1528, 0, 0, 0, 3.71176, 0.108349, 1.22631, 0.754505)
+transform = Transform3D(2.15279, -0.00323608, -0.00847179, 0.00322881, 2.1528, -0.00548978, 0.00491837, 0.00317666, 3.71175, 0.108349, 1.22631, 0.754505)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="room2/Plane" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45394, 0)

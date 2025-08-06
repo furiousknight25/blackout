@@ -5,6 +5,7 @@ extends CharacterBody3D
 @onready var bullet_hole = preload("res://scenes/bullet_hole.tscn")
 @onready var bullet_hole_particles = preload("res://scenes/bullet_on_wall_particles.tscn")
 @onready var face_ray_cast: RayCast3D = $Camera3D/Rig/FaceRayCast
+@onready var shoot_sfx: AudioStreamPlayer3D = $ShootSFX
 
 enum STATE {GROUNDED, AIR}
 var cur_state = STATE.GROUNDED
@@ -91,7 +92,7 @@ func shoot():
 	totalAmmo -= 1
 	
 	animation_tree.play_animation('shoot')
-	
+	shoot_sfx.play()
 	for i : RayCast3D in gun_ray_casts:
 		i.rotation = Vector3(randf_range(-0.1,0.1), randf_range(-0.1,0.1), 0.0)
 		if i.get_collider():
