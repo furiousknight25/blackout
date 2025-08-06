@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://x6vsw1owjg5r"]
+
+[ext_resource type="Script" uid="uid://c5crlxf5p6tdu" path="res://scripts/big_enemy.gd" id="1_naoby"]
+[ext_resource type="Script" uid="uid://b8i24m775ug56" path="res://scripts/enemy_nav_agent.gd" id="2_eyc52"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1pgoc"]
+height = 3.78247
+radius = 1.55469
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1pgoc"]
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_eyc52"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_utvuj"]
+radius = 0.3
+
+[node name="BigEnemy" type="CharacterBody3D" groups=["enemy"]]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+collision_mask = 0
+script = ExtResource("1_naoby")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 2.0
+path_height_offset = -1.5
+avoidance_enabled = true
+radius = 1.6
+use_3d_avoidance = true
+script = ExtResource("2_eyc52")
+
+[node name="Hitbox" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.353001, 0)
+shape = SubResource("CylinderShape3D_1pgoc")
+
+[node name="Placeholder Mesh" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Placeholder Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09892, 0)
+mesh = SubResource("CapsuleMesh_1pgoc")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Placeholder Mesh"]
+mesh = SubResource("CapsuleMesh_eyc52")
+skeleton = NodePath("")
+
+[node name="Arm" type="MeshInstance3D" parent="Placeholder Mesh"]
+transform = Transform3D(0.795473, -0.583665, -0.162962, 0, 0.26892, -0.963162, 0.605988, 0.76617, 0.213919, 0.492859, 0.272494, -0.912671)
+mesh = SubResource("CapsuleMesh_utvuj")
+skeleton = NodePath("")
+
+[node name="Arm2" type="MeshInstance3D" parent="Placeholder Mesh"]
+transform = Transform3D(-0.726575, -0.661777, -0.184771, 0, 0.26892, -0.963162, 0.687087, -0.69981, -0.19539, 0.407095, 0.272494, 0.87471)
+mesh = SubResource("CapsuleMesh_utvuj")
+skeleton = NodePath("")
+
+[node name="Leg" type="MeshInstance3D" parent="Placeholder Mesh"]
+transform = Transform3D(0.64679, -0.734574, -0.205096, 0, 0.26892, -0.963162, 0.762668, 0.622964, 0.173935, 0.913993, -0.54587, -0.753149)
+mesh = SubResource("CapsuleMesh_utvuj")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Placeholder Mesh/Leg"]
+transform = Transform3D(0.912142, -0.00693673, 0.409812, 0.30426, -0.658478, -0.688354, 0.274627, 0.752567, -0.598515, -0.0184245, -1.17297, 0.569191)
+mesh = SubResource("CapsuleMesh_utvuj")
+
+[node name="Leg2" type="MeshInstance3D" parent="Placeholder Mesh"]
+transform = Transform3D(-0.562083, -0.796614, -0.222418, 0, 0.26892, -0.963162, 0.827081, -0.541377, -0.151155, 0.913993, -0.54587, 0.690581)
+mesh = SubResource("CapsuleMesh_utvuj")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Placeholder Mesh/Leg2"]
+transform = Transform3D(0.912142, -0.00693673, 0.409812, 0.30426, -0.658478, -0.688354, 0.274627, 0.752567, -0.598515, -0.0184245, -1.17297, 0.569191)
+mesh = SubResource("CapsuleMesh_utvuj")
+
+[node name="Leg3" type="MeshInstance3D" parent="Placeholder Mesh"]
+transform = Transform3D(0.64679, 0.734573, 0.205097, 0, 0.26892, -0.963162, -0.762668, 0.622964, 0.173935, -1.03938, -0.54587, -0.753149)
+mesh = SubResource("CapsuleMesh_utvuj")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Placeholder Mesh/Leg3"]
+transform = Transform3D(0.912142, -0.00693673, 0.409812, 0.30426, -0.658478, -0.688354, 0.274627, 0.752567, -0.598515, -0.0184245, -1.17297, 0.569191)
+mesh = SubResource("CapsuleMesh_utvuj")
+
+[node name="Leg4" type="MeshInstance3D" parent="Placeholder Mesh"]
+transform = Transform3D(-0.498488, 0.834962, 0.233126, 0, 0.26892, -0.963162, -0.866897, -0.480125, -0.134053, -1.03938, -0.54587, 0.690581)
+mesh = SubResource("CapsuleMesh_utvuj")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Placeholder Mesh/Leg4"]
+transform = Transform3D(0.912142, -0.00693673, 0.409812, 0.30426, -0.658478, -0.688354, 0.274627, 0.752567, -0.598515, -0.0184245, -1.17297, 0.569191)
+mesh = SubResource("CapsuleMesh_utvuj")

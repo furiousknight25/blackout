@@ -97,17 +97,16 @@ func shoot():
 		i.rotation = Vector3(randf_range(-0.1,0.1), randf_range(-0.1,0.1), 0.0)
 		if i.get_collider():
 			if i.get_collider().is_in_group('enemy'):
-				i.get_collider().damage() #this is temp if you want to switch it to some damage function later, you should also prob check to see if they even have the func
-			else:
-				var hole = bullet_hole.instantiate()
-				var particles = bullet_hole_particles.instantiate()
-				get_tree().get_root().add_child(hole)
-				get_tree().get_root().add_child(particles)
-				hole.global_position = i.get_collision_point()
-				particles.global_position = i.get_collision_point()
-				particles.emitting = true
-
-
+				if i.get_collider().has_method("take_damage"):
+					i.get_collider().take_damage(5)
+			
+			var hole = bullet_hole.instantiate()
+			var particles = bullet_hole_particles.instantiate()
+			get_tree().get_root().add_child(hole)
+			get_tree().get_root().add_child(particles)
+			hole.global_position = i.get_collision_point()
+			particles.global_position = i.get_collision_point()
+			particles.emitting = true
 func reload():
 	currentAmmo = totalAmmo
 	
