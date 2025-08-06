@@ -28,16 +28,21 @@ func _physics_process(_delta):
 	
 	match state:
 		States.RESET:
+			print('resetting')
 			if navigation_agent.is_navigation_finished():
 				state = States.WAIT
 				wait()
 		States.WAIT:
+			print('waiting')
 			pass
 		States.START:
+			print('starting')
 			pass
 		States.CROUCH:
+			print('crouching')
 			pass
 		States.ATTACK:
+			print('attacking')
 			if navigation_agent.is_navigation_finished():
 				state = States.RESET
 				reset()

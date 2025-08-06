@@ -1,9 +1,9 @@
-[gd_scene load_steps=57 format=3 uid="uid://bhjt1cdfsdu1i"]
+[gd_scene load_steps=58 format=3 uid="uid://bhjt1cdfsdu1i"]
 
 [ext_resource type="PackedScene" uid="uid://bcx63mqj80yes" path="res://scenes/FirstPersonController.tscn" id="2_gt4fr"]
 [ext_resource type="PackedScene" uid="uid://b7m1msuc4mlpj" path="res://assets/room2.glb" id="2_jx57p"]
+[ext_resource type="PackedScene" uid="uid://x6vsw1owjg5r" path="res://scenes/BigEnemy.tscn" id="3_5i8ps"]
 [ext_resource type="PackedScene" uid="uid://matvsk3n3cn0" path="res://scenes/generator.tscn" id="3_jx57p"]
-[ext_resource type="PackedScene" uid="uid://x6vsw1owjg5r" path="res://scenes/BigEnemy.tscn" id="4_kq5yr"]
 [ext_resource type="PackedScene" uid="uid://cxepa5s7n3dbw" path="res://scenes/power_eater_manager.tscn" id="4_kq5yr"]
 [ext_resource type="PackedScene" uid="uid://c367agvaos08b" path="res://scenes/shell_box.tscn" id="5_4ch7m"]
 [ext_resource type="PackedScene" uid="uid://fw7c4slsj38b" path="res://scenes/computer.tscn" id="6_ok512"]
@@ -173,13 +173,6 @@ points = PackedVector3Array(0, -1, -1, 0.70693, -1, -0.707126, -0.707126, -1, -0
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1y87m"]
 points = PackedVector3Array(1, 1, 1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1)
 
-[sub_resource type="Curve3D" id="Curve3D_kq5yr"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.283416, 0, 1, 0, 0, 0, 0, 0, 0, 0.198617, 0, 2, 0, 0, 0, 0, 0, 0, -0.183958, 0, 3),
-"tilts": PackedFloat32Array(0, 0, 0, 0)
-}
-point_count = 4
-
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -220,8 +213,8 @@ size = Vector3(2.89978, 1, 22.4122)
 
 [node name="EnemyStuff" type="Node3D" parent="."]
 
-[node name="BigEnemy" parent="EnemyStuff" instance=ExtResource("4_kq5yr")]
-transform = Transform3D(-0.6, 0, -9.05975e-08, 0, 0.6, 0, 9.05975e-08, 0, -0.6, 24.2119, 3.18524, -0.83761)
+[node name="BigEnemy" parent="EnemyStuff" instance=ExtResource("3_5i8ps")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 29.4029, 2.96323, 0)
 
 [node name="Reset" type="Marker3D" parent="EnemyStuff"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.8257, 3.1847, -0.901123)
@@ -618,17 +611,8 @@ shape = SubResource("ConvexPolygonShape3D_1y87m")
 [node name="Generator" parent="." groups=["interact"] instance=ExtResource("3_jx57p")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.98113, 2.32223, 3.71183)
 
-[node name="PowerEaterManager" parent="." node_paths=PackedStringArray("followPath") instance=ExtResource("4_kq5yr")]
-transform = Transform3D(-0.997949, 0, 0.0640098, 0, 1, 0, -0.0640098, 0, -0.997949, 3.47477, 2.00912, 7.02083)
-timeToSpawn = 15.0
-followPath = NodePath("Path3D/PathFollow3D")
-
-[node name="Path3D" type="Path3D" parent="PowerEaterManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00158286, 0.00315154, -0.000250816)
-curve = SubResource("Curve3D_kq5yr")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="PowerEaterManager/Path3D"]
-transform = Transform3D(-0.962084, 0, 0.272672, 0, 0.999999, 0, -0.27267, 0, -0.962093, 0, 0, 0)
+[node name="PowerEaterManager" parent="." instance=ExtResource("4_kq5yr")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.98636, 1.89579, 7.08039)
 
 [node name="ShellBox" parent="." instance=ExtResource("5_4ch7m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0807505, 3.07981, 6.63999)

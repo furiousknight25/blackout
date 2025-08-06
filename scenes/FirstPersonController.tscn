@@ -653,7 +653,6 @@ node_connections = [&"Add2", 0, &"idle_walk_blend", &"Add2", 1, &"subtract", &"i
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g1ecg"]
 
-
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0yrm1"]
 streams_count = 4
 stream_0/stream = ExtResource("5_x6l86")
