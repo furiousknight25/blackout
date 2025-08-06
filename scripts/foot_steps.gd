@@ -3,7 +3,7 @@ extends AudioStreamPlayer3D
 @onready var parent: CharacterBody3D = $".."
 var played = false
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if parent.velocity.length() > 2:
 		if played:
 			played = false
