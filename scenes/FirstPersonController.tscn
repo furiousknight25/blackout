@@ -1,9 +1,17 @@
-[gd_scene load_steps=34 format=4 uid="uid://bcx63mqj80yes"]
+[gd_scene load_steps=44 format=4 uid="uid://bcx63mqj80yes"]
 
 [ext_resource type="Script" uid="uid://cvg1rlmx4awsr" path="res://scripts/first_person_controller.gd" id="1_sjy6i"]
 [ext_resource type="Animation" uid="uid://bn7n1xhf2df1a" path="res://assets/animations/tpose.res" id="2_n8sj0"]
 [ext_resource type="Animation" uid="uid://bvpbnd16pa53n" path="res://assets/animations/shoot.res" id="3_s0ca4"]
 [ext_resource type="Script" uid="uid://2leq2s2i5l10" path="res://scripts/player_animation_tree.gd" id="4_epali"]
+[ext_resource type="AudioStream" uid="uid://baj68awuu384o" path="res://assets/sounds/Footstep_Metal_SFX_01.wav" id="5_x6l86"]
+[ext_resource type="AudioStream" uid="uid://8st0opp010it" path="res://assets/sounds/Footstep_Metal_SFX_02.wav" id="6_tmpcr"]
+[ext_resource type="AudioStream" uid="uid://2f7ksbwwdj81" path="res://assets/sounds/Footstep_Metal_SFX_03.wav" id="7_vk7aq"]
+[ext_resource type="AudioStream" uid="uid://cmbygkriwofp0" path="res://assets/sounds/Footstep_Metal_SFX_04.wav" id="8_awanf"]
+[ext_resource type="Script" uid="uid://cwkqa2gsmh2x3" path="res://scripts/foot_steps.gd" id="9_7lmeg"]
+[ext_resource type="AudioStream" uid="uid://10qjyuml4h57" path="res://assets/sounds/Shotgun_Fire_SFX_01.wav" id="10_vk7aq"]
+[ext_resource type="AudioStream" uid="uid://t4o5aeimj1r8" path="res://assets/sounds/Shotgun_Fire_SFX_02_variation.wav" id="11_awanf"]
+[ext_resource type="AudioStream" uid="uid://dcpkheuay1vfs" path="res://assets/sounds/Deathstation_Ambience_SFX_03.wav" id="12_awanf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lt00w"]
 resource_name = "Material.016"
@@ -645,6 +653,20 @@ node_connections = [&"Add2", 0, &"idle_walk_blend", &"Add2", 1, &"subtract", &"i
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g1ecg"]
 
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0yrm1"]
+streams_count = 4
+stream_0/stream = ExtResource("5_x6l86")
+stream_1/stream = ExtResource("6_tmpcr")
+stream_2/stream = ExtResource("7_vk7aq")
+stream_3/stream = ExtResource("8_awanf")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7lmeg"]
+playback_mode = 1
+streams_count = 2
+stream_0/stream = ExtResource("10_vk7aq")
+stream_1/stream = ExtResource("11_awanf")
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 4
 collision_mask = 3
@@ -880,7 +902,7 @@ bones/30/parent = 29
 bones/30/rest = Transform3D(-0.243773, -0.249725, -0.93713, 0.413902, 0.847073, -0.333395, 0.877074, -0.469153, -0.103132, -0.00779151, 0.200791, -0.0203849)
 bones/30/enabled = true
 bones/30/position = Vector3(-0.00779151, 0.200791, -0.0203849)
-bones/30/rotation = Quaternion(0.195308, -0.560381, 0.526012, 0.609212)
+bones/30/rotation = Quaternion(0.194821, -0.560591, 0.526166, 0.609042)
 bones/30/scale = Vector3(1, 1, 1)
 bones/31/name = "forearm.R"
 bones/31/parent = 30
@@ -1075,7 +1097,7 @@ bones/58/name = "ik_R"
 bones/58/parent = -1
 bones/58/rest = Transform3D(-0.596785, -0.798394, 0.0800866, 0.802401, -0.593807, 0.0595475, 1.36234e-05, 0.0997987, 0.995008, -0.660237, 1.30948, -0.0179886)
 bones/58/enabled = true
-bones/58/position = Vector3(-0.234159, 1.56478, 0.342516)
+bones/58/position = Vector3(-0.234196, 1.56409, 0.342525)
 bones/58/rotation = Quaternion(0.0224393, 0.0446392, 0.892412, 0.448446)
 bones/58/scale = Vector3(1, 1, 1)
 bones/59/name = "cam"
@@ -1213,3 +1235,26 @@ offset_top = 2.0
 offset_right = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+
+[node name="FootStepSFX" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_0yrm1")
+volume_db = -10.0
+max_polyphony = 10
+script = ExtResource("9_7lmeg")
+
+[node name="Timer" type="Timer" parent="FootStepSFX"]
+wait_time = 0.5
+autostart = true
+
+[node name="ShootSFX" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_7lmeg")
+max_polyphony = 10
+
+[node name="AmbienceLoopSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_awanf")
+volume_db = -10.0
+autoplay = true
+
+[connection signal="timeout" from="FootStepSFX/Timer" to="FootStepSFX" method="_on_timer_timeout"]

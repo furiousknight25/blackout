@@ -5,6 +5,7 @@ extends CharacterBody3D
 @onready var bullet_hole = preload("res://scenes/bullet_hole.tscn")
 @onready var bullet_hole_particles = preload("res://scenes/bullet_on_wall_particles.tscn")
 @onready var face_ray_cast: RayCast3D = $Camera3D/Rig/FaceRayCast
+@onready var shoot_sfx: AudioStreamPlayer3D = $ShootSFX
 
 enum STATE {GROUNDED, AIR}
 var cur_state = STATE.GROUNDED
@@ -15,10 +16,17 @@ var air_acceleration = .3
 var speed = 1
 
 var spread = 8
+var totalAmmo = 3 #total ammo you can hold
+var ammoCapacity = 3 #how much ammo the shotgun can hold at one time
+var currentAmmo = 3 #how much ammo is currently in the gun
+
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
+	SignalBus.connect("refillAmmo", refillAmmo)
+
+
 func _physics_process(delta: float) -> void:
 	#velocity -= transform.basis.z
 	
@@ -27,21 +35,18 @@ func _physics_process(delta: float) -> void:
 	var movement_dir = transform.basis * Vector3(input.x, 0, input.y) * speed #makes sure the forward is the forward you are facing
 	
 	if Input.is_action_just_pressed("shoot"):
-		animation_tree.play_animation('shoot')
-		shoot()
-
-	if Input.is_action_just_pressed("reload"):
-		animation_tree.play_animation('reload')
+		if currentAmmo > 0:
+			shoot()
 	
-	if Input.is_action_just_pressed("interact") or Input.is_action_just_released("interact"):
+	if Input.is_action_pressed("interact"):
 		if face_ray_cast.is_colliding():
 			if face_ray_cast.get_collider().is_in_group('interact'):
-				face_ray_cast.get_collider().interact()
+				face_ray_cast.get_collider().interact(delta)
 	
 	match cur_state:
 		STATE.GROUNDED:
 			var current_friction: Vector2 = Vector2(velocity.x, velocity.z).rotated(PI) * friction
-			var friction_dir = transform.basis * Vector3(current_friction.x, 0, current_friction.y)
+			var _friction_dir = transform.basis * Vector3(current_friction.x, 0, current_friction.y)
 			velocity += Vector3(current_friction.x, 0, current_friction.y)
 			velocity += Vector3(movement_dir.x, 0, movement_dir.z)
 		STATE.AIR:
@@ -83,6 +88,11 @@ func _input(event: InputEvent) -> void:
 
 
 func shoot():
+	currentAmmo -= 1
+	totalAmmo -= 1
+	
+	animation_tree.play_animation('shoot')
+	shoot_sfx.play()
 	for i : RayCast3D in gun_ray_casts:
 		i.rotation = Vector3(randf_range(-0.1,0.1), randf_range(-0.1,0.1), 0.0)
 		if i.get_collider():
@@ -98,4 +108,11 @@ func shoot():
 			particles.global_position = i.get_collision_point()
 			particles.emitting = true
 func reload():
-	pass
+	currentAmmo = totalAmmo
+	
+	animation_tree.play_animation('reload')
+
+
+func refillAmmo():
+	totalAmmo = ammoCapacity
+	reload()
