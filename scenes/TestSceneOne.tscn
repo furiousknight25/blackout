@@ -587,10 +587,10 @@ shape = SubResource("ConvexPolygonShape3D_1y87m")
 [node name="Generator" parent="." groups=["interact"] instance=ExtResource("3_jx57p")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.98113, 2.32223, 3.71183)
 
-[node name="PowerEaterManager" parent="." node_paths=PackedStringArray("followPath") instance=ExtResource("4_kq5yr")]
+[node name="PowerEaterManager" parent="." node_paths=PackedStringArray("followPaths") instance=ExtResource("4_kq5yr")]
 transform = Transform3D(-0.997949, 0, 0.0640098, 0, 1, 0, -0.0640098, 0, -0.997949, 3.47477, 2.00912, 7.02083)
 timeToSpawn = 15.0
-followPath = NodePath("Path3D/PathFollow3D")
+followPaths = [NodePath("Path3D/PathFollow3D")]
 
 [node name="Path3D" type="Path3D" parent="PowerEaterManager"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00158286, 0.00315154, -0.000250816)

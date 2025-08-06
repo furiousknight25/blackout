@@ -3,25 +3,25 @@ extends Node3D
 @export var timeToSpawn : float = 15.0
 
 ## Give a PathFollow3D node to be used as the route the enemy will follow (Remember that a PathFollow3D node needs a Path3D as a parent)
-@export var followPath : PathFollow3D #give the follow path/s for the manager to use to spawn Power Eaters on
+@export var followPaths : Array[PathFollow3D] #give the follow path/s for the manager to use to spawn Power Eaters on
 
 @onready var spawn_timer : Timer = $SpawnTimer
 @onready var powerEater : PackedScene = preload("res://scenes/power_eater.tscn")
 
-
+var followPath : PathFollow3D
 var moveTween : Tween
 var progressSpot : float = 0.5 #this will stop in the middle of the path for the cable
 
 func _ready() -> void:
 	spawn_timer.wait_time = timeToSpawn
 	spawn_timer.start()
-	getMaxProgress()
 	
 	SignalBus.connect("resetSpawnTimer", resetSpawnTimer)
 
 
 func spawnPowerEater() -> void:
 	followPath.progress_ratio = 0
+	
 	var newPowerEater : CharacterBody3D = powerEater.instantiate()
 	followPath.add_child(newPowerEater)
 	
@@ -37,10 +37,16 @@ func resetSpawnTimer() -> void:
 
 
 func _on_spawn_timer_timeout() -> void:
-	if followPath.get_children() == []:
-		spawnPowerEater()
+	selectFollowPath()
 
 
 func getMaxProgress() -> float:
 	followPath.progress_ratio = 1
 	return followPath.progress
+
+
+func selectFollowPath():
+	followPath = followPaths[randi_range(0, followPaths.size() - 1)]
+	
+	if followPath.get_children() == []:
+		spawnPowerEater()

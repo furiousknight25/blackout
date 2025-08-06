@@ -8,9 +8,10 @@ bottom_radius = 0.1
 height = 1.08
 radial_segments = 8
 
-[node name="PowerEaterManager" type="Node3D"]
+[node name="PowerEaterManager" type="Node3D" node_paths=PackedStringArray("followPaths")]
 script = ExtResource("1_f4byr")
 timeToSpawn = 3.0
+followPaths = [null]
 
 [node name="SpawnTimer" type="Timer" parent="."]
 autostart = true
