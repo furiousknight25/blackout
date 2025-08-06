@@ -1,8 +1,9 @@
-[gd_scene load_steps=54 format=3 uid="uid://bhjt1cdfsdu1i"]
+[gd_scene load_steps=56 format=3 uid="uid://bhjt1cdfsdu1i"]
 
 [ext_resource type="PackedScene" uid="uid://bcx63mqj80yes" path="res://scenes/FirstPersonController.tscn" id="2_gt4fr"]
 [ext_resource type="PackedScene" uid="uid://b7m1msuc4mlpj" path="res://assets/room2.glb" id="2_jx57p"]
 [ext_resource type="PackedScene" uid="uid://matvsk3n3cn0" path="res://scenes/generator.tscn" id="3_jx57p"]
+[ext_resource type="PackedScene" uid="uid://x6vsw1owjg5r" path="res://scenes/BigEnemy.tscn" id="4_kq5yr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5bgma"]
 sky_top_color = Color(0.0122071, 0.0182652, 0.0291443, 1)
@@ -25,8 +26,14 @@ volumetric_fog_emission_energy = 0.1
 adjustment_enabled = true
 adjustment_brightness = 1.25
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_kq5yr"]
+vertices = PackedVector3Array(28.4256, -0.790961, -0.814211, 29.6756, -0.790961, 0.435789, 29.6756, -0.790961, -2.31421, 28.4256, -0.790961, -1.06421, 3.17563, -0.790961, 0.435789, 4.42563, -0.790961, -0.814211, 4.42563, -0.790961, -1.06421, 3.42563, -0.790961, -1.81421, -0.57437, -0.790961, -3.31421, 3.17563, -0.790961, -3.31421, -0.57437, -0.790961, 5.93579, 3.17563, -0.790961, 5.93579)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(6, 5, 7), PackedInt32Array(7, 5, 4), PackedInt32Array(7, 4, 8), PackedInt32Array(8, 9, 7), PackedInt32Array(6, 3, 5), PackedInt32Array(5, 3, 0), PackedInt32Array(11, 10, 4), PackedInt32Array(4, 10, 8)]
+agent_height = 10.0
+agent_radius = 1.5
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_gt4fr"]
-size = Vector3(2.38757, 1, 2.63165)
+size = Vector3(12.665, 1, 2.63165)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4ch7m"]
 points = PackedVector3Array(-1, 0.589244, -0.569183, -1, 1, -0.569183, 1, 0.589244, -0.569183, -1, 0.589244, 1, -1, 1, 1, 1, 1, -0.569183, 1, 0.589244, 1, 1, 1, 1)
@@ -185,11 +192,35 @@ light_color = Color(0.401268, 0.595235, 0.58833, 1)
 omni_range = 7.0659
 omni_attenuation = 1.404
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("2_gt4fr")]
+[node name="Player" parent="." instance=ExtResource("2_gt4fr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.06788, 3.64809, 2.83942)
 
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.96201, 0)
+navigation_mesh = SubResource("NavigationMesh_kq5yr")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.3736, -1.79096, -1.00214)
+size = Vector3(23.9232, 1, 2.92279)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28366, -1.79096, 1.36982)
+size = Vector3(6.71606, 1, 12.0564)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.6727, -1.79096, -1.10811)
+size = Vector3(2.89978, 1, 22.4122)
+
+[node name="Generator" parent="." groups=["interact"] instance=ExtResource("3_jx57p")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.98113, 2.32223, 3.71183)
+
+[node name="EnemyStuff" type="Node3D" parent="."]
+
+[node name="BigEnemy" parent="EnemyStuff" instance=ExtResource("4_kq5yr")]
+transform = Transform3D(-0.6, 0, -9.05975e-08, 0, 0.6, 0, 9.05975e-08, 0, -0.6, 16.1093, 3.18524, -0.83761)
+
 [node name="room2" parent="." instance=ExtResource("2_jx57p")]
-transform = Transform3D(1.37724, 0, 0, 0, 1.37724, 0, 0, 0, 1.37724, 1.37309, 0, 0.992735)
+transform = Transform3D(1.37724, 0, 0, 0, 1.37724, 0, 0, 0, 1.37724, 1.37309, 1.19209e-07, 0.992735)
 
 [node name="Plane" parent="room2" index="0"]
 transform = Transform3D(2.1528, 0, 0, 0, 2.1528, 0, 0, 0, 3.71176, 0.108349, 1.22631, 0.754505)
@@ -198,7 +229,7 @@ transform = Transform3D(2.1528, 0, 0, 0, 2.1528, 0, 0, 0, 3.71176, 0.108349, 1.2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45394, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="room2/Plane/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0645142, 0, -0.106232)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.07419, 0, -0.106232)
 shape = SubResource("BoxShape3D_gt4fr")
 
 [node name="Cube_001" parent="room2" index="1"]
@@ -577,8 +608,5 @@ transform = Transform3D(0.443109, 0, 0, 0, 0.443109, 0, 0, 0, 1.16102, -1.98082,
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="room2/Cube/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_1y87m")
-
-[node name="Generator" parent="." groups=["interact"] instance=ExtResource("3_jx57p")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.98113, 2.32223, 3.71183)
 
 [editable path="room2"]
