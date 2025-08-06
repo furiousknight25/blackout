@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=4 uid="uid://fw7c4slsj38b"]
+[gd_scene load_steps=9 format=4 uid="uid://fw7c4slsj38b"]
 
 [ext_resource type="Script" uid="uid://dvpto13gvlu6u" path="res://scripts/computer.gd" id="1_om4aa"]
 [ext_resource type="Texture2D" uid="uid://bcsr7ju635igs" path="res://assets/room2_istockphoto-1461323034-612x612.jpg" id="2_8pqrt"]
+[ext_resource type="PackedScene" uid="uid://cufyt808u7jv1" path="res://scenes/ui_popup.tscn" id="3_7ikar"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8pqrt"]
 viewport_path = NodePath("Sprite3D/SubViewport")
@@ -73,3 +74,6 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15274)
 shape = SubResource("BoxShape3D_tjrug")
+
+[node name="UI Popup" parent="." instance=ExtResource("3_7ikar")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.447885, -0.103774)

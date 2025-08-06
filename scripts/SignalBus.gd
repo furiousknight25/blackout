@@ -13,3 +13,7 @@ extends Node
 ## AMMO BOX ##
 @warning_ignore("unused_signal") signal refillAmmo
 ##############
+
+## UI POPUP ##
+@warning_ignore("unused_signal") signal hideUI
+##############

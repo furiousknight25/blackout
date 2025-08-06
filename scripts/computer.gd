@@ -2,6 +2,7 @@ class_name Computer
 extends StaticBody3D
 
 @onready var progress_bar: ProgressBar = $Sprite3D/SubViewport/ProgressBar
+@onready var ui_popup: UIPopup = $"UI Popup"
 
 
 var incrementTimer : float = 2.0 #time it takes to increase a chunk of progress
@@ -14,3 +15,7 @@ func interact(delta : float):
 	if currentIncrementTime >= incrementTimer and progress_bar.value < 100:
 		progress_bar.value += percentIncrease
 		currentIncrementTime = 0
+
+
+func showUI():
+	ui_popup.fadeIn()

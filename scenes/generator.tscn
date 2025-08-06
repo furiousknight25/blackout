@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://matvsk3n3cn0"]
+[gd_scene load_steps=7 format=3 uid="uid://matvsk3n3cn0"]
 
 [ext_resource type="Script" uid="uid://b7n5cr3qkqlbv" path="res://scripts/generator.gd" id="1_5yxne"]
 [ext_resource type="AudioStream" uid="uid://c5oosbd4wde18" path="res://assets/sounds/Generator_Idle_Loop_SFX_01.mp3" id="2_ef8yp"]
 [ext_resource type="AudioStream" uid="uid://dmcdlr6s6ckxc" path="res://assets/sounds/Generator_Startup_SFX_01.wav" id="3_rqoq6"]
+[ext_resource type="PackedScene" uid="uid://cufyt808u7jv1" path="res://scenes/ui_popup.tscn" id="4_rqoq6"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_2isyr"]
 viewport_path = NodePath("Sprite3D/SubViewport")
@@ -45,5 +46,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.931898, 0.627607)
 stream = ExtResource("3_rqoq6")
 volume_db = -20.0
 autoplay = true
+
+[node name="UI Popup" parent="." instance=ExtResource("4_rqoq6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.533, 0.635)
 
 [connection signal="finished" from="IdleStart" to="IdleLoopSFX" method="play"]

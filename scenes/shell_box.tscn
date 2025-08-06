@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=4 uid="uid://c367agvaos08b"]
+[gd_scene load_steps=16 format=4 uid="uid://c367agvaos08b"]
 
 [ext_resource type="Script" uid="uid://d3ipx5u7yt8t7" path="res://scripts/shell_box.gd" id="1_mf1tu"]
 [ext_resource type="AudioStream" uid="uid://luyf6dbuap73" path="res://assets/sounds/Shotgun_Reload_SFX_01.wav" id="2_1d02f"]
 [ext_resource type="AudioStream" uid="uid://nptlj1ijbu6o" path="res://assets/sounds/Shotgun_Reload_SFX_02_variation.wav" id="3_f4li5"]
+[ext_resource type="PackedScene" uid="uid://cufyt808u7jv1" path="res://scenes/ui_popup.tscn" id="4_f4li5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oaleg"]
 size = Vector3(0.6, 0.3, 0.4)
@@ -138,3 +139,6 @@ skeleton = NodePath("")
 
 [node name="ReloadSFX" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_6txwc")
+
+[node name="UI Popup" parent="." instance=ExtResource("4_f4li5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.192, 0)

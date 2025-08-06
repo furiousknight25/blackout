@@ -2,6 +2,8 @@ extends StaticBody3D
 
 @onready var use_timer: Timer = $UseTimer
 @onready var reload_sfx: AudioStreamPlayer = $ReloadSFX
+@onready var ui_popup: UIPopup = $"UI Popup"
+
 
 var scaleTween : Tween
 var rotationTween : Tween
@@ -14,6 +16,10 @@ func interact(_delta : float):
 		wiggle()
 		
 		SignalBus.emit_signal("refillAmmo")
+
+
+func showUI():
+	ui_popup.fadeIn()
 
 
 func wiggle() -> void:
