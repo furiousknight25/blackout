@@ -28,23 +28,19 @@ func _physics_process(_delta):
 	
 	match state:
 		States.RESET:
-			print('resetting')
 			if navigation_agent.is_navigation_finished():
 				state = States.WAIT
 				wait()
 		States.WAIT:
-			print('waiting')
 			pass
 		States.START:
-			print('starting')
 			pass
 		States.CROUCH:
-			print('crouching')
 			pass
 		States.ATTACK:
-			print('attacking')
 			if navigation_agent.is_navigation_finished():
 				state = States.RESET
+				SignalBus.emit_signal("playerHit")
 				reset()
 	
 	move_and_slide()
@@ -62,6 +58,7 @@ func wait():
 		wait()
 
 func start():
+	SignalBus.emit_signal("enemyStarting")
 	movement_speed_modifier = 1.0
 	navigation_agent.movement_target = player
 	await get_tree().create_timer(6.0).timeout
@@ -75,16 +72,18 @@ func reset():
 
 func crouch():
 	## TODO: sound cue for incoming attack
+	SignalBus.emit_signal("enemyCrouching")
 	movement_speed_modifier = 0
 	await get_tree().create_timer(3.0).timeout
 	state = States.ATTACK
 	attack()
 
 func attack():
-	movement_speed_modifier = 3.0
+	movement_speed_modifier = 6.0
 
 func take_damage( damage : int ):
 	health -= damage
 	if health <= 0:
 		state = States.RESET
+		SignalBus.emit_signal("enemyKilled")
 		reset()
