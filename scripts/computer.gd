@@ -8,17 +8,18 @@ extends StaticBody3D
 var incrementTimer : float = 2.0 #time it takes to increase a chunk of progress
 var percentIncrease : int = 10 #the amount of progress in percentage is increased
 var currentIncrementTime : float = 0 #The amount of time held down so far
-
-signal computer_finished
+var paused = false
 
 func interact(delta : float):
+	if paused: return
 	currentIncrementTime += delta
 	if currentIncrementTime >= incrementTimer and progress_bar.value < 100:
 		progress_bar.value += percentIncrease
 		currentIncrementTime = 0
 	elif progress_bar.value >= 100:
-		emit_signal("computer_finished")
-
+		SignalBus.emit_signal("computerFinished")
+		paused = true
+		progress_bar.value = 0
 
 func showUI():
 	ui_popup.fadeIn()

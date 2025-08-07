@@ -29,4 +29,5 @@ extends Node
 ### GAME STATE ###
 @warning_ignore("unused_signal") signal lostGame
 @warning_ignore("unused_signal") signal wonGame
+@warning_ignore("unused_signal") signal computerFinished
 ##############
