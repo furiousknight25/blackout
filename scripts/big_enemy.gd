@@ -24,7 +24,13 @@ func _ready():
 	SignalBus.connect("generatorHigh", generatorHigh)
 	var main = get_tree().root.get_node("Node3D")
 	player = main.get_node("Player")
-	reset_point = main.get_node("EnemyStuff").get_node("Reset")
+	if name == "BigEnemy1":
+		reset_point = main.get_node("EnemyStuff").get_node("Reset1")
+	elif name == "BigEnemy2":
+		reset_point = main.get_node("EnemyStuff").get_node("Reset2")
+	else:
+		push_error("One of the enemies is not named properly:\n Rename to either BigEnemy1 or BigEnemy2")
+	
 	navigation_agent_3d.movement_target = reset_point
 
 func _physics_process(_delta):

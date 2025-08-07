@@ -30,8 +30,8 @@ adjustment_enabled = true
 adjustment_brightness = 1.25
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_kq5yr"]
-vertices = PackedVector3Array(28.4256, -0.790961, -0.814211, 29.6756, -0.790961, 0.435789, 29.6756, -0.790961, -2.31421, 28.4256, -0.790961, -1.06421, 3.17563, -0.790961, 0.435789, 4.42563, -0.790961, -0.814211, 4.42563, -0.790961, -1.06421, 3.42563, -0.790961, -1.81421, -0.57437, -0.790961, -3.31421, 3.17563, -0.790961, -3.31421, -0.57437, -0.790961, 5.93579, 3.17563, -0.790961, 5.93579)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(6, 5, 7), PackedInt32Array(7, 5, 4), PackedInt32Array(7, 4, 8), PackedInt32Array(8, 9, 7), PackedInt32Array(6, 3, 5), PackedInt32Array(5, 3, 0), PackedInt32Array(11, 10, 4), PackedInt32Array(4, 10, 8)]
+vertices = PackedVector3Array(-1.85622, -0.801331, 0.935789, -2.85622, -0.801331, 0.935789, -2.85622, -0.801331, 1.18579, -1.35622, -0.801331, 1.43579, -0.606221, -0.801331, 2.43579, -0.606221, -0.801331, 5.93579, 3.14378, -0.801331, 5.93579, 3.14378, -0.801331, 0.435789, -0.856221, -0.801331, 0.185789, 28.3938, -0.801331, -0.814211, 29.6438, -0.801331, 0.435789, 29.6438, -0.801331, -2.31421, 28.3938, -0.801331, -1.06421, 4.39378, -0.801331, -0.814211, 4.39378, -0.801331, -1.06421, 3.39378, -0.801331, -1.81421, 3.14378, -0.801331, -3.31421, -0.606221, -0.801331, -3.31421, -4.60622, -0.801331, 0.185789, -4.60622, -0.801331, 1.93579, -4.85622, -0.801331, 4.18579, -4.85622, -0.801331, -2.06421, -12.6062, -0.801331, -2.06421, -12.6062, -0.801331, 4.18579)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(3, 0, 8), PackedInt32Array(12, 11, 9), PackedInt32Array(9, 11, 10), PackedInt32Array(14, 13, 15), PackedInt32Array(15, 13, 7), PackedInt32Array(4, 3, 8), PackedInt32Array(15, 7, 16), PackedInt32Array(16, 7, 17), PackedInt32Array(17, 7, 8), PackedInt32Array(8, 7, 4), PackedInt32Array(14, 12, 13), PackedInt32Array(13, 12, 9), PackedInt32Array(2, 19, 1), PackedInt32Array(1, 19, 18), PackedInt32Array(19, 20, 18), PackedInt32Array(18, 20, 21), PackedInt32Array(21, 20, 23), PackedInt32Array(21, 23, 22)]
 agent_height = 10.0
 agent_radius = 1.5
 
@@ -186,6 +186,12 @@ light_color = Color(0.401268, 0.595235, 0.58833, 1)
 omni_range = 7.0659
 omni_attenuation = 1.404
 
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.15502, 3.79095, 1.85107)
+light_color = Color(0.401268, 0.595235, 0.58833, 1)
+omni_range = 7.0659
+omni_attenuation = 1.404
+
 [node name="OmniLight3D3" type="OmniLight3D" parent="Lights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90551, 3.49654, -3.15827)
 light_color = Color(0.401268, 0.595235, 0.58833, 1)
@@ -211,13 +217,27 @@ size = Vector3(6.71606, 1, 12.0564)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.6727, -1.79096, -1.10811)
 size = Vector3(2.89978, 1, 22.4122)
 
+[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.81801, -1.80133, 1.15504)
+size = Vector3(10.5764, 1, 9.06078)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.89736, -1.79796, 1.12692)
+size = Vector3(4.24408, 1, 2.99407)
+
 [node name="EnemyStuff" type="Node3D" parent="."]
 
-[node name="BigEnemy" parent="EnemyStuff" instance=ExtResource("3_5i8ps")]
+[node name="BigEnemy1" parent="EnemyStuff" instance=ExtResource("3_5i8ps")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 29.4029, 2.96323, 0)
 
-[node name="Reset" type="Marker3D" parent="EnemyStuff"]
+[node name="Reset1" type="Marker3D" parent="EnemyStuff"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.8257, 3.1847, -0.901123)
+
+[node name="BigEnemy2" parent="EnemyStuff" instance=ExtResource("3_5i8ps")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -12.2044, 2.49839, 0)
+
+[node name="Reset2" type="Marker3D" parent="EnemyStuff"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.54874, 3.31501, 2.22824)
 
 [node name="room2" parent="." instance=ExtResource("2_jx57p")]
 transform = Transform3D(1.37724, 0, 0, 0, 1.37724, 0, 0, 0, 1.37724, 1.37309, 1.19209e-07, 0.992735)
