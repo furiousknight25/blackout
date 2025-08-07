@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://38kwueiyjval"]
+
+[ext_resource type="Script" uid="uid://b6fp5x67qvxl6" path="res://scripts/radio.gd" id="1_y83x7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ldjbc"]
+size = Vector3(1.12338, 0.64035, 0.398438)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fo3mb"]
+size = Vector3(1.11, 0.595, 0.335)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y83x7"]
+albedo_color = Color(0.423972, 0.592976, 0.414963, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ldjbc"]
+radius = 0.02
+height = 1.24
+
+[sub_resource type="SphereMesh" id="SphereMesh_7h80l"]
+radius = 0.075
+height = 0.15
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4b7o3"]
+albedo_color = Color(0.58967, 0.536616, 0.516838, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3mpwk"]
+lightmap_size_hint = Vector2i(10, 7)
+top_radius = 0.19
+bottom_radius = 0.28
+height = 0.11
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hhhqh"]
+albedo_color = Color(0.401196, 0.455569, 0.316384, 1)
+
+[node name="Radio" type="StaticBody3D" groups=["single_interact"]]
+script = ExtResource("1_y83x7")
+
+[node name="DialogueTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00291443, 0.0198212, 0.0224609)
+shape = SubResource("BoxShape3D_ldjbc")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.652059, 0)
+
+[node name="Placeholder Mesh" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Placeholder Mesh"]
+mesh = SubResource("BoxMesh_fo3mb")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_y83x7")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Placeholder Mesh"]
+transform = Transform3D(0.954146, -0.299341, 0, 0.299341, 0.954146, 0, 0, 0, 1, 0.262924, 0.787485, -0.000359416)
+mesh = SubResource("CapsuleMesh_ldjbc")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Placeholder Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.411299, 0.302168, 0)
+mesh = SubResource("SphereMesh_7h80l")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_4b7o3")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Placeholder Mesh"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.23603, 0, 0.148252)
+mesh = SubResource("CylinderMesh_3mpwk")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_hhhqh")

@@ -45,6 +45,11 @@ func _physics_process(delta: float) -> void:
 			if face_ray_cast.get_collider().is_in_group('interact'):
 				face_ray_cast.get_collider().interact(delta)
 	
+	if Input.is_action_just_pressed("interact"):
+		if face_ray_cast.is_colliding():
+			if face_ray_cast.get_collider().is_in_group('single_interact'):
+				face_ray_cast.get_collider().single_interact()
+	
 	match cur_state:
 		STATE.GROUNDED:
 			var current_friction: Vector2 = Vector2(velocity.x, velocity.z).rotated(PI) * friction
