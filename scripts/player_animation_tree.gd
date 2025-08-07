@@ -10,6 +10,12 @@ func play_animation(animation: String):
 			get("parameters/StateMachine/playback").travel("shoot")
 		"click":
 			get("parameters/StateMachine/playback").travel("click_no_ammo")
+		"type":
+			get("parameters/StateMachine/playback").travel("loop_type_on_computer")
+		"crank":
+			get("parameters/StateMachine/playback").travel("crank_loop")
+		"b2i":
+			get("parameters/StateMachine/playback").travel("BlendTree")
 		
 
 func set_velocity(velocity):

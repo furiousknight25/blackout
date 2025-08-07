@@ -44,6 +44,7 @@ func _physics_process(delta: float) -> void:
 		if face_ray_cast.is_colliding():
 			if face_ray_cast.get_collider().is_in_group('interact'):
 				face_ray_cast.get_collider().interact(delta)
+				
 	
 	match cur_state:
 		STATE.GROUNDED:
@@ -117,6 +118,14 @@ func reload():
 	
 	animation_tree.play_animation('reload')
 
+func type():
+	animation_tree.play_animation('type')
+
+func crank():
+	animation_tree.play_animation('crank')
+	
+func b2i():
+	animation_tree.play_animation('b2i')
 
 func refillAmmo():
 	totalAmmo = ammoCapacity
