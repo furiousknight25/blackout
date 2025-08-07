@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bhjt1cdfsdu1i"]
+[gd_scene load_steps=58 format=3 uid="uid://bhjt1cdfsdu1i"]
 
 [ext_resource type="PackedScene" uid="uid://bcx63mqj80yes" path="res://scenes/FirstPersonController.tscn" id="2_gt4fr"]
 [ext_resource type="PackedScene" uid="uid://b7m1msuc4mlpj" path="res://assets/room2.glb" id="2_jx57p"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cxepa5s7n3dbw" path="res://scenes/power_eater_manager.tscn" id="4_kq5yr"]
 [ext_resource type="PackedScene" uid="uid://c367agvaos08b" path="res://scenes/shell_box.tscn" id="5_4ch7m"]
 [ext_resource type="PackedScene" uid="uid://fw7c4slsj38b" path="res://scenes/computer.tscn" id="6_ok512"]
+[ext_resource type="Script" uid="uid://y3gknn4w5ii6" path="res://scripts/lights.gd" id="6_rxdky"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5bgma"]
 sky_top_color = Color(0.0122071, 0.0182652, 0.0291443, 1)
@@ -177,20 +178,6 @@ point_count = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_geduq")
-
-[node name="Lights" type="Node" parent="."]
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19278, 3.49654, 1.85107)
-light_color = Color(0.401268, 0.595235, 0.58833, 1)
-omni_range = 7.0659
-omni_attenuation = 1.404
-
-[node name="OmniLight3D3" type="OmniLight3D" parent="Lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90551, 3.49654, -3.15827)
-light_color = Color(0.401268, 0.595235, 0.58833, 1)
-omni_range = 7.0659
-omni_attenuation = 1.404
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("2_gt4fr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.06788, 3.64809, 2.83942)
@@ -584,9 +571,6 @@ transform = Transform3D(0.443109, 0, 0, 0, 0.443109, 0, 0, 0, 1.16102, -1.98082,
 [node name="CollisionShape3D" type="CollisionShape3D" parent="room2/Cube/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_1y87m")
 
-[node name="Generator" parent="." groups=["interact"] instance=ExtResource("3_jx57p")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.98113, 2.32223, 3.71183)
-
 [node name="PowerEaterManager" parent="." node_paths=PackedStringArray("followPath") instance=ExtResource("4_kq5yr")]
 transform = Transform3D(-0.997949, 0, 0.0640098, 0, 1, 0, -0.0640098, 0, -0.997949, 3.47477, 2.00912, 7.02083)
 timeToSpawn = 15.0
@@ -602,7 +586,27 @@ transform = Transform3D(-0.962084, 0, 0.272672, 0, 0.999999, 0, -0.27267, 0, -0.
 [node name="ShellBox" parent="." instance=ExtResource("5_4ch7m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0807505, 3.07981, 6.63999)
 
+[node name="Generator" parent="." groups=["interact"] instance=ExtResource("3_jx57p")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.98113, 2.32223, 3.71183)
+
+[node name="Lights" type="Node" parent="Generator"]
+script = ExtResource("6_rxdky")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Generator/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19278, 3.49654, 1.85107)
+light_color = Color(0.401268, 0.595235, 0.58833, 1)
+omni_range = 7.0659
+omni_attenuation = 1.404
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Generator/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90551, 3.49654, -3.15827)
+light_color = Color(0.401268, 0.595235, 0.58833, 1)
+omni_range = 7.0659
+omni_attenuation = 1.404
+
 [node name="Computer" parent="." instance=ExtResource("6_ok512")]
 transform = Transform3D(-2.88495e-08, 0.66, -2.88495e-08, 0, -2.88495e-08, -0.66, -0.66, -2.88495e-08, 1.26105e-15, -1.60851, 3.26402, 3.74345)
+
+[connection signal="power_changed" from="Generator" to="Generator/Lights" method="_on_generator_power_changed"]
 
 [editable path="room2"]
