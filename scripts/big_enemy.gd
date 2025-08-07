@@ -3,6 +3,7 @@ extends CharacterBody3D
 var health : int = 100
 var movement_speed: float = 1.0
 var movement_speed_modifier : float = 1.0
+var light_speed_modifier : float = 1.0
 var has_mouse: bool = false
 
 var spawn_probability = 3
@@ -19,6 +20,8 @@ var state = States.RESET
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
 func _ready():
+	SignalBus.connect("generatorLow", generatorLow)
+	SignalBus.connect("generatorHigh", generatorHigh)
 	var main = get_tree().root.get_node("Node3D")
 	player = main.get_node("Player")
 	reset_point = main.get_node("EnemyStuff").get_node("Reset")
@@ -54,7 +57,6 @@ func wait():
 		state = States.START
 		start()
 	else:
-		spawn_probability += 1
 		wait()
 
 func start():
@@ -87,3 +89,11 @@ func take_damage( damage : int ):
 		state = States.RESET
 		SignalBus.emit_signal("enemyKilled")
 		reset()
+
+func generatorLow():
+	spawn_probability = 6
+	light_speed_modifier = 2.0
+
+func generatorHigh():
+	spawn_probability = 3
+	light_speed_modifier = 1.0

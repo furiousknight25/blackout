@@ -21,3 +21,13 @@ extends Node
 @warning_ignore("unused_signal") signal enemyCrouching
 @warning_ignore("unused_signal") signal enemyKilled
 #############
+
+### GENERATOR ###
+@warning_ignore("unused_signal") signal generatorHigh
+@warning_ignore("unused_signal") signal generatorLow
+#################
+
+### GAME STATE ###
+@warning_ignore("unused_signal") signal lostGame
+@warning_ignore("unused_signal") signal wonGame
+##############

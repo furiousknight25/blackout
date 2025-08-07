@@ -43,7 +43,8 @@ func _physics_process(_delta: float) -> void:
 
 	# set velocity to the next position
 	enemy.velocity = ( current_agent_position.direction_to(next_path_position) 
-						* enemy.movement_speed * enemy.movement_speed_modifier )
+						* enemy.movement_speed * enemy.movement_speed_modifier
+						* enemy.light_speed_modifier )
 
 
 func actor_setup():

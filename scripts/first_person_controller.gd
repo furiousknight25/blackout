@@ -6,6 +6,7 @@ extends CharacterBody3D
 @onready var bullet_hole_particles = preload("res://scenes/bullet_on_wall_particles.tscn")
 @onready var face_ray_cast: RayCast3D = $Camera3D/Rig/FaceRayCast
 @onready var shoot_sfx: AudioStreamPlayer3D = $ShootSFX
+@onready var health: int = 90
 
 enum STATE {GROUNDED, AIR}
 var cur_state = STATE.GROUNDED
@@ -25,6 +26,7 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	SignalBus.connect("refillAmmo", refillAmmo)
+	SignalBus.connect("playerHit", take_damage)
 
 
 func _physics_process(delta: float) -> void:
@@ -61,6 +63,11 @@ func _physics_process(delta: float) -> void:
 	animation_tree.set_velocity(velocity)
 	move_and_slide()
 
+func take_damage():
+	health -= 30
+	if health <=0:
+		SignalBus.emit_signal("lostGame")
+		print('game lost')
 
 func sv_airaccelerate(movement_dir, delta):
 	var air_strength = 3 

@@ -21,7 +21,7 @@ collision_mask = 0
 script = ExtResource("1_naoby")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-target_desired_distance = 2.0
+target_desired_distance = 1.6
 path_height_offset = -1.5
 avoidance_enabled = true
 radius = 1.6
