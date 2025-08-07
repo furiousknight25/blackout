@@ -1,18 +1,62 @@
 extends Node3D
 
 var first_night = [
-	"Good, you're awake",
-	"listen closely.",
-	"Recharge the generator",
-	"with RMB.",
+	"[inaudible]",
+	"Hello?",
+	"Hello? Hello?",
+	"Is anyone alive on this channel?",
+	"Hell, this is one-way anyways, why am I asking?",
 	". . .",
-	"Shoot with LMB"
+	"If you're alive, listen closely...",
+	"There's been a containment breach.",
+	"Units 3B and 3C are down.",
+	"There's a quarantine on sector 3 until they kill those things",
+	"You wanna keep those lights on...",
+	"otherwise those freaks will gut you.",
+	"They don't like light,",
+	"that's why those things slashed the breaker box.",
+	"All of sector 3 is in the dark.",
+	"If you have a radio, though, you should have a generator.",
+	"Keep that generator running!",
+	"Crank it by holding RMB every once in a while.",
+	". . .",
+	"Oh, and if you have a gun, use it.",
+	"Keep track of your ammo, though.",
+	"The standard-issue shotgun only has three shots.",
+	"Make them count.",
+	"More ammo should be stored nearby.",
+	". . .",
+	"Uh... you should probably try to find a way out.",
+	"If there's a computer terminal by you,",
+	"you can release the quarantine blocks on door function.",
+	"Remember to...",
+	"[inaudible]"
 ]
+
 var second_night = [
-	
+	"Holy shit...",
+	"Are you alive in 3C still?",
+	"I heard an air open vent just now.",
+	"That's great!",
+	"Well, except for the fact that my sensors see something in the vents...",
+	"But that's besides the point!",
+	"You got through the lower-security protocol.",
+	"The next level should unlock a door.",
+	"If you can get that, we can escape.",
+	". . .",
+	"Just deal with those things in the vents and you'll be fine.",
+	"They don't look very big, anyways.",
+	"Maybe they're some rats.",
+	"Rats know when there's danger, you know.",
+	". . .",
+	"Just make sure they don't chew through any wires.",
+	"Good luck."
 ]
+
 var third_night = [
-	
+	"Shit! You unlocked unit 3A, not the exit door!",
+	"There's another one of those things now.",
+	"Just open that door!"
 ]
 
 var line_index = 0
