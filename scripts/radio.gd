@@ -90,7 +90,6 @@ func get_next_line():
 		display_next_character()
 		line_index += 1
 	else:
-		line_index = 0
 		end_dialogue()
 
 
@@ -104,4 +103,8 @@ func display_next_character():
 		character_index = 0
 
 func end_dialogue():
-	print('dialogue ended')
+	SignalBus.emit_signal("dialogueEnded")
+
+func start_new_dialogue():
+	line_index = 0
+	get_next_line()

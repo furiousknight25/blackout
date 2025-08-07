@@ -3,6 +3,8 @@ extends Node
 ### GENERATOR ###
 @warning_ignore("unused_signal") signal increasePowerDrain(drainAmount : int)
 @warning_ignore("unused_signal") signal decreasePowerDrain(drainAmount : int)
+@warning_ignore("unused_signal") signal generatorHigh
+@warning_ignore("unused_signal") signal generatorLow
 #################
 
 ### DA RATZ ###
@@ -14,7 +16,6 @@ extends Node
 @warning_ignore("unused_signal") signal refillAmmo
 ##############
 
-
 ### ENEMY ###
 @warning_ignore("unused_signal") signal playerHit
 @warning_ignore("unused_signal") signal enemyStarting
@@ -22,12 +23,11 @@ extends Node
 @warning_ignore("unused_signal") signal enemyKilled
 #############
 
-### GENERATOR ###
-@warning_ignore("unused_signal") signal generatorHigh
-@warning_ignore("unused_signal") signal generatorLow
-#################
-
 ### GAME STATE ###
 @warning_ignore("unused_signal") signal lostGame
 @warning_ignore("unused_signal") signal wonGame
-##############
+##################
+
+### RADIO ###
+@warning_ignore("unused_signal") signal dialogueEnded
+#############
