@@ -20,6 +20,10 @@ config/icon="res://assets/icon.svg"
 Director="*res://scripts/director.gd"
 SignalBus="*res://scripts/SignalBus.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [file_customization]
 
 folder_colors={

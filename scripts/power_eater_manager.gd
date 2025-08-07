@@ -13,10 +13,6 @@ var moveTween : Tween
 var progressSpot : float = 0.5 #this will stop in the middle of the path for the cable
 
 func _ready() -> void:
-	#for child in get_children():
-		#print("child: ", child.name)
-		#for grandchild in child.get_children():
-			#print("grandchild: ", grandchild.name)
 	followPath = get_node("Path3D").get_node("PathFollow3D")
 	spawn_timer.wait_time = timeToSpawn
 	spawn_timer.start()

@@ -1,0 +1,139 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8wcn3nafmak3"]
+
+[ext_resource type="Script" uid="uid://6wrp1xgmum2t" path="res://scripts/intro_screen.gd" id="1_2i7sm"]
+[ext_resource type="FontFile" uid="uid://1k7oe6a13b8l" path="res://assets/BadPixelFont.ttf" id="1_q1oon"]
+[ext_resource type="Texture2D" uid="uid://bd803tnda478x" path="res://assets/Icon-RightMouseButton.png" id="2_2i7sm"]
+[ext_resource type="Texture2D" uid="uid://ml30g2qrvqpi" path="res://assets/Icon-LeftMouseButton.png" id="3_hukxe"]
+
+[node name="Intro Screen" type="Node2D"]
+script = ExtResource("1_2i7sm")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -72.0
+offset_right = 120.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LeftMouseText" type="Label" parent="Control"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -40.0
+offset_right = -19.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_q1oon")
+theme_override_font_sizes/font_size = 8
+text = "left click to shoot"
+horizontal_alignment = 1
+
+[node name="RightMouseButton" type="Sprite2D" parent="Control/LeftMouseText"]
+position = Vector2(168, 24)
+texture = ExtResource("2_2i7sm")
+
+[node name="RightMouseText" type="Label" parent="Control"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -40.0
+offset_right = 113.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_q1oon")
+theme_override_font_sizes/font_size = 8
+text = "right click to interact"
+horizontal_alignment = 1
+
+[node name="LeftMouseButton" type="Sprite2D" parent="Control/RightMouseText"]
+position = Vector2(-72, 24)
+texture = ExtResource("3_hukxe")
+
+[node name="WASD" type="Label" parent="Control"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_q1oon")
+theme_override_font_sizes/font_size = 8
+text = "wasd to move"
+horizontal_alignment = 1
+
+[node name="Continue" type="Label" parent="Control"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = 40.0
+offset_right = 32.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_q1oon")
+theme_override_font_sizes/font_size = 8
+text = "press  any key  to  continue..."
+horizontal_alignment = 1
+
+[node name="CoverupRect" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -72.0
+offset_right = 120.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
