@@ -22,7 +22,6 @@ func fadeIn() -> void:
 
 func fadeOut():
 	if canFadeOut:
-		print("yaa")
 		canFadeOut = false
 		canFadeIn = true
 		

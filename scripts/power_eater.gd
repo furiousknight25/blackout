@@ -17,13 +17,13 @@ func _physics_process(delta: float) -> void:
 	if attacking:
 		rotate_y(5.0 * delta) #lmao get rotated idiot
 	
-	if currentHealth == 0:
+	if currentHealth <= 0:
 		die()
 
 
-func damage() -> void:
+func take_damage(damage : int) -> void:
 	if currentHealth > 0:
-		currentHealth -= 1
+		currentHealth -= damage
 
 
 func die() -> void: #rip bozo
