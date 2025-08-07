@@ -37,6 +37,8 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		if currentAmmo > 0:
 			shoot()
+		else:
+			animation_tree.play_animation('click')
 	
 	if Input.is_action_pressed("interact"):
 		if face_ray_cast.is_colliding():
@@ -88,10 +90,13 @@ func _input(event: InputEvent) -> void:
 
 
 func shoot():
+	animation_tree.play_animation('shoot')
+
 	currentAmmo -= 1
 	totalAmmo -= 1
 	
-	animation_tree.play_animation('shoot')
+	
+	
 	shoot_sfx.play()
 	for i : RayCast3D in gun_ray_casts:
 		i.rotation = Vector3(randf_range(-0.1,0.1), randf_range(-0.1,0.1), 0.0)
