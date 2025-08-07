@@ -1,10 +1,10 @@
 extends CharacterBody3D
 @onready var camera_3d: Camera3D = %Camera3D
 @onready var animation_tree: AnimationTree = %AnimationTree
-@onready var gun_ray_casts = $Camera3D/GunRayCasts.get_children()
+@onready var gun_ray_casts = %Camera3D/GunRayCasts.get_children()
 @onready var bullet_hole = preload("res://scenes/bullet_hole.tscn")
 @onready var bullet_hole_particles = preload("res://scenes/bullet_on_wall_particles.tscn")
-@onready var face_ray_cast: RayCast3D = $Camera3D/Rig/FaceRayCast
+@onready var face_ray_cast: RayCast3D = %Camera3D/Rig/FaceRayCast
 @onready var shoot_sfx: AudioStreamPlayer3D = $ShootSFX
 @onready var health: int = 90
 
@@ -39,11 +39,14 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		if currentAmmo > 0:
 			shoot()
+		else:
+			animation_tree.play_animation('click')
 	
 	if Input.is_action_pressed("interact"):
 		if face_ray_cast.is_colliding():
 			if face_ray_cast.get_collider().is_in_group('interact'):
 				face_ray_cast.get_collider().interact(delta)
+				
 	
 	if face_ray_cast.is_colliding() and face_ray_cast.get_collider() != null and face_ray_cast.get_collider().is_in_group('interact'):
 		face_ray_cast.get_collider().showUI()
@@ -102,10 +105,13 @@ func _input(event: InputEvent) -> void:
 
 
 func shoot():
+	animation_tree.play_animation('shoot')
+
 	currentAmmo -= 1
 	totalAmmo -= 1
 	
-	animation_tree.play_animation('shoot')
+	
+	
 	shoot_sfx.play()
 	for i : RayCast3D in gun_ray_casts:
 		i.rotation = Vector3(randf_range(-0.1,0.1), randf_range(-0.1,0.1), 0.0)
@@ -126,6 +132,14 @@ func reload():
 	
 	animation_tree.play_animation('reload')
 
+func type():
+	animation_tree.play_animation('type')
+
+func crank():
+	animation_tree.play_animation('crank')
+	
+func b2i():
+	animation_tree.play_animation('b2i')
 
 func refillAmmo():
 	totalAmmo = ammoCapacity
