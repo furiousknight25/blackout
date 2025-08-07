@@ -6,6 +6,7 @@ extends CharacterBody3D
 @onready var bullet_hole_particles = preload("res://scenes/bullet_on_wall_particles.tscn")
 @onready var face_ray_cast: RayCast3D = $Camera3D/Rig/FaceRayCast
 @onready var shoot_sfx: AudioStreamPlayer3D = $ShootSFX
+@onready var health: int = 90
 
 enum STATE {GROUNDED, AIR}
 var cur_state = STATE.GROUNDED
@@ -25,6 +26,7 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	SignalBus.connect("refillAmmo", refillAmmo)
+	SignalBus.connect("playerHit", take_damage)
 
 
 func _physics_process(delta: float) -> void:
@@ -68,6 +70,11 @@ func _physics_process(delta: float) -> void:
 	animation_tree.set_velocity(velocity)
 	move_and_slide()
 
+func take_damage():
+	health -= 30
+	if health <=0:
+		SignalBus.emit_signal("lostGame")
+		print('game lost')
 
 func sv_airaccelerate(movement_dir, delta):
 	var air_strength = 3 
@@ -104,17 +111,16 @@ func shoot():
 		i.rotation = Vector3(randf_range(-0.1,0.1), randf_range(-0.1,0.1), 0.0)
 		if i.get_collider():
 			if i.get_collider().is_in_group('enemy'):
-				i.get_collider().damage() #this is temp if you want to switch it to some damage function later, you should also prob check to see if they even have the func
-			else:
-				var hole = bullet_hole.instantiate()
-				var particles = bullet_hole_particles.instantiate()
-				get_tree().get_root().add_child(hole)
-				get_tree().get_root().add_child(particles)
-				hole.global_position = i.get_collision_point()
-				particles.global_position = i.get_collision_point()
-				particles.emitting = true
-
-
+				if i.get_collider().has_method("take_damage"):
+					i.get_collider().take_damage(5)
+			
+			var hole = bullet_hole.instantiate()
+			var particles = bullet_hole_particles.instantiate()
+			get_tree().get_root().add_child(hole)
+			get_tree().get_root().add_child(particles)
+			hole.global_position = i.get_collision_point()
+			particles.global_position = i.get_collision_point()
+			particles.emitting = true
 func reload():
 	currentAmmo = totalAmmo
 	

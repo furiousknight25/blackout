@@ -632,7 +632,6 @@ animation = &"tpose"
 animation = &"walk"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tmpcr"]
-graph_offset = Vector2(-493.908, -67.9203)
 nodes/Add2/node = SubResource("AnimationNodeAdd2_epali")
 nodes/Add2/position = Vector2(360, 160)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_x6l86")
@@ -667,7 +666,7 @@ streams_count = 2
 stream_0/stream = ExtResource("10_vk7aq")
 stream_1/stream = ExtResource("11_awanf")
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D"]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_sjy6i")
@@ -1151,6 +1150,7 @@ visible = false
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D/GunRayCasts"]
 target_position = Vector3(0, 0, -12)
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast3D2" type="RayCast3D" parent="Camera3D/GunRayCasts"]
 target_position = Vector3(0, 0, -12)
