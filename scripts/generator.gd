@@ -4,7 +4,7 @@ extends Node
 @onready var ui_popup: UIPopup = $"UI Popup"
 
 
-var total_power = 100
+var total_power = 30
 var delta_power_decrease = -5
 var delta_power_increase = 20
 var timer : Timer
@@ -15,6 +15,7 @@ var incrementTimer : float = 1.5 #time it takes to increase a chunk of progress
 var percentIncrease : int = 20 #the amount of progress in percentage is increased
 var currentIncrementTime : float = 0 #The amount of time held down so far
 
+signal power_changed(current_power)
 
 func _ready() -> void:
 	timer = Timer.new()
@@ -31,6 +32,8 @@ func _on_timer_timeout(): #reducing power on here
 	total_power = clampf(total_power + delta_power_decrease, 0.0, 100.0)
 	
 	progress_bar.value = total_power
+	emit_signal("power_changed", total_power)
+	print(total_power)
 	
 	# emit signal if gen crosses 25% threshold
 	if total_power <= 25.0 && not is_gen_low:

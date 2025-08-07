@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cxepa5s7n3dbw" path="res://scenes/power_eater_manager.tscn" id="4_kq5yr"]
 [ext_resource type="PackedScene" uid="uid://c367agvaos08b" path="res://scenes/shell_box.tscn" id="5_4ch7m"]
 [ext_resource type="PackedScene" uid="uid://fw7c4slsj38b" path="res://scenes/computer.tscn" id="6_ok512"]
+[ext_resource type="Script" uid="uid://y3gknn4w5ii6" path="res://scripts/lights.gd" id="6_rxdky"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5bgma"]
 sky_top_color = Color(0.0122071, 0.0182652, 0.0291443, 1)
@@ -637,7 +638,27 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.9863
 [node name="ShellBox" parent="." instance=ExtResource("5_4ch7m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0807505, 3.07981, 6.63999)
 
+[node name="Generator" parent="." groups=["interact"] instance=ExtResource("3_jx57p")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.98113, 2.32223, 3.71183)
+
+[node name="Lights" type="Node" parent="Generator"]
+script = ExtResource("6_rxdky")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Generator/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19278, 3.49654, 1.85107)
+light_color = Color(0.401268, 0.595235, 0.58833, 1)
+omni_range = 7.0659
+omni_attenuation = 1.404
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Generator/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90551, 3.49654, -3.15827)
+light_color = Color(0.401268, 0.595235, 0.58833, 1)
+omni_range = 7.0659
+omni_attenuation = 1.404
+
 [node name="Computer" parent="." instance=ExtResource("6_ok512")]
 transform = Transform3D(-2.88495e-08, 0.66, -2.88495e-08, 0, -2.88495e-08, -0.66, -0.66, -2.88495e-08, 1.26105e-15, -1.60851, 3.26402, 3.74345)
+
+[connection signal="power_changed" from="Generator" to="Generator/Lights" method="_on_generator_power_changed"]
 
 [editable path="room2"]
