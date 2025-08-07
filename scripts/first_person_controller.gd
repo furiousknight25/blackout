@@ -1,10 +1,10 @@
 extends CharacterBody3D
 @onready var camera_3d: Camera3D = %Camera3D
 @onready var animation_tree: AnimationTree = %AnimationTree
-@onready var gun_ray_casts = $Camera3D/GunRayCasts.get_children()
+@onready var gun_ray_casts = %Camera3D/GunRayCasts.get_children()
 @onready var bullet_hole = preload("res://scenes/bullet_hole.tscn")
 @onready var bullet_hole_particles = preload("res://scenes/bullet_on_wall_particles.tscn")
-@onready var face_ray_cast: RayCast3D = $Camera3D/Rig/FaceRayCast
+@onready var face_ray_cast: RayCast3D = %Camera3D/Rig/FaceRayCast
 @onready var shoot_sfx: AudioStreamPlayer3D = $ShootSFX
 
 enum STATE {GROUNDED, AIR}
