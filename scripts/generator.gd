@@ -33,7 +33,6 @@ func _on_timer_timeout(): #reducing power on here
 	
 	progress_bar.value = total_power
 	emit_signal("power_changed", total_power)
-	print(total_power)
 	
 	# emit signal if gen crosses 25% threshold
 	if total_power <= 25.0 && not is_gen_low:
@@ -42,7 +41,6 @@ func _on_timer_timeout(): #reducing power on here
 	elif total_power > 25.0 && is_gen_low:
 		is_gen_low = false
 		SignalBus.emit_signal("generatorHigh")
-
 
 func interact(delta : float):
 

@@ -6,6 +6,9 @@ var on = true
 func _on_generator_power_changed(current_power: Variant) -> void:
 	if current_power != 0:
 		current_power /= 100
+		if on == false and current_power != 0:
+			flickerOn()
+			on = true
 	elif on:
 		on = false
 		flickerOff()
