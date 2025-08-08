@@ -17,7 +17,8 @@ func _physics_process(_delta: float) -> void:
 	get_movement_target_position()
 	
 	# look at target
-	enemy.look_at(movement_target_position)
+	if get_next_path_position() != get_parent().global_position:
+		enemy.look_at(get_next_path_position())
 	# lock x rotation so whole body doesn't tilt downwards
 	enemy.rotation.x = 0
 	
