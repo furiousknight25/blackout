@@ -6,11 +6,15 @@ extends Node
 @onready var idle_shutdown: AudioStreamPlayer3D = $IdleShutdown
 @onready var idle_start: AudioStreamPlayer3D = $IdleStart
 @onready var scary_music: AudioStreamPlayer = $ScaryMusic
+@onready var hold_timer: Timer = $HoldTimer
 
 
 var total_power = 100
-var delta_power_decrease = -5
-var delta_power_increase = 20
+const base_drain = -10
+var total_delta = 0
+var is_cranking = false
+var is_rat = false
+
 var timer : Timer
 var is_gen_low : bool = false
 var is_gen_off = false
@@ -29,23 +33,30 @@ func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
 	timer.wait_time = incrementTimer
 	timer.start()
+	
 	SignalBus.connect("increasePowerDrain", increasePowerDrain)
 	SignalBus.connect("decreasePowerDrain", decreasePowerDrain)
 	SignalBus.connect("unpauseStage", unpause)
 	SignalBus.connect("nextStage", pause)
 
-
 func _on_timer_timeout(): #reducing power on here
 	
-	# stops the generator from changing values if stage is paused
-	if is_paused:
-		total_power = 100
-	# stops the generator from changing values if player is charging generator
-	elif not is_paused and crank_mesh.is_cranking:
-		total_power = clampf(total_power + delta_power_decrease, 0.0, 100.0)
 	
+	total_delta = 0
+	
+	total_delta += base_drain
+	if is_rat: total_delta -= 40
+	
+	if is_cranking: total_delta = 20.0
+	
+	if is_paused: total_delta = 0
+	
+	
+	total_power = clampf(total_power + total_delta, 0.0, 100.0)
 	progress_bar.value = total_power
+	
 	emit_signal("power_changed", total_power)
+	
 	if total_power <= 0 and is_gen_off == false:
 		idle_shutdown.play()
 		is_gen_off = true
@@ -54,8 +65,10 @@ func _on_timer_timeout(): #reducing power on here
 	
 	if total_power > 0 and is_gen_off == true:
 		is_gen_off = false
-		scary_music.stop()
+		scary_music.stop() 
 		idle_start.play()
+	if total_power > 0:
+		scary_music.stop() 
 	
 	# emit signal if gen crosses 25% threshold
 	if total_power <= 25.0 && not is_gen_low:
@@ -68,25 +81,22 @@ func _on_timer_timeout(): #reducing power on here
 func interact(delta : float):
 	crank_mesh.rotation.x += delta * 2
 	currentIncrementTime += delta
-	if currentIncrementTime >= incrementTimer: #increasing power here
-		total_power = clampf(total_power + delta_power_increase, 0.0, 100.0)
-		
-		progress_bar.value = total_power
-		currentIncrementTime = 0
-	else:
-		pass
-
-func increasePowerDrain(drainAmount : int) -> void:
-	delta_power_decrease -= drainAmount
-
-func decreasePowerDrain(drainAmount : int) -> void:
-	delta_power_decrease += drainAmount
-
-
+	
+	is_cranking = true
+	hold_timer.start()
+	
 func showUI():
 	ui_popup.fadeIn()
 
+func _on_hold_timer_timeout() -> void:
+	is_cranking = false
 
+func increasePowerDrain(power):
+	is_rat = true
+
+func decreasePowerDrain(power):
+	is_rat = false
+	
 func pause(stage : int):
 	is_paused = true
 	total_power = 100
