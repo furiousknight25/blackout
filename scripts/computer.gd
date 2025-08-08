@@ -24,6 +24,7 @@ func _ready() -> void:
 	SignalBus.connect("unpauseStage", unpause)
 	SignalBus.connect("nextStage", pause)
 	SignalBus.connect("hideUI", hideUI)
+	SignalBus.connect("lostGame", die)
 
 
 func interact(_delta : float):
@@ -104,3 +105,11 @@ func pause(stage : int):
 
 func unpause(_stage : int):
 	pass
+
+func die():
+	randomizeNumString()
+	updateColoration()
+	progress_bar.value = 0
+	first_code_is_entered = false
+	radio_is_finished = false
+	

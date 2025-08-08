@@ -8,6 +8,7 @@ extends CharacterBody3D
 @onready var shoot_sfx: AudioStreamPlayer3D = $ShootSFX
 @onready var health: int = 90
 
+
 enum STATE {GROUNDED, AIR}
 var cur_state = STATE.GROUNDED
 
@@ -27,9 +28,13 @@ func _ready() -> void:
 	
 	SignalBus.connect("refillAmmo", refillAmmo)
 	SignalBus.connect("playerHit", take_damage)
+	SignalBus.connect("lostGame", die)
 
 
 func _physics_process(delta: float) -> void:
+	
+	if Input.is_action_just_released("debug_kill"):
+		SignalBus.emit_signal("lostGame")
 	#velocity -= transform.basis.z
 	
 	$UI/Velocity.text = str(snapped((velocity.length()), 0.01))
@@ -84,7 +89,7 @@ func take_damage():
 	health -= 30
 	if health <=0:
 		SignalBus.emit_signal("lostGame")
-		print('game lost')
+		self.queue_free()
 
 func sv_airaccelerate(movement_dir, delta):
 	var air_strength = 3 
@@ -132,6 +137,7 @@ func shoot():
 			hole.global_position = i.get_collision_point()
 			particles.global_position = i.get_collision_point()
 			particles.emitting = true
+
 func reload():
 	currentAmmo = totalAmmo
 	
@@ -149,3 +155,6 @@ func b2i():
 func refillAmmo():
 	totalAmmo = ammoCapacity
 	reload()
+
+func die():
+	self.queue_free()

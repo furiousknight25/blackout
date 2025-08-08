@@ -1,7 +1,12 @@
 extends Node3D
 
+var debug = [
+	"whats up pisser",
+	"you gotta shit bricks soon thug"
+]
+
 var first_stage = [
-	"[inaudible]",
+	"...",
 	"Hello?",
 	"Hello? Hello?",
 	"Is anyone alive on this channel?",
@@ -35,9 +40,10 @@ var first_stage = [
 ]
 
 var second_stage = [
+	". . .",
 	"Holy shit...",
 	"Are you alive in 3C still?",
-	"I heard an air open vent just now.",
+	"I heard an air vent open just now.",
 	"That's great!",
 	"Well, except for the fact that my sensors see something in the vents...",
 	"But that's besides the point!",
@@ -63,7 +69,7 @@ var third_stage = [
 var line_index = 0
 var character_index = 0
 
-var current_script : Array = first_stage
+var current_script : Array = debug
 var current_line : String = ""
 
 var playing : bool
@@ -81,6 +87,7 @@ var skipping: bool
 func _ready() -> void:
 	SignalBus.connect("unpauseStage", unpause)
 	SignalBus.connect("nextStage", nextStage)
+	SignalBus.connect("lostGame", die)
 	setup()
 
 func setup():
@@ -164,3 +171,8 @@ func nextStage(stage : int):
 		current_script = third_stage
 	
 	setup()
+
+func die():
+	character_index = 0
+	line_index = 0
+	current_script = first_stage

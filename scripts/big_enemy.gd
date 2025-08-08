@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 var health : int = 100
-var movement_speed: float = 1.0
+var movement_speed: float = 1.3
 var movement_speed_modifier : float = 1.0
 var light_speed_modifier : float = 1.0
 var has_mouse: bool = false
@@ -30,6 +30,7 @@ func _ready():
 	SignalBus.connect("generatorHigh", generatorHigh)
 	SignalBus.connect("unpauseStage", unpause)
 	SignalBus.connect("nextStage", pause)
+	SignalBus.connect("lostGame", die)
 	
 	visible = false
 	paused = true
@@ -135,6 +136,12 @@ func pause(_stage : int):
 	reset()
 	visible = false
 	paused = true
+
+func die():
+	visible = false
+	paused = true
+	reset()
+	self.queue_free()
 
 func unpause(stage: int):
 	if stage == 1:
