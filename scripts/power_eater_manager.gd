@@ -16,8 +16,6 @@ var paused: bool = true
 
 func _ready() -> void:
 	
-	
-	followPath = get_node("Path3D").get_node("PathFollow3D")
 	spawn_timer.wait_time = timeToSpawn
 	spawn_timer.start()
 	
@@ -54,7 +52,7 @@ func getMaxProgress() -> float:
 
 
 func selectFollowPath():
-	#followPath = followPaths[randi_range(0, followPaths.size() - 1)]
+	followPath = followPaths[randi_range(0, followPaths.size() - 1)]
 	
 	if followPath.get_children() == []:
 		spawnPowerEater()
