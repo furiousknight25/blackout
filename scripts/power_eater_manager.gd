@@ -12,25 +12,32 @@ var followPath : PathFollow3D
 var moveTween : Tween
 var progressSpot : float = 0.5 #this will stop in the middle of the path for the cable
 
+var paused: bool = true
+
 func _ready() -> void:
+	
+	
 	followPath = get_node("Path3D").get_node("PathFollow3D")
 	spawn_timer.wait_time = timeToSpawn
 	spawn_timer.start()
 	
+	SignalBus.connect("unpauseStage", unpause)
+	SignalBus.connect("nextStage", pause)
 	SignalBus.connect("resetSpawnTimer", resetSpawnTimer)
 
 
 func spawnPowerEater() -> void:
-	followPath.progress_ratio = 0
-	
-	var newPowerEater : CharacterBody3D = powerEater.instantiate()
-	followPath.add_child(newPowerEater)
-	
-	moveTween = get_tree().create_tween()
-	moveTween.tween_property(followPath, "progress_ratio", progressSpot, progressSpot / 0.5)
-	
-	await moveTween.finished
-	SignalBus.emit_signal("attackGenerator")
+	if not paused:
+		followPath.progress_ratio = 0
+		
+		var newPowerEater : CharacterBody3D = powerEater.instantiate()
+		followPath.add_child(newPowerEater)
+		
+		moveTween = get_tree().create_tween()
+		moveTween.tween_property(followPath, "progress_ratio", progressSpot, progressSpot / 0.5)
+		
+		await moveTween.finished
+		SignalBus.emit_signal("attackGenerator")
 
 
 func resetSpawnTimer() -> void:
@@ -51,3 +58,15 @@ func selectFollowPath():
 	
 	if followPath.get_children() == []:
 		spawnPowerEater()
+
+
+func pause(stage : int):
+	paused = true
+
+func unpause(stage : int):
+	if stage == 1:
+		paused = true
+	elif stage == 2:
+		paused = false
+	elif stage == 3:
+		paused = false

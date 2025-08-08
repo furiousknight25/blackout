@@ -5,7 +5,7 @@ var movement_speed: float = 1.0
 var movement_speed_modifier : float = 1.0
 var light_speed_modifier : float = 1.0
 var has_mouse: bool = false
-var paused: bool
+var paused: bool = true
 var spawn_probability = 3
 
 
@@ -64,7 +64,7 @@ func _physics_process(_delta):
 
 func wait():
 	if paused:
-		spawn_probability = 0
+		spawn_probability = -1
 	else:
 		spawn_probability = 3
 	
@@ -118,7 +118,7 @@ func generatorHigh():
 	light_speed_modifier = 1.0
 
 
-func pause(stage : int):
+func pause(_stage : int):
 	reset()
 	visible = false
 	paused = true
@@ -147,7 +147,7 @@ func unpause(stage: int):
 			visible = true
 			paused = false
 		elif name == "BigEnemy2":
-			visible = false
-			paused = true
+			visible = true
+			paused = false
 		else:
 			push_error("One of the enemies is not named properly:\n Rename to either BigEnemy1 or BigEnemy2")

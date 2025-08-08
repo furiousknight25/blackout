@@ -49,11 +49,18 @@ func checkForMatch():
 	updateColoration()
 	if keysPressed == randNumString:
 		progress_bar.value = clamp(progress_bar.value + percentIncrease, 0, 100)
+		# check for win state
+		checkForWin()
 		if not first_code_is_entered && radio_is_finished:
 			SignalBus.emit_signal("unpauseStage", SignalBus.stage)
-			first_code_is_entered == true
+			first_code_is_entered = true
 		randomizeNumString()
 
+
+func checkForWin():
+	if progress_bar.value >= 100:
+		SignalBus.stage += 1
+		SignalBus.emit_signal("nextStage", SignalBus.stage)
 
 func randomizeNumString():
 	randNumString = ""
@@ -84,7 +91,7 @@ func radioFinished():
 func pause(stage : int):
 	first_code_is_entered = false
 	radio_is_finished = false
-	
+	progress_bar.value = 0
 	if stage == 1:
 		pass
 	elif stage == 2:
@@ -92,5 +99,5 @@ func pause(stage : int):
 	elif stage == 3:
 		pass
 
-func unpause():
+func unpause(_stage : int):
 	pass

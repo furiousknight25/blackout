@@ -97,5 +97,5 @@ func pause(stage : int):
 	elif stage == 3:
 		pass
 
-func unpause(stage : int):
+func unpause(_stage : int):
 	is_paused = false

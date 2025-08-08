@@ -1,6 +1,6 @@
 extends Node3D
 
-var first_night = [
+var first_stage = [
 	"[inaudible]",
 	"Hello?",
 	"Hello? Hello?",
@@ -31,11 +31,10 @@ var first_night = [
 	"you can release the quarantine blocks on door function.",
 	"I remotely put your terminal into bypass mode.",
 	"You should be able to enter a series of numbers to open the door.",
-	"Remember to...",
-	"[inaudible]"
+	"Remember to... [inaudible]",
 ]
 
-var second_night = [
+var second_stage = [
 	"Holy shit...",
 	"Are you alive in 3C still?",
 	"I heard an air open vent just now.",
@@ -55,7 +54,7 @@ var second_night = [
 	"Good luck."
 ]
 
-var third_night = [
+var third_stage = [
 	"Shit! You unlocked unit 3A, not the exit door!",
 	"There's another one of those things now.",
 	"Just open that door!"
@@ -64,7 +63,7 @@ var third_night = [
 var line_index = 0
 var character_index = 0
 
-var current_script : Array = first_night
+var current_script : Array = first_stage
 var current_line : String = ""
 
 var playing : bool
@@ -80,11 +79,12 @@ var skipping: bool
 
 
 func _ready() -> void:
-	setup.call_deferred()
+	SignalBus.connect("unpauseStage", unpause)
+	SignalBus.connect("nextStage", nextStage)
+	setup()
 
 func setup():
-	# wait for the first physics frame to playe
-	await get_tree().physics_frame
+	# wait for the first physics frame to play
 	
 	# wait a moment before starting
 	await get_tree().create_timer(2.0).timeout
@@ -148,3 +148,19 @@ func start_new_dialogue():
 
 func showUI():
 	ui_popup.fadeIn()
+
+func unpause(stage : int):
+	pass
+	
+func nextStage(stage : int):
+	character_index = 0
+	line_index = 0
+	
+	if stage == 1:
+		current_script = first_stage
+	elif stage == 2:
+		current_script = second_stage
+	elif stage == 3:
+		current_script = third_stage
+	
+	setup()

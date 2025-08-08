@@ -19,6 +19,7 @@ config/icon="res://assets/icon.svg"
 
 Director="*res://scripts/director.gd"
 SignalBus="*res://scripts/SignalBus.gd"
+GameStateManager="*res://game_state_manager.gd"
 
 [display]
 

@@ -18,8 +18,8 @@ func play_animation(animation: String):
 			get("parameters/StateMachine/playback").travel("BlendTree")
 		
 
-func set_velocity(velocity):
-	self.velocity = velocity
+func set_velocity(new_velocity):
+	self.velocity = new_velocity
 
 func _process(delta: float) -> void:
 	

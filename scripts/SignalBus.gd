@@ -30,6 +30,7 @@ var stage : int = 1
 
 ### GAME STATE ###
 @warning_ignore("unused_signal") signal lostGame
+# NOTE: this signal may be called from global: gameStateManager
 @warning_ignore("unused_signal") signal wonGame
 # NOTE: the nextStage signal is essentially the pause signal
 @warning_ignore("unused_signal") signal nextStage(stage)

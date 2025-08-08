@@ -9,7 +9,7 @@ var last_rotation = Vector3.ZERO
 func _ready() -> void:
 	crank_sound.stream_paused = true
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if last_rotation != rotation:
 		last_rotation = rotation
 		crank_sound.stream_paused = false
