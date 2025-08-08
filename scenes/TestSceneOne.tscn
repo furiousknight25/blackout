@@ -268,7 +268,7 @@ transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -12.2044, 2.49839, 0)
 [node name="Reset2" type="Marker3D" parent="EnemyStuff"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.54874, 3.31501, 2.22824)
 
-[node name="Generator" parent="." groups=["interact"] instance=ExtResource("3_jx57p")]
+[node name="Generator" parent="." instance=ExtResource("3_jx57p")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.98113, 2.32223, 3.71183)
 
 [node name="ShellBox" parent="." instance=ExtResource("5_4ch7m")]

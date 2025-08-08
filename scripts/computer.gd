@@ -35,11 +35,12 @@ func _input(event: InputEvent) -> void:
 	if not radio_is_finished:
 		return
 	if rich_text_label.visible:
-		if event is InputEventKey and event.is_pressed() and event.physical_keycode >= KEY_0 and event.physical_keycode <= KEY_9:
-			keysPressed = keysPressed + char(event.physical_keycode)
-			checkForMatch()
-			resetKeys()
-			SignalBus.emit_signal("set_type", true)
+		if event is InputEventKey and event.is_pressed():
+			if event.physical_keycode >= KEY_0 and event.physical_keycode <= KEY_9 or event.physical_keycode >= KEY_KP_0 and event.physical_keycode <= KEY_KP_9:
+				keysPressed = keysPressed + char(event.physical_keycode)
+				checkForMatch()
+				resetKeys()
+				SignalBus.emit_signal("set_type", true)
 
 
 func resetKeys():
