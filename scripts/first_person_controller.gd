@@ -8,6 +8,9 @@ extends CharacterBody3D
 @onready var shoot_sfx: AudioStreamPlayer3D = $ShootSFX
 @onready var health: int = 90
 
+const RAGDOLL_RIGID_BODY = preload("res://scenes/ragdoll_rigid_body.tscn")
+var ragdoll_body = null
+
 var is_reloading = false
 
 enum STATE {GROUNDED, AIR}
@@ -23,6 +26,7 @@ var totalAmmo = 3 #total ammo you can hold
 var ammoCapacity = 3 #how much ammo the shotgun can hold at one time
 var currentAmmo = 3 #how much ammo is currently in the gun
 
+var dying = false
 var current_interact = null
 
 func _ready() -> void:
@@ -30,15 +34,18 @@ func _ready() -> void:
 	
 	SignalBus.connect("refillAmmo", refillAmmo)
 	SignalBus.connect("playerHit", take_damage)
-	SignalBus.connect("lostGame", die)
+	#SignalBus.connect("lostGame", die)
 
 	SignalBus.connect("set_crank", crank)
 	SignalBus.connect("set_type", type)
 
 func _physics_process(delta: float) -> void:
+	# this should ONLY RUN if the ragdoll body has been instanced
+	if dying && ragdoll_body != null:
+		camera_3d.position = ragdoll_body.position
 	
 	if Input.is_action_just_released("debug_kill"):
-		SignalBus.emit_signal("lostGame")
+		die()
 	#velocity -= transform.basis.z
 	
 	$UI/Velocity.text = str(snapped((velocity.length()), 0.01))
@@ -93,7 +100,7 @@ func take_damage():
 	health -= 30
 	$HurtSFX.play()
 	if health <=0:
-		SignalBus.emit_signal("lostGame")
+		die()
 		
 
 func sv_airaccelerate(movement_dir, delta):
@@ -167,4 +174,11 @@ func refillAmmo():
 	reload()
 
 func die():
+	ragdoll_body = RAGDOLL_RIGID_BODY.instantiate()
+	ragdoll_body.new_position(camera_3d.position)
+	ragdoll_body.unpause()
+	ragdoll_body.freeze = false
+	dying = true
+	await get_tree().create_timer(5).timeout
+	SignalBus.emit_signal("lostGame")
 	self.queue_free()

@@ -3479,7 +3479,7 @@ shape = SubResource("BoxShape3D_j6xlg")
 [node name="BigEnemy1" parent="EnemyStuff" instance=ExtResource("2_7uyjo")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 29.4029, 2.96323, 0)
 
-[node name="CrawlOver" parent="EnemyStuff/BigEnemy1" index="5"]
+[node name="CrawlOver" parent="EnemyStuff/BigEnemy1" index="6"]
 transform = Transform3D(-2.62268e-08, 0, -0.6, 0, 0.6, 0, 0.6, 0, -2.62268e-08, 4.11893, 2.91616, -1.23371)
 
 [node name="Reset1" type="Marker3D" parent="EnemyStuff"]
@@ -3488,7 +3488,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.8257, 3.1847, -0.901123)
 [node name="BigEnemy2" parent="EnemyStuff" instance=ExtResource("2_7uyjo")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -12.2044, 4.5018, 0)
 
-[node name="CrawlOver" parent="EnemyStuff/BigEnemy2" index="5"]
+[node name="CrawlOver" parent="EnemyStuff/BigEnemy2" index="6"]
 transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, -0.981681, 3.17144, 0)
 
 [node name="Reset2" type="Marker3D" parent="EnemyStuff"]
