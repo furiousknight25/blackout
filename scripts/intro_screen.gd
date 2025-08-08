@@ -18,4 +18,4 @@ func transition():
 		animation_player.play("FadeOut")
 		
 		await animation_player.animation_finished
-		get_tree().change_scene_to_file("res://scenes/TestSceneOne.tscn")
+		get_tree().change_scene_to_file("res://scenes/RealMainScene.tscn")
