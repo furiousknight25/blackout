@@ -31,9 +31,14 @@ var stage : int = 1
 ### GAME STATE ###
 @warning_ignore("unused_signal") signal lostGame
 @warning_ignore("unused_signal") signal wonGame
+# NOTE: the nextStage signal is essentially the pause signal
 @warning_ignore("unused_signal") signal nextStage(stage)
 ##################
 
 ### RADIO ###
-@warning_ignore("unused_signal") signal unpauseStage(stage)
+@warning_ignore("unused_signal") signal radioFinished
 #############
+
+### COMPUTER ###
+@warning_ignore("unused_signal") signal unpauseStage(stage)
+################

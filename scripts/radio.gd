@@ -29,6 +29,8 @@ var first_night = [
 	"Uh... you should probably try to find a way out.",
 	"If there's a computer terminal by you,",
 	"you can release the quarantine blocks on door function.",
+	"I remotely put your terminal into bypass mode.",
+	"You should be able to enter a series of numbers to open the door.",
 	"Remember to...",
 	"[inaudible]"
 ]
@@ -68,6 +70,7 @@ var current_line : String = ""
 var playing : bool
 var skipping: bool
 
+@onready var ui_popup: UIPopup = $"UI Popup"
 @onready var label_3d: Label3D = $Label3D
 @onready var dialogue_timer: Timer = $DialogueTimer
 
@@ -87,6 +90,9 @@ func setup():
 	await get_tree().create_timer(2.0).timeout
 	dialogue_timer.start()
 	get_next_line()
+
+func interact():
+	pass
 
 func single_interact():
 	if skipping == true:
@@ -134,8 +140,11 @@ func display_next_character():
 
 func end_dialogue():
 	label_3d.text = ""
-	SignalBus.emit_signal("unpauseStage", SignalBus.stage)
+	SignalBus.emit_signal("radioFinished")
 
 func start_new_dialogue():
 	line_index = 0
 	get_next_line()
+
+func showUI():
+	ui_popup.fadeIn()

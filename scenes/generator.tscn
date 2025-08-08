@@ -184,21 +184,21 @@ transform = Transform3D(0, -0.412269, -0.146451, 0, 0.146451, -0.412269, 0.43750
 mesh = SubResource("ArrayMesh_uh8gu")
 skeleton = NodePath("")
 
-[node name="Sphere_003" type="MeshInstance3D" parent="Cube_059"]
+[node name="Crank" type="MeshInstance3D" parent="Cube_059"]
 transform = Transform3D(-1.91241e-08, -0.412269, -0.146451, 0, 0.146451, -0.412269, 0.437508, -1.80209e-08, -6.40158e-09, -0.168927, 0.154026, -0.241582)
 mesh = SubResource("ArrayMesh_dgtyl")
 skeleton = NodePath("")
 script = ExtResource("6_ionxw")
 
-[node name="CrankSound" type="AudioStreamPlayer3D" parent="Cube_059/Sphere_003"]
+[node name="CrankSound" type="AudioStreamPlayer3D" parent="Cube_059/Crank"]
 transform = Transform3D(8.97158e-08, 6.1434e-14, -2.05245, 1.93405, 0.687034, 8.45399e-08, 0.687034, -1.93405, 3.00313e-08, 0.977228, -0.770103, 0.901794)
 stream = ExtResource("4_kgmdj")
 volume_db = -5.0
 autoplay = true
 
-[node name="Timer" type="Timer" parent="Cube_059/Sphere_003"]
+[node name="Timer" type="Timer" parent="Cube_059/Crank"]
 wait_time = 0.1
 one_shot = true
 
 [connection signal="finished" from="IdleStart" to="IdleLoopSFX" method="play"]
-[connection signal="timeout" from="Cube_059/Sphere_003/Timer" to="Cube_059/Sphere_003" method="_on_timer_timeout"]
+[connection signal="timeout" from="Cube_059/Crank/Timer" to="Cube_059/Crank" method="_on_timer_timeout"]

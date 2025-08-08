@@ -5,7 +5,7 @@ var movement_speed: float = 1.0
 var movement_speed_modifier : float = 1.0
 var light_speed_modifier : float = 1.0
 var has_mouse: bool = false
-var paused: bool = true
+var paused: bool
 var spawn_probability = 3
 
 
@@ -27,6 +27,7 @@ func _ready():
 	SignalBus.connect("nextStage", pause)
 	
 	visible = false
+	paused = true
 	
 	var main = get_tree().root.get_node("Node3D")
 	player = main.get_node("Player")
@@ -125,11 +126,9 @@ func pause(stage : int):
 func unpause(stage: int):
 	if stage == 1:
 		if name == "BigEnemy1":
-			print('enemy 1 unpaused')
 			visible = true
 			paused = false
 		elif name == "BigEnemy2":
-			print('enemy 2 not unpaused')
 			visible = false
 			paused = true
 		else:

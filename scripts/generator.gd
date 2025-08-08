@@ -2,7 +2,7 @@ extends Node
 @onready var progress_bar: ProgressBar = $Sprite3D/SubViewport/ProgressBar
 @onready var idle_loop_sfx: AudioStreamPlayer3D = $IdleLoopSFX
 @onready var ui_popup: UIPopup = $"UI Popup"
-@onready var crank_mesh: MeshInstance3D = $Cube_059/Sphere_003
+@onready var crank_mesh: MeshInstance3D = $Cube_059/Crank
 @onready var idle_shutdown: AudioStreamPlayer3D = $IdleShutdown
 @onready var idle_start: AudioStreamPlayer3D = $IdleStart
 
@@ -18,6 +18,8 @@ var incrementTimer : float = 1.5 #time it takes to increase a chunk of progress
 var percentIncrease : int = 20 #the amount of progress in percentage is increased
 var currentIncrementTime : float = 0 #The amount of time held down so far
 
+var is_paused : bool = true
+
 signal power_changed(current_power)
 
 func _ready() -> void:
@@ -28,10 +30,18 @@ func _ready() -> void:
 	timer.start()
 	SignalBus.connect("increasePowerDrain", increasePowerDrain)
 	SignalBus.connect("decreasePowerDrain", decreasePowerDrain)
+	SignalBus.connect("unpauseStage", unpause)
+	SignalBus.connect("nextStage", pause)
 
 
 func _on_timer_timeout(): #reducing power on here
-	total_power = clampf(total_power + delta_power_decrease, 0.0, 100.0)
+	
+	# stops the generator from changing values if stage is paused
+	if is_paused:
+		total_power = 100
+	# stops the generator from changing values if player is charging generator
+	elif not is_paused and crank_mesh.is_cranking:
+		total_power = clampf(total_power + delta_power_decrease, 0.0, 100.0)
 	
 	progress_bar.value = total_power
 	emit_signal("power_changed", total_power)
@@ -74,3 +84,18 @@ func decreasePowerDrain(drainAmount : int) -> void:
 
 func showUI():
 	ui_popup.fadeIn()
+
+
+func pause(stage : int):
+	is_paused = true
+	total_power = 100
+	
+	if stage == 1:
+		pass
+	elif stage == 2:
+		pass
+	elif stage == 3:
+		pass
+
+func unpause(stage : int):
+	is_paused = false

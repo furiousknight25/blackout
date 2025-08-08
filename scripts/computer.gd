@@ -13,10 +13,16 @@ var currentIncrementTime : float = 0 #The amount of time held down so far
 var keysPressed = ""
 var randNumString = ""
 
+var first_code_is_entered : bool = false
+var radio_is_finished : bool = false
+
 
 func _ready() -> void:
 	randomizeNumString()
 	
+	SignalBus.connect("radioFinished", radioFinished)
+	SignalBus.connect("unpauseStage", unpause)
+	SignalBus.connect("nextStage", pause)
 	SignalBus.connect("hideUI", hideUI)
 
 
@@ -25,6 +31,8 @@ func interact(_delta : float):
 
 
 func _input(event: InputEvent) -> void:
+	if not radio_is_finished:
+		return
 	if rich_text_label.visible:
 		if event is InputEventKey and event.is_pressed() and event.physical_keycode >= KEY_0 and event.physical_keycode <= KEY_9:
 			keysPressed = keysPressed + char(event.physical_keycode)
@@ -41,6 +49,9 @@ func checkForMatch():
 	updateColoration()
 	if keysPressed == randNumString:
 		progress_bar.value = clamp(progress_bar.value + percentIncrease, 0, 100)
+		if not first_code_is_entered && radio_is_finished:
+			SignalBus.emit_signal("unpauseStage", SignalBus.stage)
+			first_code_is_entered == true
 		randomizeNumString()
 
 
@@ -66,3 +77,20 @@ func showUI():
 
 func hideUI():
 	rich_text_label.visible = false
+
+func radioFinished():
+	radio_is_finished = true
+
+func pause(stage : int):
+	first_code_is_entered = false
+	radio_is_finished = false
+	
+	if stage == 1:
+		pass
+	elif stage == 2:
+		pass
+	elif stage == 3:
+		pass
+
+func unpause():
+	pass

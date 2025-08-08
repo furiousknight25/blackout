@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://38kwueiyjval"]
+[gd_scene load_steps=11 format=3 uid="uid://38kwueiyjval"]
 
 [ext_resource type="Script" uid="uid://b6fp5x67qvxl6" path="res://scripts/radio.gd" id="1_y83x7"]
+[ext_resource type="PackedScene" uid="uid://cufyt808u7jv1" path="res://scenes/ui_popup.tscn" id="2_ldjbc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ldjbc"]
 size = Vector3(1.12338, 0.64035, 0.398438)
@@ -44,6 +45,9 @@ shape = SubResource("BoxShape3D_ldjbc")
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.652059, 0.230859)
+
+[node name="UI Popup" parent="." instance=ExtResource("2_ldjbc")]
+transform = Transform3D(1.83, 0, 0, 0, 1.83, 0, 0, 0, 1.83, 0, 0.205766, 0.574266)
 
 [node name="Placeholder Mesh" type="Node3D" parent="."]
 

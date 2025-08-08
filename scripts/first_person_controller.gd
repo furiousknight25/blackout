@@ -48,7 +48,8 @@ func _physics_process(delta: float) -> void:
 				face_ray_cast.get_collider().interact(delta)
 				
 	
-	if face_ray_cast.is_colliding() and face_ray_cast.get_collider() != null and face_ray_cast.get_collider().is_in_group('interact'):
+	if ( face_ray_cast.is_colliding() and face_ray_cast.get_collider() != null 
+	and (face_ray_cast.get_collider().is_in_group('interact') or face_ray_cast.get_collider().is_in_group('single_interact'))):
 		face_ray_cast.get_collider().showUI()
 
 	else:
