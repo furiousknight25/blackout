@@ -2,6 +2,8 @@ extends Node
 @onready var progress_bar: ProgressBar = $Sprite3D/SubViewport/ProgressBar
 @onready var idle_loop_sfx: AudioStreamPlayer3D = $IdleLoopSFX
 @onready var ui_popup: UIPopup = $"UI Popup"
+@onready var crank_mesh: MeshInstance3D = $Cube_059/Sphere_003
+@onready var crank_sound: AudioStreamPlayer3D = $CrankSound
 
 
 var total_power = 30
@@ -23,7 +25,7 @@ func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
 	timer.wait_time = incrementTimer
 	timer.start()
-	
+	crank_sound.stream_paused = true
 	SignalBus.connect("increasePowerDrain", increasePowerDrain)
 	SignalBus.connect("decreasePowerDrain", decreasePowerDrain)
 
@@ -43,13 +45,17 @@ func _on_timer_timeout(): #reducing power on here
 		SignalBus.emit_signal("generatorHigh")
 
 func interact(delta : float):
-
+	crank_mesh.rotation.x += delta * 2
+	crank_sound.stream_paused = false
 	currentIncrementTime += delta
 	if currentIncrementTime >= incrementTimer: #increasing power here
 		total_power = clampf(total_power + delta_power_increase, 0.0, 100.0)
 		
 		progress_bar.value = total_power
 		currentIncrementTime = 0
+	else:
+		pass
+		#crank_sound.stream_paused = true
 
 func increasePowerDrain(drainAmount : int) -> void:
 	delta_power_decrease -= drainAmount
