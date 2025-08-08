@@ -18,6 +18,8 @@ func _ready() -> void:
 	spawn_timer.wait_time = timeToSpawn
 	spawn_timer.start()
 	
+	followPath = followPaths[randi_range(0, followPaths.size() - 1)]
+	
 	SignalBus.connect("unpauseStage", unpause)
 	SignalBus.connect("nextStage", pause)
 	SignalBus.connect("resetSpawnTimer", resetSpawnTimer)

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bd6di7gt36kep"
+path="res://.godot/imported/Enemy_Slash_No Contact_SFX_01.wav-44c44e8d2fe0b0df50ca9d87d522c97e.sample"
+
+[deps]
+
+source_file="res://assets/sounds/textures/Enemy_Slash_No Contact_SFX_01.wav"
+dest_files=["res://.godot/imported/Enemy_Slash_No Contact_SFX_01.wav-44c44e8d2fe0b0df50ca9d87d522c97e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

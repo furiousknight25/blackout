@@ -3543,7 +3543,7 @@ omni_range = 7.0659
 omni_attenuation = 1.404
 
 [node name="Radio" parent="." instance=ExtResource("5_rs2p5")]
-transform = Transform3D(-0.106157, 0, 0.312459, 0, 0.33, 0, -0.312459, 0, -0.106157, -0.49621, 3.37852, 4.45205)
+transform = Transform3D(0.736525, 0, 0.0484685, 0, 0.738118, 0, -0.0484685, 0, 0.736525, 1.54346, 3.47262, -3.59425)
 
 [node name="PowerEaterManager" parent="." node_paths=PackedStringArray("followPaths") instance=ExtResource("6_ky7ay")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.31401, 0)
@@ -3774,7 +3774,7 @@ mesh = SubResource("ArrayMesh_3w31w")
 skeleton = NodePath("")
 
 [node name="Plane_003" type="MeshInstance3D" parent="RoomV1_0"]
-transform = Transform3D(0.293246, 0, 0, 0, 0, -0.304225, 0, 0.293246, 0, -0.326104, 1.12057, -4.49201)
+transform = Transform3D(0.305585, -0.454262, 0, 0, 0, -0.567979, 0.454262, 0.305585, 0, 1.85626, 0.356426, -4.45759)
 mesh = SubResource("ArrayMesh_bm77e")
 skeleton = NodePath("")
 
@@ -3990,6 +3990,7 @@ skeleton = NodePath("")
 
 [node name="Cube_085" type="MeshInstance3D" parent="RoomV1_0"]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -0.0890904, 0.541933, -4.49857)
+visible = false
 mesh = SubResource("ArrayMesh_tfb5g")
 skeleton = NodePath("")
 

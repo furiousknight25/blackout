@@ -23,7 +23,7 @@ GameStateManager="*res://game_state_manager.gd"
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 
 [file_customization]
 
