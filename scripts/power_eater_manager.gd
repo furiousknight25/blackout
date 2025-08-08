@@ -34,7 +34,7 @@ func spawnPowerEater() -> void:
 		followPath.add_child(newPowerEater)
 		
 		moveTween = get_tree().create_tween()
-		moveTween.tween_property(followPath, "progress_ratio", progressSpot, progressSpot / 0.5)
+		moveTween.tween_property(followPath, "progress_ratio", progressSpot, progressSpot)
 		
 		await moveTween.finished
 		SignalBus.emit_signal("attackGenerator")

@@ -124,7 +124,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2xep8")
 
-[node name="Generator" type="StaticBody3D"]
+[node name="Generator" type="StaticBody3D" groups=["interact"]]
 script = ExtResource("1_5yxne")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
@@ -203,7 +203,11 @@ autoplay = true
 wait_time = 0.1
 one_shot = true
 
-[connection signal="finished" from="IdleStart" to="IdleLoopSFX" method="play"]
-[connection signal="timeout" from="Cube_059/Crank/Timer" to="Cube_059/Crank" method="_on_timer_timeout"]
-[connection signal="finished" from="IdleShutdown" to="ScaryMusic" method="play"]
+[node name="HoldTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 
+[connection signal="finished" from="IdleStart" to="IdleLoopSFX" method="play"]
+[connection signal="finished" from="IdleShutdown" to="ScaryMusic" method="play"]
+[connection signal="timeout" from="Cube_059/Crank/Timer" to="Cube_059/Crank" method="_on_timer_timeout"]
+[connection signal="timeout" from="HoldTimer" to="." method="_on_hold_timer_timeout"]
