@@ -36,8 +36,14 @@ func _input(event: InputEvent) -> void:
 		return
 	if rich_text_label.visible:
 		if event is InputEventKey and event.is_pressed():
-			if event.physical_keycode >= KEY_0 and event.physical_keycode <= KEY_9 or event.physical_keycode >= KEY_KP_0 and event.physical_keycode <= KEY_KP_9:
+			if event.physical_keycode >= KEY_0 and event.physical_keycode <= KEY_9:
 				keysPressed = keysPressed + char(event.physical_keycode)
+				checkForMatch()
+				resetKeys()
+				SignalBus.emit_signal("set_type", true)
+			
+			elif event.physical_keycode >= KEY_KP_0 and event.physical_keycode <= KEY_KP_9:
+				keysPressed = keysPressed + char(event.unicode)
 				checkForMatch()
 				resetKeys()
 				SignalBus.emit_signal("set_type", true)
