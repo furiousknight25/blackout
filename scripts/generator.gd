@@ -81,15 +81,19 @@ func _on_timer_timeout(): #reducing power on here
 func interact(delta : float):
 	crank_mesh.rotation.x += delta * 2
 	currentIncrementTime += delta
-	
+	if !is_cranking:
+		SignalBus.emit_signal("set_crank", true)
 	is_cranking = true
+	
 	hold_timer.start()
+	
 	
 func showUI():
 	ui_popup.fadeIn()
 
 func _on_hold_timer_timeout() -> void:
 	is_cranking = false
+	SignalBus.emit_signal("set_crank", false)
 
 func increasePowerDrain(power):
 	is_rat = true

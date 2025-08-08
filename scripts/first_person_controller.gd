@@ -8,6 +8,8 @@ extends CharacterBody3D
 @onready var shoot_sfx: AudioStreamPlayer3D = $ShootSFX
 @onready var health: int = 90
 
+var is_reloading = false
+
 enum STATE {GROUNDED, AIR}
 var cur_state = STATE.GROUNDED
 
@@ -21,13 +23,15 @@ var totalAmmo = 3 #total ammo you can hold
 var ammoCapacity = 3 #how much ammo the shotgun can hold at one time
 var currentAmmo = 3 #how much ammo is currently in the gun
 
+var current_interact = null
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	SignalBus.connect("refillAmmo", refillAmmo)
 	SignalBus.connect("playerHit", take_damage)
-
+	SignalBus.connect("set_crank", crank)
+	SignalBus.connect("set_type", type)
 
 func _physics_process(delta: float) -> void:
 	#velocity -= transform.basis.z
@@ -36,18 +40,18 @@ func _physics_process(delta: float) -> void:
 	var input = Input.get_vector('left',"right","forward","back")
 	var movement_dir = transform.basis * Vector3(input.x, 0, input.y) * speed #makes sure the forward is the forward you are facing
 	
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and !is_reloading:
 		if currentAmmo > 0:
 			shoot()
 		else:
 			animation_tree.play_animation('click')
 			$DryFireSFX.play()
 	
-	if Input.is_action_pressed("interact"):
+	if Input.is_action_pressed("interact") and !is_reloading:
 		if face_ray_cast.is_colliding():
 			if face_ray_cast.get_collider().is_in_group('interact'):
 				face_ray_cast.get_collider().interact(delta)
-				
+	
 	
 	if ( face_ray_cast.is_colliding() and face_ray_cast.get_collider() != null 
 	and (face_ray_cast.get_collider().is_in_group('interact') or face_ray_cast.get_collider().is_in_group('single_interact'))):
@@ -57,7 +61,7 @@ func _physics_process(delta: float) -> void:
 		SignalBus.emit_signal("hideUI")
 				
 	
-	if Input.is_action_just_pressed("interact"):
+	if Input.is_action_just_pressed("interact") and !is_reloading:
 		if face_ray_cast.is_colliding():
 			if face_ray_cast.get_collider().is_in_group('single_interact'):
 				face_ray_cast.get_collider().single_interact()
@@ -137,14 +141,18 @@ func reload():
 	
 	animation_tree.play_animation('reload')
 
-func type():
-	animation_tree.play_animation('type')
+func type(state):
+	if state == true:
+		animation_tree.play_animation('type')
+	else:
+		animation_tree.play_animation('b2i')
 
-func crank():
-	animation_tree.play_animation('crank')
-	
-func b2i():
-	animation_tree.play_animation('b2i')
+func crank(state):
+	if state == true:
+		animation_tree.play_animation('crank')
+	else:
+		animation_tree.play_animation('b2i')
+
 
 func refillAmmo():
 	totalAmmo = ammoCapacity

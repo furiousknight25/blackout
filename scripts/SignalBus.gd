@@ -43,3 +43,7 @@ var stage : int = 1
 ### COMPUTER ###
 @warning_ignore("unused_signal") signal unpauseStage(stage)
 ################
+
+### PLAYA ###
+@warning_ignore("unused_signal") signal set_crank(state)
+@warning_ignore("unused_signal") signal set_type(state)

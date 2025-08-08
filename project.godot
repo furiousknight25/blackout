@@ -36,6 +36,7 @@ folder_colors={
 interact=""
 enemy=""
 single_interact=""
+generator=""
 
 [input]
 
