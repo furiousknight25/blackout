@@ -3491,7 +3491,7 @@ transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, 
 [node name="Reset2" type="Marker3D" parent="EnemyStuff"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.54874, 3.31501, 2.22824)
 
-[node name="Generator" parent="." groups=["interact"] instance=ExtResource("4_wedws")]
+[node name="Generator" parent="." instance=ExtResource("4_wedws")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.98113, 2.71602, 3.50799)
 
 [node name="Lights" type="Node" parent="Generator"]

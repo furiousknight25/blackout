@@ -16,18 +16,25 @@ func _on_generator_power_changed(current_power: Variant) -> void:
 	
 
 func flickerOn():
+	
 	var randint = randi_range(15,25) #gets a random integer between two numbers
 	for i in range(randint): #flickers a randint number of times
 		await awaitTimer() #wait for the timer to finish
 	for child in get_children():
-		child.light_energy = 10.0 #sets the light back to normal brightness
+		if on:
+			child.light_energy = 10.0
+		else:
+			child.light_energy = 0.0 #turns the lights off
 
 func flickerOff():
 	var randint = randi_range(25,35) #gets a random integer between two numbers
 	for i in range(randint): #flickers a randint number of times
 		await awaitTimer() #wait for the timer to finish
 	for child in get_children():
-		child.light_energy = 0.0 #turns the lights off
+		if on:
+			child.light_energy = 10.0
+		else:
+			child.light_energy = 0.0 #turns the lights off
 
 	
 func awaitTimer():
