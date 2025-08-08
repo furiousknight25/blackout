@@ -3,7 +3,6 @@ extends Node2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var play_button: TextureButton = $PlayButton
 @onready var coverup_rect: ColorRect = $coverupRect
-var transTween : Tween
 
 
 func _ready() -> void:
@@ -12,14 +11,16 @@ func _ready() -> void:
 
 
 func transition():
-	if transTween != null and !transTween.is_running():
-		transTween = get_tree().create_tween()
-		transTween.tween_property(coverup_rect, "modulate", Color.BLACK, 2.0)
-
-		await transTween.finished
+	if animation_player.current_animation != "FadeOut":
+		animation_player.play("FadeOut")
+		
+		await animation_player.animation_finished
 		get_tree().change_scene_to_file("res://scenes/intro_screen.tscn")
 
 
 func _on_play_button_button_up() -> void:
-	print("yuhh")
 	transition()
+
+
+func _on_quit_button_button_up() -> void:
+	get_tree().quit()

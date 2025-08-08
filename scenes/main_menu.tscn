@@ -1,10 +1,37 @@
-[gd_scene load_steps=9 format=3 uid="uid://baeq60k8137t"]
+[gd_scene load_steps=10 format=3 uid="uid://baeq60k8137t"]
 
 [ext_resource type="Script" uid="uid://b0q3xrxema8r8" path="res://main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://bn56nhnf4pqx3" path="res://assets/render3.png" id="2_wu84c"]
 [ext_resource type="Texture2D" uid="uid://cub8dpabtk318" path="res://assets/dead_grid.png" id="3_8ln24"]
 [ext_resource type="Texture2D" uid="uid://cg7r1adrf5se8" path="res://assets/Play.png" id="4_8ln24"]
 [ext_resource type="Texture2D" uid="uid://ckmof1xahdxnc" path="res://assets/Quit.png" id="5_rtw2f"]
+
+[sub_resource type="Animation" id="Animation_oa1go"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Render3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(574, 366)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("coverupRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_rtw2f"]
 resource_name = "Sway"
@@ -24,23 +51,26 @@ tracks/0/keys = {
 "values": [Vector2(574, 315), Vector2(574, 340)]
 }
 
-[sub_resource type="Animation" id="Animation_oa1go"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_8ln24"]
+resource_name = "FadeOut"
+length = 2.0
+step = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Render3:position")
+tracks/0/path = NodePath("coverupRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(574, 366)]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tbmy8"]
 _data = {
+&"FadeOut": SubResource("Animation_8ln24"),
 &"RESET": SubResource("Animation_oa1go"),
 &"Sway": SubResource("Animation_rtw2f")
 }
@@ -59,6 +89,7 @@ scale = Vector2(0.63, 0.63)
 texture = ExtResource("3_8ln24")
 
 [node name="coverupRect" type="ColorRect" parent="."]
+z_index = 2
 offset_right = 1152.0
 offset_bottom = 648.0
 mouse_filter = 1
@@ -72,7 +103,7 @@ offset_bottom = 280.0
 scale = Vector2(0.735, 0.735)
 texture_normal = ExtResource("4_8ln24")
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="QuitButton" type="TextureButton" parent="."]
 offset_left = 688.0
 offset_top = 264.0
 offset_right = 891.0
@@ -86,3 +117,4 @@ libraries = {
 }
 
 [connection signal="button_up" from="PlayButton" to="." method="_on_play_button_button_up"]
+[connection signal="button_up" from="QuitButton" to="." method="_on_quit_button_button_up"]
