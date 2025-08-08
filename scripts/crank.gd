@@ -7,6 +7,7 @@ var is_cranking : bool = false
 var last_rotation = Vector3.ZERO
 
 func _ready() -> void:
+	await get_tree().create_timer(.01).timeout
 	crank_sound.stream_paused = true
 	
 func _process(_delta: float) -> void:

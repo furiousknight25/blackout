@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://bcx63mqj80yes"]
+[gd_scene load_steps=60 format=4 uid="uid://bcx63mqj80yes"]
 
 [ext_resource type="Script" uid="uid://cvg1rlmx4awsr" path="res://scripts/first_person_controller.gd" id="1_sjy6i"]
 [ext_resource type="Script" uid="uid://co4o3n67mqa86" path="res://scripts/offset.gd" id="2_0yrm1"]
@@ -1758,29 +1758,38 @@ _data = {
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0yrm1"]
 animation = &"walk"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hi2ac"]
+animation = &"crank_loop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mphde"]
+animation = &"loop_type_on_computer"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2hyts"]
 animation = &"idle"
+
+[sub_resource type="AnimationNodeBlend3" id="AnimationNodeBlend3_kcr8u"]
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_vnnqw"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1vx6w"]
-graph_offset = Vector2(-550.38, 90.1871)
+graph_offset = Vector2(-200.605, 116.007)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_2hyts")
-nodes/Animation/position = Vector2(-80, 280)
+nodes/Animation/position = Vector2(-280, 320)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_0yrm1")
-"nodes/Animation 2/position" = Vector2(-80, 80)
+"nodes/Animation 2/position" = Vector2(-280, 120)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_hi2ac")
+"nodes/Animation 3/position" = Vector2(220, 40)
+"nodes/Animation 4/node" = SubResource("AnimationNodeAnimation_mphde")
+"nodes/Animation 4/position" = Vector2(160, 280)
+nodes/crank_type/node = SubResource("AnimationNodeBlend3_kcr8u")
+nodes/crank_type/position = Vector2(460, 100)
+nodes/output/position = Vector2(620, 120)
 nodes/walk_idle/node = SubResource("AnimationNodeBlend2_vnnqw")
-nodes/walk_idle/position = Vector2(100, 120)
-node_connections = [&"output", 0, &"walk_idle", &"walk_idle", 0, &"Animation", &"walk_idle", 1, &"Animation 2"]
+nodes/walk_idle/position = Vector2(-100, 160)
+node_connections = [&"crank_type", 0, &"Animation 3", &"crank_type", 1, &"walk_idle", &"crank_type", 2, &"Animation 4", &"output", 0, &"crank_type", &"walk_idle", 0, &"Animation", &"walk_idle", 1, &"Animation 2"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vnnqw"]
 animation = &"click_no_ammo"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1vx6w"]
-animation = &"crank_loop"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kbug8"]
-animation = &"loop_type_on_computer"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s0ca4"]
 animation = &"reload"
@@ -1795,6 +1804,7 @@ advance_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kbug8"]
+xfade_time = 0.1
 switch_mode = 2
 advance_mode = 2
 
@@ -1809,43 +1819,22 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kcr8u"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l4iwd"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2n2le"]
-xfade_time = 0.5
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_648jk"]
-break_loop_at_end = true
-reset = false
-switch_mode = 2
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_x6l86"]
 states/BlendTree/node = SubResource("AnimationNodeBlendTree_1vx6w")
 states/BlendTree/position = Vector2(677, 95)
 states/End/position = Vector2(880, 43)
-states/Start/position = Vector2(110, 140)
+states/Start/position = Vector2(69, 110)
 states/click_no_ammo/node = SubResource("AnimationNodeAnimation_vnnqw")
 states/click_no_ammo/position = Vector2(403, 183)
-states/crank_loop/node = SubResource("AnimationNodeAnimation_1vx6w")
-states/crank_loop/position = Vector2(408, 353)
-states/loop_type_on_computer/node = SubResource("AnimationNodeAnimation_kbug8")
-states/loop_type_on_computer/position = Vector2(403, 257)
 states/reload/node = SubResource("AnimationNodeAnimation_s0ca4")
-states/reload/position = Vector2(446, 34)
+states/reload/position = Vector2(390, 62)
 states/shoot/node = SubResource("AnimationNodeAnimation_epali")
 states/shoot/position = Vector2(390, 128)
-transitions = ["Start", "reload", SubResource("AnimationNodeStateMachineTransition_itui2"), "Start", "shoot", SubResource("AnimationNodeStateMachineTransition_hm6li"), "reload", "BlendTree", SubResource("AnimationNodeStateMachineTransition_kbug8"), "shoot", "BlendTree", SubResource("AnimationNodeStateMachineTransition_hi2ac"), "Start", "click_no_ammo", SubResource("AnimationNodeStateMachineTransition_1vx6w"), "click_no_ammo", "BlendTree", SubResource("AnimationNodeStateMachineTransition_mphde"), "Start", "loop_type_on_computer", SubResource("AnimationNodeStateMachineTransition_kcr8u"), "Start", "crank_loop", SubResource("AnimationNodeStateMachineTransition_l4iwd"), "loop_type_on_computer", "BlendTree", SubResource("AnimationNodeStateMachineTransition_2n2le"), "crank_loop", "BlendTree", SubResource("AnimationNodeStateMachineTransition_648jk")]
-graph_offset = Vector2(-148, 55)
+transitions = ["Start", "reload", SubResource("AnimationNodeStateMachineTransition_itui2"), "Start", "shoot", SubResource("AnimationNodeStateMachineTransition_hm6li"), "reload", "BlendTree", SubResource("AnimationNodeStateMachineTransition_kbug8"), "shoot", "BlendTree", SubResource("AnimationNodeStateMachineTransition_hi2ac"), "Start", "click_no_ammo", SubResource("AnimationNodeStateMachineTransition_1vx6w"), "click_no_ammo", "BlendTree", SubResource("AnimationNodeStateMachineTransition_mphde")]
+graph_offset = Vector2(30, 10)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tmpcr"]
-graph_offset = Vector2(-413.93, 24.1748)
+graph_offset = Vector2(-37, -74)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_x6l86")
 nodes/StateMachine/position = Vector2(100, 40)
 nodes/output/position = Vector2(560, 60)
@@ -1895,28 +1884,28 @@ bones/0/parent = -1
 bones/0/rest = Transform3D(-0.197906, 0.980221, 0.000714227, 0.000393391, -0.000649214, 1, 0.980221, 0.197906, -0.000257127, 0.0183, 0.00330605, -0.0691663)
 bones/0/enabled = true
 bones/0/position = Vector3(0.0183, 0.00330605, -0.0691663)
-bones/0/rotation = Quaternion(0.55552, 0.681895, 0.417485, -0.228305)
+bones/0/rotation = Quaternion(0.555844, 0.680375, 0.419475, -0.228402)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "upper_arm.L"
 bones/1/parent = 0
 bones/1/rest = Transform3D(0.0947925, -0.379653, 0.92026, -0.470743, 0.797442, 0.377474, -0.877163, -0.468987, -0.103127, 0.00658875, 0.181917, -0.0203846)
 bones/1/enabled = true
 bones/1/position = Vector3(0.00658875, 0.181917, -0.0203846)
-bones/1/rotation = Quaternion(-0.634316, 0.377971, -0.436139, 0.514358)
+bones/1/rotation = Quaternion(-0.635133, 0.378961, -0.433321, 0.515003)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "forearm.L"
 bones/2/parent = 1
 bones/2/rest = Transform3D(0.996715, 0.0800762, -0.012092, -0.0791006, 0.930607, -0.357372, -0.0173641, 0.357155, 0.933884, 3.19221e-09, 0.28851, -8.3819e-09)
 bones/2/enabled = true
 bones/2/position = Vector3(3.19221e-09, 0.28851, -8.3819e-09)
-bones/2/rotation = Quaternion(0.430034, -0.0355674, -0.408838, 0.80415)
+bones/2/rotation = Quaternion(0.428368, -0.0358966, -0.407265, 0.805821)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/name = "hand.L"
 bones/3/parent = 2
 bones/3/rest = Transform3D(0.998386, 0.0565102, -0.00568989, -0.0561542, 0.997157, 0.0502582, 0.00851381, -0.0498575, 0.99872, -1.00155e-08, 0.262836, 1.11759e-08)
 bones/3/enabled = true
 bones/3/position = Vector3(-1.00155e-08, 0.262836, 1.11759e-08)
-bones/3/rotation = Quaternion(0.196952, 0.0394985, 0.289641, 0.93582)
+bones/3/rotation = Quaternion(0.19787, 0.0387746, 0.287405, 0.936345)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "palm.01.L"
 bones/4/parent = 3
@@ -2098,21 +2087,21 @@ bones/29/parent = 28
 bones/29/rest = Transform3D(0.0947925, 0.379653, -0.92026, 0.470743, 0.797442, 0.377474, 0.877163, -0.468987, -0.103127, -0.00658875, 0.181917, -0.0203846)
 bones/29/enabled = true
 bones/29/position = Vector3(-0.00658875, 0.181917, -0.0203846)
-bones/29/rotation = Quaternion(-0.0786846, -0.642037, 0.243539, 0.722693)
+bones/29/rotation = Quaternion(-0.0853405, -0.641917, 0.244765, 0.72163)
 bones/29/scale = Vector3(1, 1, 1)
 bones/30/name = "forearm.R"
 bones/30/parent = 29
 bones/30/rest = Transform3D(0.996715, -0.0800762, 0.012092, 0.0791006, 0.930607, -0.357372, 0.0173641, 0.357155, 0.933884, -3.19221e-09, 0.28851, -8.3819e-09)
 bones/30/enabled = true
 bones/30/position = Vector3(-3.19221e-09, 0.28851, -8.3819e-09)
-bones/30/rotation = Quaternion(0.728291, 0.0419969, 0.636627, 0.250069)
+bones/30/rotation = Quaternion(0.725508, 0.0405233, 0.638206, 0.254341)
 bones/30/scale = Vector3(1, 1, 1)
 bones/31/name = "hand.R"
 bones/31/parent = 30
 bones/31/rest = Transform3D(0.998386, -0.0565115, 0.00569147, 0.0561554, 0.997156, 0.0502584, -0.00851546, -0.0498577, 0.99872, 1.00155e-08, 0.262836, 1.11759e-08)
 bones/31/enabled = true
 bones/31/position = Vector3(1.00155e-08, 0.262836, 1.11759e-08)
-bones/31/rotation = Quaternion(-0.331316, 0.0492953, -0.562959, 0.755564)
+bones/31/rotation = Quaternion(-0.331482, 0.0474429, -0.559294, 0.758327)
 bones/31/scale = Vector3(1, 1, 1)
 bones/32/name = "palm.01.R"
 bones/32/parent = 31
@@ -2286,15 +2275,15 @@ bones/56/name = "rIk"
 bones/56/parent = -1
 bones/56/rest = Transform3D(1, 0, 0, 0, 1, -1.99341e-07, 0, 1.99341e-07, 1, 0.702098, -0.339576, -0.0478779)
 bones/56/enabled = true
-bones/56/position = Vector3(-0.0824642, -0.163741, 0.360712)
-bones/56/rotation = Quaternion(0.238117, 0.696762, 0.601609, 0.309662)
+bones/56/position = Vector3(-0.0820306, -0.169177, 0.360737)
+bones/56/rotation = Quaternion(0.239599, 0.693842, 0.604988, 0.308488)
 bones/56/scale = Vector3(1, 1, 1)
 bones/57/name = "lIk"
 bones/57/parent = -1
 bones/57/rest = Transform3D(1, 0, 0, 0, 1, -1.99341e-07, 0, 1.99341e-07, 1, -0.679015, -0.339576, -0.0478779)
 bones/57/enabled = true
-bones/57/position = Vector3(-0.159838, -0.101383, 0.134596)
-bones/57/rotation = Quaternion(-0.172371, -0.555493, -0.813167, 0.0217978)
+bones/57/position = Vector3(-0.159476, -0.104416, 0.135237)
+bones/57/rotation = Quaternion(-0.172249, -0.551522, -0.815868, 0.0226586)
 bones/57/scale = Vector3(1, 1, 1)
 bones/58/name = "cam"
 bones/58/parent = -1
@@ -2307,8 +2296,8 @@ bones/59/name = "gun_2"
 bones/59/parent = -1
 bones/59/rest = Transform3D(1, 0, 2.38419e-07, 0, 1, 0, -2.38419e-07, 0, 1, -0.101215, -0.0723425, 0.675714)
 bones/59/enabled = true
-bones/59/position = Vector3(-0.114307, -0.166979, 0.229875)
-bones/59/rotation = Quaternion(0.0133074, 0.00276291, 4.95469e-05, 0.999908)
+bones/59/position = Vector3(-0.113896, -0.170615, 0.229875)
+bones/59/rotation = Quaternion(0.0181547, 0.00276294, 8.71819e-05, 0.999831)
 bones/59/scale = Vector3(1.1833, 1.1833, 1.1833)
 bones/60/name = "barrel_2"
 bones/60/parent = 59
@@ -2328,22 +2317,22 @@ bones/62/name = "shell_1_2"
 bones/62/parent = -1
 bones/62/rest = Transform3D(1, -7.10543e-15, 2.38419e-07, -7.10543e-15, 1, 5.96046e-08, -2.38419e-07, -5.96046e-08, 1, -0.413717, -0.119648, 0.731675)
 bones/62/enabled = true
-bones/62/position = Vector3(-0.0974525, -0.090096, 0.332455)
-bones/62/rotation = Quaternion(0.693818, -0.139737, -0.197829, 0.678199)
+bones/62/position = Vector3(-0.0970239, -0.0952366, 0.333193)
+bones/62/rotation = Quaternion(0.697101, -0.138759, -0.198488, 0.674832)
 bones/62/scale = Vector3(1.1833, 1.1833, 1.1833)
 bones/63/name = "shell_2_2"
 bones/63/parent = -1
 bones/63/rest = Transform3D(1, -7.10543e-15, 2.38419e-07, -7.10543e-15, 1, 5.96046e-08, -2.38419e-07, -5.96046e-08, 1, -0.480948, -0.119648, 0.731675)
 bones/63/enabled = true
-bones/63/position = Vector3(-0.13199, -0.0898247, 0.335358)
-bones/63/rotation = Quaternion(0.716825, -0.10291, -0.108334, 0.681054)
+bones/63/position = Vector3(-0.131562, -0.0950042, 0.3361)
+bones/63/rotation = Quaternion(0.720121, -0.102366, -0.108815, 0.677574)
 bones/63/scale = Vector3(1.1833, 1.1833, 1.1833)
 bones/64/name = "shell_3_2"
 bones/64/parent = -1
 bones/64/rest = Transform3D(1, -7.10543e-15, 2.38419e-07, -7.10543e-15, 1, 5.96046e-08, -2.38419e-07, -5.96046e-08, 1, -0.548004, -0.119648, 0.731675)
 bones/64/enabled = true
-bones/64/position = Vector3(-0.114633, -0.0603754, 0.33435)
-bones/64/rotation = Quaternion(0.743812, 0.00191029, -0.00199656, 0.668384)
+bones/64/position = Vector3(-0.114205, -0.0655457, 0.335377)
+bones/64/rotation = Quaternion(0.747043, 0.00193796, -0.00197105, 0.66477)
 bones/64/scale = Vector3(1.1833, 1.1833, 1.1833)
 
 [node name="barrel" type="MeshInstance3D" parent="Offset/Camera3D/Rig/fpsanimations/ArmRIG/Skeleton3D"]
@@ -2393,6 +2382,7 @@ unique_name_in_owner = true
 root_node = NodePath("%AnimationTree/../fpsanimations")
 tree_root = SubResource("AnimationNodeBlendTree_tmpcr")
 anim_player = NodePath("../fpsanimations/AnimationPlayer")
+parameters/StateMachine/BlendTree/crank_type/blend_amount = 0.0
 parameters/StateMachine/BlendTree/walk_idle/blend_amount = 0.0
 script = ExtResource("4_epali")
 
@@ -2493,9 +2483,9 @@ grow_vertical = 2
 
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
 
-[node name="FootStepSFX" type="AudioStreamPlayer3D" parent="."]
+[node name="FootStepSFX" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_0yrm1")
-volume_db = -10.0
+volume_db = -15.0
 max_polyphony = 10
 script = ExtResource("9_7lmeg")
 

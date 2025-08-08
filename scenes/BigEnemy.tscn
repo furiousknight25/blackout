@@ -116,14 +116,18 @@ mesh = SubResource("CapsuleMesh_utvuj")
 [node name="Crouch" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_vyard")
 volume_db = 10.0
+unit_size = 20.0
 
 [node name="FootSteps" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamRandomizer_qpuqj")
-volume_db = 10.0
+attenuation_model = 1
+volume_db = -6.0
+unit_size = 5.0
 max_polyphony = 10
 
 [node name="FootStepFreq" type="Timer" parent="FootSteps"]
 wait_time = 0.5
+autostart = true
 
 [node name="CrawlOver" type="Area3D" parent="."]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)

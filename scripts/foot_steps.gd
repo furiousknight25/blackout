@@ -1,4 +1,4 @@
-extends AudioStreamPlayer3D
+extends AudioStreamPlayer
 
 @onready var parent: CharacterBody3D = $".."
 var played = false

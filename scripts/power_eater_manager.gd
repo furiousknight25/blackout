@@ -15,9 +15,6 @@ var progressSpot : float = 0.5 #this will stop in the middle of the path for the
 var paused: bool = true
 
 func _ready() -> void:
-	
-	
-	followPath = get_node("Path3D").get_node("PathFollow3D")
 	spawn_timer.wait_time = timeToSpawn
 	spawn_timer.start()
 	
@@ -34,7 +31,7 @@ func spawnPowerEater() -> void:
 		followPath.add_child(newPowerEater)
 		
 		moveTween = get_tree().create_tween()
-		moveTween.tween_property(followPath, "progress_ratio", progressSpot, progressSpot / 0.5)
+		moveTween.tween_property(followPath, "progress_ratio", progressSpot, progressSpot)
 		
 		await moveTween.finished
 		SignalBus.emit_signal("attackGenerator")
@@ -54,7 +51,7 @@ func getMaxProgress() -> float:
 
 
 func selectFollowPath():
-	#followPath = followPaths[randi_range(0, followPaths.size() - 1)]
+	followPath = followPaths[randi_range(0, followPaths.size() - 1)]
 	
 	if followPath.get_children() == []:
 		spawnPowerEater()
@@ -68,6 +65,7 @@ func unpause(stage : int):
 		paused = true
 	elif stage == 2:
 		paused = false
+		spawnPowerEater()
 	elif stage == 3:
 		paused = false
 	elif stage == 4:

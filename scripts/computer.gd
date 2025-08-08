@@ -39,6 +39,7 @@ func _input(event: InputEvent) -> void:
 			keysPressed = keysPressed + char(event.physical_keycode)
 			checkForMatch()
 			resetKeys()
+			SignalBus.emit_signal("set_type", true)
 
 
 func resetKeys():
@@ -46,7 +47,7 @@ func resetKeys():
 		keysPressed = ""
 
 
-func checkForMatch(): 
+func checkForMatch():
 	updateColoration()
 	if keysPressed == randNumString:
 		progress_bar.value = clamp(progress_bar.value + percentIncrease, 0, 100)
@@ -85,9 +86,9 @@ func updateColoration() -> void:
 func showUI():
 	rich_text_label.visible = true
 
-
 func hideUI():
 	rich_text_label.visible = false
+	SignalBus.emit_signal("set_type", false)
 
 func radioFinished():
 	radio_is_finished = true

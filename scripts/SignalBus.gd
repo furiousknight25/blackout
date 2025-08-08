@@ -75,3 +75,7 @@ var stage : int = 1
 #NOTE: Connects to radio, computer, enemy, powerEaterManager, generator
 @warning_ignore("unused_signal") signal unpauseStage(stage)
 ################
+
+### PLAYA ###
+@warning_ignore("unused_signal") signal set_crank(state)
+@warning_ignore("unused_signal") signal set_type(state)
