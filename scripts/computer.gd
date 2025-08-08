@@ -17,7 +17,8 @@ func interact(delta : float):
 		progress_bar.value += percentIncrease
 		currentIncrementTime = 0
 	elif progress_bar.value >= 100:
-		SignalBus.emit_signal("computerFinished")
+		SignalBus.stage += 1
+		SignalBus.emit_signal("nextStage", SignalBus.stage)
 		paused = true
 		progress_bar.value = 0
 

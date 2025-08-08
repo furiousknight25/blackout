@@ -65,8 +65,16 @@ var character_index = 0
 var current_script : Array = first_night
 var current_line : String = ""
 
+var playing : bool
+var skipping: bool
+
 @onready var label_3d: Label3D = $Label3D
 @onready var dialogue_timer: Timer = $DialogueTimer
+
+
+## TODO: Fix bug where clicking rapidly causes the text to not go to the next line but also not
+##       show the rest of the line
+
 
 func _ready() -> void:
 	setup.call_deferred()
@@ -76,34 +84,57 @@ func setup():
 	await get_tree().physics_frame
 	
 	# wait a moment before starting
-	await get_tree().create_timer(3.0).timeout
+	await get_tree().create_timer(2.0).timeout
 	dialogue_timer.start()
 	get_next_line()
 
 func single_interact():
-	# TODO: skip dialogue when interacting with radio
-	get_next_line()
+	if skipping == true:
+		return
+	
+	if not playing:
+		get_next_line()
+	elif playing:
+		skipping = true
+		await get_tree().create_timer(0.05).timeout
+		label_3d.text = current_line
+		skipping = false
+		get_next_line()
+		
 
 func get_next_line():
+	# break loop if the player is skipping
+	if skipping == true:
+		return
+		
+	line_index += 1
+	
 	if line_index < current_script.size():
 		current_line = current_script.get(line_index)
+		playing = true
+		
 		display_next_character()
-		line_index += 1
 	else:
 		end_dialogue()
 
-
 func display_next_character():
+	# break loop if the player is skipping
+	if skipping == true:
+		character_index = 0
+		return
+	
 	if character_index <= current_line.length():
 		label_3d.text = current_line.left(character_index)
 		await dialogue_timer.timeout
 		character_index += 1
 		display_next_character()
 	else:
+		playing = false
 		character_index = 0
 
 func end_dialogue():
-	SignalBus.emit_signal("dialogueEnded")
+	label_3d.text = ""
+	SignalBus.emit_signal("unpauseStage", SignalBus.stage)
 
 func start_new_dialogue():
 	line_index = 0

@@ -36,6 +36,7 @@ script = ExtResource("1_y83x7")
 
 [node name="DialogueTimer" type="Timer" parent="."]
 wait_time = 0.05
+ignore_time_scale = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00291443, 0.0198212, 0.0224609)

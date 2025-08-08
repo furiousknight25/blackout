@@ -207,6 +207,7 @@ omni_attenuation = 1.404
 
 [node name="Player" parent="." instance=ExtResource("2_gt4fr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.06788, 3.64809, 2.83942)
+visible = false
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.96201, 0)

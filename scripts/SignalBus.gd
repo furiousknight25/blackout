@@ -1,5 +1,7 @@
 extends Node
 
+var stage : int = 1
+
 ### GENERATOR ###
 @warning_ignore("unused_signal") signal increasePowerDrain(drainAmount : int)
 @warning_ignore("unused_signal") signal decreasePowerDrain(drainAmount : int)
@@ -29,9 +31,9 @@ extends Node
 ### GAME STATE ###
 @warning_ignore("unused_signal") signal lostGame
 @warning_ignore("unused_signal") signal wonGame
-@warning_ignore("unused_signal") signal computerFinished
+@warning_ignore("unused_signal") signal nextStage(stage)
 ##################
 
 ### RADIO ###
-@warning_ignore("unused_signal") signal dialogueEnded
+@warning_ignore("unused_signal") signal unpauseStage(stage)
 #############

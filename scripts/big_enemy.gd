@@ -5,8 +5,9 @@ var movement_speed: float = 1.0
 var movement_speed_modifier : float = 1.0
 var light_speed_modifier : float = 1.0
 var has_mouse: bool = false
-
+var paused: bool = true
 var spawn_probability = 3
+
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 @onready var player
@@ -22,6 +23,11 @@ var state = States.RESET
 func _ready():
 	SignalBus.connect("generatorLow", generatorLow)
 	SignalBus.connect("generatorHigh", generatorHigh)
+	SignalBus.connect("unpauseStage", unpause)
+	SignalBus.connect("nextStage", pause)
+	
+	visible = false
+	
 	var main = get_tree().root.get_node("Node3D")
 	player = main.get_node("Player")
 	if name == "BigEnemy1":
@@ -34,6 +40,7 @@ func _ready():
 	navigation_agent_3d.movement_target = reset_point
 
 func _physics_process(_delta):
+
 	
 	match state:
 		States.RESET:
@@ -55,6 +62,11 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func wait():
+	if paused:
+		spawn_probability = 0
+	else:
+		spawn_probability = 3
+	
 	movement_speed_modifier = 0.0
 	await get_tree().create_timer(3.0).timeout
 	
@@ -103,3 +115,40 @@ func generatorLow():
 func generatorHigh():
 	spawn_probability = 3
 	light_speed_modifier = 1.0
+
+
+func pause(stage : int):
+	reset()
+	visible = false
+	paused = true
+
+func unpause(stage: int):
+	if stage == 1:
+		if name == "BigEnemy1":
+			print('enemy 1 unpaused')
+			visible = true
+			paused = false
+		elif name == "BigEnemy2":
+			print('enemy 2 not unpaused')
+			visible = false
+			paused = true
+		else:
+			push_error("One of the enemies is not named properly:\n Rename to either BigEnemy1 or BigEnemy2")
+	elif stage == 2:
+		if name == "BigEnemy1":
+			visible = true
+			paused = false
+		elif name == "BigEnemy2":
+			visible = false
+			paused = true
+		else:
+			push_error("One of the enemies is not named properly:\n Rename to either BigEnemy1 or BigEnemy2")
+	elif stage == 3:
+		if name == "BigEnemy1":
+			visible = true
+			paused = false
+		elif name == "BigEnemy2":
+			visible = false
+			paused = true
+		else:
+			push_error("One of the enemies is not named properly:\n Rename to either BigEnemy1 or BigEnemy2")
