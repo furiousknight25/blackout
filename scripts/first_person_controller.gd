@@ -89,7 +89,7 @@ func take_damage():
 	health -= 30
 	if health <=0:
 		SignalBus.emit_signal("lostGame")
-		self.queue_free()
+		
 
 func sv_airaccelerate(movement_dir, delta):
 	var air_strength = 3 
