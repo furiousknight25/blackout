@@ -3,6 +3,9 @@ extends CharacterBody3D
 @export var powerDrainAmount : int = 5
 @export var maxHealth : int = 1
 
+@onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
+@onready var meshes: Node3D = $Meshes
+
 var currentHealth : int = maxHealth
 var attacking : bool = false
 
@@ -27,8 +30,12 @@ func take_damage(damage : int) -> void:
 
 
 func die() -> void: #rip bozo
+	gpu_particles_3d.emitting = true
+	meshes.hide()
 	SignalBus.emit_signal("decreasePowerDrain", powerDrainAmount)
 	SignalBus.emit_signal("resetSpawnTimer")
+	
+	await get_tree().create_timer(gpu_particles_3d.lifetime).timeout
 	self.queue_free()
 
 
