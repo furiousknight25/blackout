@@ -5,10 +5,6 @@
 [ext_resource type="Animation" uid="uid://bdw0x6aowm03m" path="res://assets/ratanims/chew.res" id="3_0xdo4"]
 [ext_resource type="Animation" uid="uid://c4fehyn3vt1yo" path="res://assets/ratanims/runnning.res" id="4_rqkqj"]
 [ext_resource type="AudioStream" uid="uid://cti1irq1yuctf" path="res://assets/sounds/Rat_Running_SFX_01.wav" id="6_jtutg"]
-[gd_scene load_steps=10 format=3 uid="uid://t61g0ki4ru3t"]
-
-[ext_resource type="Script" uid="uid://cikd7h66f25vi" path="res://scripts/power_eater.gd" id="1_f12um"]
-[ext_resource type="PackedScene" uid="uid://coq8u3n6g8fpp" path="res://scenes/spark_effect.tscn" id="2_jr2ux"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o53h7"]
 size = Vector3(0.279297, 0.126953, 0.801758)
@@ -4849,6 +4845,3 @@ max_polyphony = 3
 [node name="Run" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_jtutg")
 autoplay = true
-[node name="SparkEffect" parent="." instance=ExtResource("2_jr2ux")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.03409e-08, 0, 0.461446)
-emitting = false

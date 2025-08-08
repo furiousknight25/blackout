@@ -1,15 +1,48 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxepa5s7n3dbw"]
+[gd_scene load_steps=4 format=3 uid="uid://cxepa5s7n3dbw"]
 
 [ext_resource type="Script" uid="uid://dejvmjrlbg2v4" path="res://scripts/power_eater_manager.gd" id="1_f4byr"]
+
+[sub_resource type="Curve3D" id="Curve3D_f4byr"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.283416, 0, 1, 0, 0, 0, 0, 0, 0, 0.198617, 0, 2, 0, 0, 0, 0, 0, 0, -0.183958, 0, 3),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_f4byr"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 1.08
+radial_segments = 8
 
 [node name="PowerEaterManager" type="Node3D" node_paths=PackedStringArray("followPaths")]
 script = ExtResource("1_f4byr")
 timeToSpawn = 3.0
 followPaths = [null]
 
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00158286, 0.00315154, -0.000250816)
+curve = SubResource("Curve3D_f4byr")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-0.962084, 0, 0.272672, 0, 0.999999, 0, -0.27267, 0, -0.962093, 0, 0, 0)
+
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 15.0
-one_shot = true
 autostart = true
+
+[node name="TempMeshes" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TempMeshes"]
+transform = Transform3D(0.965926, 0.258819, -3.394e-08, -3.55271e-15, 1.31134e-07, 1, 0.258819, -0.965926, 1.26666e-07, -0.142671, -0.165436, 0.531417)
+mesh = SubResource("CylinderMesh_f4byr")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="TempMeshes"]
+transform = Transform3D(0.866026, -0.5, -3.394e-08, 9.27259e-08, 9.27258e-08, 1, -0.5, -0.866025, 1.26666e-07, -0.0292845, -0.165436, 1.45939)
+mesh = SubResource("CylinderMesh_f4byr")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="TempMeshes"]
+transform = Transform3D(0.927217, 0.374526, -3.394e-08, -1.59699e-08, 1.30158e-07, 1, 0.374526, -0.927216, 1.26666e-07, 0.0236807, -0.165436, 2.38721)
+mesh = SubResource("CylinderMesh_f4byr")
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
