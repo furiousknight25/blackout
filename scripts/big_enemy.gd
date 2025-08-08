@@ -10,7 +10,10 @@ var spawn_probability = 3
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 @onready var player
+@onready var crawl_over_box: Area3D = $CrawlOver
 @onready var reset_point
+@onready var crouch_sfx: AudioStreamPlayer3D = $Crouch
+@onready var foot_step_freq: Timer = $FootSteps/FootStepFreq
 
 enum States { WAIT, START, RESET, CROUCH, ATTACK }
 
@@ -18,6 +21,8 @@ var state = States.RESET
 
 @onready var target: Node3D
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
+
+signal hit_box
 
 func _ready():
 	SignalBus.connect("generatorLow", generatorLow)
@@ -35,11 +40,17 @@ func _ready():
 
 func _physics_process(_delta):
 	
+	if velocity.length() > 4:
+		foot_step_freq.paused = false
+	else:
+		foot_step_freq.paused = true
+		
 	match state:
 		States.RESET:
 			if navigation_agent.is_navigation_finished():
 				state = States.WAIT
 				wait()
+				crawl_over_box.set_deferred("monitorable", true)
 		States.WAIT:
 			pass
 		States.START:
@@ -56,7 +67,7 @@ func _physics_process(_delta):
 
 func wait():
 	movement_speed_modifier = 0.0
-	await get_tree().create_timer(3.0).timeout
+	await get_tree().create_timer(6.0).timeout
 	
 	if randi_range(0, 9) < spawn_probability:
 		spawn_probability = 3
@@ -69,7 +80,8 @@ func start():
 	SignalBus.emit_signal("enemyStarting")
 	movement_speed_modifier = 1.0
 	navigation_agent.movement_target = player
-	await get_tree().create_timer(6.0).timeout
+	await self.hit_box #CUSTOM AWAIT
+	
 	state = States.CROUCH
 	crouch()
 
@@ -103,3 +115,8 @@ func generatorLow():
 func generatorHigh():
 	spawn_probability = 3
 	light_speed_modifier = 1.0
+
+func _on_crawl_over_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
+	print(body)
+	crawl_over_box.set_deferred("monitorable", false)
+	hit_box.emit()

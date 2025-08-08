@@ -5,9 +5,10 @@ extends Node
 @onready var crank_mesh: MeshInstance3D = $Cube_059/Sphere_003
 @onready var idle_shutdown: AudioStreamPlayer3D = $IdleShutdown
 @onready var idle_start: AudioStreamPlayer3D = $IdleStart
+@onready var scary_music: AudioStreamPlayer = $ScaryMusic
 
 
-var total_power = 10
+var total_power = 100
 var delta_power_decrease = -5
 var delta_power_increase = 20
 var timer : Timer
@@ -43,6 +44,7 @@ func _on_timer_timeout(): #reducing power on here
 	
 	if total_power > 0 and is_gen_off == true:
 		is_gen_off = false
+		scary_music.stop()
 		idle_start.play()
 	
 	# emit signal if gen crosses 25% threshold
