@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="basic diverting"
+run/main_scene="uid://dc35dw7c62462"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/icon.svg"
 

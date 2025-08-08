@@ -1,11 +1,13 @@
-[gd_scene load_steps=16 format=4 uid="uid://matvsk3n3cn0"]
+[gd_scene load_steps=18 format=4 uid="uid://matvsk3n3cn0"]
 
 [ext_resource type="Script" uid="uid://b7n5cr3qkqlbv" path="res://scripts/generator.gd" id="1_5yxne"]
 [ext_resource type="AudioStream" uid="uid://c5oosbd4wde18" path="res://assets/sounds/Generator_Idle_Loop_SFX_01.mp3" id="2_ef8yp"]
 [ext_resource type="AudioStream" uid="uid://dmcdlr6s6ckxc" path="res://assets/sounds/Generator_Startup_SFX_01.wav" id="3_rqoq6"]
 [ext_resource type="AudioStream" uid="uid://clygiqjss6tw4" path="res://assets/sounds/Generator_Crank_Loop_SFX_01.wav" id="4_kgmdj"]
 [ext_resource type="PackedScene" uid="uid://cufyt808u7jv1" path="res://scenes/ui_popup.tscn" id="4_rqoq6"]
+[ext_resource type="AudioStream" uid="uid://dsavcbwkq05g0" path="res://assets/sounds/Generator_Shutdown_SFX_02.wav" id="4_ychy0"]
 [ext_resource type="Texture2D" uid="uid://b871e6b1ey466" path="res://assets/sounds/Generator_PE-KJ-T180-AU-B-Side-View-for-web-2.png" id="5_4pjfl"]
+[ext_resource type="Script" uid="uid://nn328dnpd4d8" path="res://scripts/crank.gd" id="6_ionxw"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_2isyr"]
 viewport_path = NodePath("Sprite3D/SubViewport")
@@ -163,9 +165,11 @@ stream = ExtResource("3_rqoq6")
 volume_db = -20.0
 autoplay = true
 
-[node name="CrankSound" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4_kgmdj")
-volume_db = -5.0
+[node name="IdleShutdown" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.931898, 0.627607)
+stream = ExtResource("4_ychy0")
+volume_db = -20.0
+autoplay = true
 
 [node name="UI Popup" parent="." instance=ExtResource("4_rqoq6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.533, 0.635)
@@ -184,5 +188,17 @@ skeleton = NodePath("")
 transform = Transform3D(-1.91241e-08, -0.412269, -0.146451, 0, 0.146451, -0.412269, 0.437508, -1.80209e-08, -6.40158e-09, -0.168927, 0.154026, -0.241582)
 mesh = SubResource("ArrayMesh_dgtyl")
 skeleton = NodePath("")
+script = ExtResource("6_ionxw")
+
+[node name="CrankSound" type="AudioStreamPlayer3D" parent="Cube_059/Sphere_003"]
+transform = Transform3D(8.97158e-08, 6.1434e-14, -2.05245, 1.93405, 0.687034, 8.45399e-08, 0.687034, -1.93405, 3.00313e-08, 0.977228, -0.770103, 0.901794)
+stream = ExtResource("4_kgmdj")
+volume_db = -5.0
+autoplay = true
+
+[node name="Timer" type="Timer" parent="Cube_059/Sphere_003"]
+wait_time = 0.1
+one_shot = true
 
 [connection signal="finished" from="IdleStart" to="IdleLoopSFX" method="play"]
+[connection signal="timeout" from="Cube_059/Sphere_003/Timer" to="Cube_059/Sphere_003" method="_on_timer_timeout"]

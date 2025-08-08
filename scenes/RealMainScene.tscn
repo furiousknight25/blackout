@@ -3465,7 +3465,7 @@ transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -12.2044, 2.49839, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.54874, 3.31501, 2.22824)
 
 [node name="Generator" parent="." groups=["interact"] instance=ExtResource("4_wedws")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.98113, 2.32223, 3.5731)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.98113, 2.71602, 3.50799)
 
 [node name="Lights" type="Node" parent="Generator"]
 script = ExtResource("5_5mli4")
@@ -3513,7 +3513,7 @@ omni_range = 7.0659
 omni_attenuation = 1.404
 
 [node name="PowerEaterManager" parent="." instance=ExtResource("6_ky7ay")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.98636, 1.89579, 7.08039)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.68881, 2.49636, 6.70209)
 
 [node name="ShellBox" parent="." instance=ExtResource("7_s7th5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.466841, 3.38579, 5.6514)
