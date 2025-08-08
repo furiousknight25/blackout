@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://matvsk3n3cn0"]
+[gd_scene load_steps=19 format=4 uid="uid://matvsk3n3cn0"]
 
 [ext_resource type="Script" uid="uid://b7n5cr3qkqlbv" path="res://scripts/generator.gd" id="1_5yxne"]
 [ext_resource type="AudioStream" uid="uid://c5oosbd4wde18" path="res://assets/sounds/Generator_Idle_Loop_SFX_01.mp3" id="2_ef8yp"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cufyt808u7jv1" path="res://scenes/ui_popup.tscn" id="4_rqoq6"]
 [ext_resource type="AudioStream" uid="uid://dsavcbwkq05g0" path="res://assets/sounds/Generator_Shutdown_SFX_02.wav" id="4_ychy0"]
 [ext_resource type="Texture2D" uid="uid://b871e6b1ey466" path="res://assets/sounds/Generator_PE-KJ-T180-AU-B-Side-View-for-web-2.png" id="5_4pjfl"]
+[ext_resource type="AudioStream" uid="uid://cno8rrqfcuy3a" path="res://assets/sounds/blackout horror game.mp3" id="5_g6cet"]
 [ext_resource type="Script" uid="uid://nn328dnpd4d8" path="res://scripts/crank.gd" id="6_ionxw"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_2isyr"]
@@ -169,7 +170,9 @@ autoplay = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.931898, 0.627607)
 stream = ExtResource("4_ychy0")
 volume_db = -20.0
-autoplay = true
+
+[node name="ScaryMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_g6cet")
 
 [node name="UI Popup" parent="." instance=ExtResource("4_rqoq6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.533, 0.635)
@@ -201,4 +204,5 @@ wait_time = 0.1
 one_shot = true
 
 [connection signal="finished" from="IdleStart" to="IdleLoopSFX" method="play"]
+[connection signal="finished" from="IdleShutdown" to="ScaryMusic" method="play"]
 [connection signal="timeout" from="Cube_059/Sphere_003/Timer" to="Cube_059/Sphere_003" method="_on_timer_timeout"]
