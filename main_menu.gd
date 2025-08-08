@@ -15,7 +15,8 @@ func transition():
 		animation_player.play("FadeOut")
 		
 		await animation_player.animation_finished
-		get_tree().change_scene_to_file("res://scenes/intro_screen.tscn")
+		get_tree().change_scene_to_file.bind("res://scenes/intro_screen.tscn").call_deferred()
+		#get_tree().change_scene_to_file("res://scenes/intro_screen.tscn")
 
 
 func _on_play_button_button_up() -> void:

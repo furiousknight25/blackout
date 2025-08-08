@@ -38,6 +38,7 @@ func _ready() -> void:
 	SignalBus.connect("decreasePowerDrain", decreasePowerDrain)
 	SignalBus.connect("unpauseStage", unpause)
 	SignalBus.connect("nextStage", pause)
+	SignalBus.connect('lostGame', die)
 
 func _on_timer_timeout(): #reducing power on here
 	
@@ -104,13 +105,11 @@ func decreasePowerDrain(power):
 func pause(stage : int):
 	is_paused = true
 	total_power = 100
-	
-	if stage == 1:
-		pass
-	elif stage == 2:
-		pass
-	elif stage == 3:
-		pass
+
 
 func unpause(_stage : int):
 	is_paused = false
+
+func die():
+	is_paused = true
+	total_power = 100
