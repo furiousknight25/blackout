@@ -30,4 +30,8 @@ extends Node
 @warning_ignore("unused_signal") signal lostGame
 @warning_ignore("unused_signal") signal wonGame
 @warning_ignore("unused_signal") signal computerFinished
-##############
+##################
+
+### RADIO ###
+@warning_ignore("unused_signal") signal dialogueEnded
+#############

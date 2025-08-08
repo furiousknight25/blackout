@@ -98,7 +98,7 @@ func take_damage( damage : int ):
 
 func generatorLow():
 	spawn_probability = 6
-	light_speed_modifier = 2.0
+	light_speed_modifier = 1.5
 
 func generatorHigh():
 	spawn_probability = 3
