@@ -15,7 +15,6 @@ var progressSpot : float = 0.5 #this will stop in the middle of the path for the
 var paused: bool = true
 
 func _ready() -> void:
-	paused = false
 	spawn_timer.wait_time = timeToSpawn
 	spawn_timer.start()
 	
