@@ -20,7 +20,7 @@ func flickerOn():
 	for i in range(randint): #flickers a randint number of times
 		await awaitTimer() #wait for the timer to finish
 	for child in get_children():
-		child.light_energy = 1.0 #sets the light back to normal brightness
+		child.light_energy = 10.0 #sets the light back to normal brightness
 
 func flickerOff():
 	var randint = randi_range(25,35) #gets a random integer between two numbers

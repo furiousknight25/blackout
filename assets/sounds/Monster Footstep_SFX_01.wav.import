@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c2k8quyh1os6f"
+path="res://.godot/imported/Monster Footstep_SFX_01.wav-c0047b02a08e3a19dbefc75e9a2cf9a5.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Monster Footstep_SFX_01.wav"
+dest_files=["res://.godot/imported/Monster Footstep_SFX_01.wav-c0047b02a08e3a19dbefc75e9a2cf9a5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dhsfo7hl6377q"
+path="res://.godot/imported/Monster Crouching_SFX_01.wav-52996bdf4d7ef0183c8d0029a3559038.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Monster Crouching_SFX_01.wav"
+dest_files=["res://.godot/imported/Monster Crouching_SFX_01.wav-52996bdf4d7ef0183c8d0029a3559038.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
