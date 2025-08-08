@@ -41,6 +41,7 @@ func _physics_process(delta: float) -> void:
 			shoot()
 		else:
 			animation_tree.play_animation('click')
+			$DryFireSFX.play()
 	
 	if Input.is_action_pressed("interact"):
 		if face_ray_cast.is_colliding():
@@ -114,8 +115,6 @@ func shoot():
 
 	currentAmmo -= 1
 	totalAmmo -= 1
-	
-	
 	
 	shoot_sfx.play()
 	for i : RayCast3D in gun_ray_casts:

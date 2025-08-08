@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=4 uid="uid://fw7c4slsj38b"]
+[gd_scene load_steps=19 format=4 uid="uid://fw7c4slsj38b"]
 
 [ext_resource type="Script" uid="uid://dvpto13gvlu6u" path="res://scripts/computer.gd" id="1_om4aa"]
 [ext_resource type="Texture2D" uid="uid://bcsr7ju635igs" path="res://assets/room2_istockphoto-1461323034-612x612.jpg" id="2_8pqrt"]
 [ext_resource type="Texture2D" uid="uid://bk53hwhkd36ln" path="res://assets/sounds/Computer_keyboard.png" id="3_tjrug"]
 [ext_resource type="FontFile" uid="uid://1k7oe6a13b8l" path="res://assets/BadPixelFont.ttf" id="4_tjrug"]
 [ext_resource type="Texture2D" uid="uid://hg501qjmfo5b" path="res://assets/sounds/Computer_computer.png" id="4_uiul0"]
+[ext_resource type="AudioStream" uid="uid://b4kt53ltns63b" path="res://assets/sounds/Computer Turns On Facility_SFX_01.wav" id="6_ruko6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ougvw"]
 resource_name = "Material"
@@ -222,3 +223,6 @@ bbcode_enabled = true
 text = "0123"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="FinishSFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_ruko6")

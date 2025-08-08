@@ -102,6 +102,7 @@ func attack():
 	movement_speed_modifier = 6.0
 
 func take_damage( damage : int ):
+	$HurtSFX.play()
 	health -= damage
 	if health <= 0:
 		state = States.RESET

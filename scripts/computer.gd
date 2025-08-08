@@ -42,6 +42,9 @@ func checkForMatch():
 	if keysPressed == randNumString:
 		progress_bar.value = clamp(progress_bar.value + percentIncrease, 0, 100)
 		randomizeNumString()
+		
+		if progress_bar.value == 100:
+			$FinishSFX.play()
 
 
 func randomizeNumString():
