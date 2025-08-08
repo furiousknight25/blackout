@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://dbyop8jxigned"
+path.s3tc="res://.godot/imported/RoomV1_radio.png-a8bcc856323659c2fbf6dd0b949c51f8.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "e5fd4ca56e91be36a9de7e386be44973"
+}
+
+[deps]
+
+source_file="res://assets/RoomV1_radio.png"
+dest_files=["res://.godot/imported/RoomV1_radio.png-a8bcc856323659c2fbf6dd0b949c51f8.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0
