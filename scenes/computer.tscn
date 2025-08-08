@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://fw7c4slsj38b"]
+[gd_scene load_steps=10 format=4 uid="uid://fw7c4slsj38b"]
 
 [ext_resource type="Script" uid="uid://dvpto13gvlu6u" path="res://scripts/computer.gd" id="1_om4aa"]
 [ext_resource type="Texture2D" uid="uid://bcsr7ju635igs" path="res://assets/room2_istockphoto-1461323034-612x612.jpg" id="2_8pqrt"]
-[ext_resource type="PackedScene" uid="uid://cufyt808u7jv1" path="res://scenes/ui_popup.tscn" id="3_7ikar"]
+[ext_resource type="FontFile" uid="uid://1k7oe6a13b8l" path="res://assets/BadPixelFont.ttf" id="4_tjrug"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8pqrt"]
 viewport_path = NodePath("Sprite3D/SubViewport")
@@ -50,12 +50,19 @@ shadow_mesh = SubResource("ArrayMesh_kghmt")
 [sub_resource type="BoxShape3D" id="BoxShape3D_tjrug"]
 size = Vector3(1.45313, 1, 1.39362)
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_tjrug"]
+viewport_path = NodePath("Numbers/SubViewport")
+
 [node name="Computer" type="StaticBody3D" groups=["interact"]]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_om4aa")
 
+[node name="UseTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.101, 0, 0, 0, -4.41485e-09, -0.101, 0, 0.101, -4.41485e-09, 0, 0.431125, -0.37212)
+transform = Transform3D(0.101, 0, 0, 0, -4.41485e-09, -0.101, 0, 0.101, -4.41485e-09, 0, 0.399192, -0.230785)
 texture = SubResource("ViewportTexture_8pqrt")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D"]
@@ -75,5 +82,29 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15274)
 shape = SubResource("BoxShape3D_tjrug")
 
-[node name="UI Popup" parent="." instance=ExtResource("3_7ikar")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.447885, -0.103774)
+[node name="NumLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.430344, -0.574721)
+visible = false
+texture_filter = 2
+text = "0123"
+font = ExtResource("4_tjrug")
+
+[node name="Numbers" type="Sprite3D" parent="."]
+transform = Transform3D(0.23, 0, 0, 0, -1.00536e-08, 0.23, 0, -0.23, -1.00536e-08, 0, 0.399192, -0.469349)
+texture = SubResource("ViewportTexture_tjrug")
+
+[node name="SubViewport" type="SubViewport" parent="Numbers"]
+transparent_bg = true
+size = Vector2i(648, 648)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Numbers/SubViewport"]
+texture_filter = 1
+offset_right = 100.0
+offset_bottom = 100.0
+scale = Vector2(6.48, 6.48)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_tjrug")
+bbcode_enabled = true
+text = "0123"
+horizontal_alignment = 1
+vertical_alignment = 1
