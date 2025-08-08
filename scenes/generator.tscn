@@ -128,9 +128,9 @@ shadow_mesh = SubResource("ArrayMesh_2xep8")
 script = ExtResource("1_5yxne")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.380157, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0263672, 0.380157, -0.0471191)
 visible = false
-size = Vector3(1, 1.76031, 1)
+size = Vector3(1.05273, 1.76031, 0.905762)
 
 [node name="Decal" type="Decal" parent="."]
 
@@ -203,6 +203,9 @@ autoplay = true
 wait_time = 0.1
 one_shot = true
 
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="finished" from="IdleStart" to="IdleLoopSFX" method="play"]
 [connection signal="finished" from="IdleShutdown" to="ScaryMusic" method="play"]
 [connection signal="timeout" from="Cube_059/Sphere_003/Timer" to="Cube_059/Sphere_003" method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

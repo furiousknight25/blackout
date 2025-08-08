@@ -6,7 +6,7 @@ var movement_speed_modifier : float = 1.0
 var light_speed_modifier : float = 1.0
 var has_mouse: bool = false
 
-var spawn_probability = 3
+var spawn_probability = 8
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 @onready var player
@@ -15,9 +15,12 @@ var spawn_probability = 3
 @onready var crouch_sfx: AudioStreamPlayer3D = $Crouch
 @onready var foot_step_freq: Timer = $FootSteps/FootStepFreq
 
+
 enum States { WAIT, START, RESET, CROUCH, ATTACK }
 
 var state = States.RESET
+
+
 
 @onready var target: Node3D
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
@@ -36,15 +39,15 @@ func _ready():
 	else:
 		push_error("One of the enemies is not named properly:\n Rename to either BigEnemy1 or BigEnemy2")
 	
+	
 	navigation_agent_3d.movement_target = reset_point
 
 func _physics_process(_delta):
-	
-	if velocity.length() > 4:
+	if velocity.length() > .1:
 		foot_step_freq.paused = false
 	else:
 		foot_step_freq.paused = true
-		
+	
 	match state:
 		States.RESET:
 			if navigation_agent.is_navigation_finished():
@@ -88,6 +91,8 @@ func start():
 func reset():
 	navigation_agent.movement_target = reset_point
 	movement_speed_modifier = 5.0
+	health = 100.0
+	foot_step_freq.wait_time = .5
 
 
 func crouch():
@@ -100,6 +105,7 @@ func crouch():
 
 func attack():
 	movement_speed_modifier = 6.0
+	foot_step_freq.wait_time = .2
 
 func take_damage( damage : int ):
 	$HurtSFX.play()
@@ -107,7 +113,9 @@ func take_damage( damage : int ):
 	if health <= 0:
 		state = States.RESET
 		SignalBus.emit_signal("enemyKilled")
+		foot_step_freq.wait_time = .2
 		reset()
+		
 
 func generatorLow():
 	spawn_probability = 6
@@ -118,6 +126,6 @@ func generatorHigh():
 	light_speed_modifier = 1.0
 
 func _on_crawl_over_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
-	print(body)
+	crouch_sfx.play()
 	crawl_over_box.set_deferred("monitorable", false)
 	hit_box.emit()

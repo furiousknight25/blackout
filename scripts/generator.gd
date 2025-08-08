@@ -65,7 +65,6 @@ func interact(delta : float):
 		currentIncrementTime = 0
 	else:
 		pass
-		#crank_sound.stream_paused = true
 
 func increasePowerDrain(drainAmount : int) -> void:
 	delta_power_decrease -= drainAmount
