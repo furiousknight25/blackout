@@ -1,11 +1,18 @@
-[gd_scene load_steps=19 format=4 uid="uid://t61g0ki4ru3t"]
+[gd_scene load_steps=28 format=4 uid="uid://t61g0ki4ru3t"]
 
 [ext_resource type="Script" uid="uid://cikd7h66f25vi" path="res://scripts/power_eater.gd" id="1_f12um"]
 [ext_resource type="Texture2D" uid="uid://doj8ic6clrq3q" path="res://assets/TheRat_TheRat.png" id="2_ir5nk"]
 [ext_resource type="Animation" uid="uid://bdw0x6aowm03m" path="res://assets/ratanims/chew.res" id="3_0xdo4"]
 [ext_resource type="Animation" uid="uid://c4fehyn3vt1yo" path="res://assets/ratanims/runnning.res" id="4_rqkqj"]
+[ext_resource type="AudioStream" uid="uid://dv2id0xugpjmk" path="res://assets/sounds/Electricity_Spark_SFX_01.wav" id="5_y4imf"]
 [ext_resource type="AudioStream" uid="uid://cti1irq1yuctf" path="res://assets/sounds/Rat_Running_SFX_01.wav" id="6_jtutg"]
 [ext_resource type="PackedScene" uid="uid://bbu5ky5enx7a5" path="res://scenes/spark_effect.tscn" id="6_rqkqj"]
+[ext_resource type="AudioStream" uid="uid://4mmv43y41spg" path="res://assets/sounds/textures/Electricity_Spark_SFX_02.wav" id="6_y7ugk"]
+[ext_resource type="AudioStream" uid="uid://di7jwfc3ho3yb" path="res://assets/sounds/RatBlaster_1000_SFX_01.wav" id="7_7nxil"]
+[ext_resource type="AudioStream" uid="uid://de6yc3w27q22g" path="res://assets/sounds/textures/Electricity_Spark_SFX_03.wav" id="7_vgkpg"]
+[ext_resource type="AudioStream" uid="uid://cdr7rauniwqoq" path="res://assets/sounds/RatBlaster_3000_SFX_01.wav" id="8_18n73"]
+[ext_resource type="AudioStream" uid="uid://kuhivh1lfk2o" path="res://assets/sounds/RatBlaster_5000_SFX_01.wav" id="9_yayej"]
+[ext_resource type="AudioStream" uid="uid://dw8gnxifv0l4a" path="res://assets/sounds/Rats_Squeaking_SFX_01.wav" id="10_18n73"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o53h7"]
 size = Vector3(0.279297, 0.126953, 0.801758)
@@ -2817,6 +2824,18 @@ _data = {
 &"Running_rig_002": SubResource("Animation_ksyil")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wy6kk"]
+streams_count = 3
+stream_0/stream = ExtResource("5_y4imf")
+stream_1/stream = ExtResource("6_y7ugk")
+stream_2/stream = ExtResource("7_vgkpg")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mhdkk"]
+streams_count = 3
+stream_0/stream = ExtResource("7_7nxil")
+stream_1/stream = ExtResource("8_18n73")
+stream_2/stream = ExtResource("9_yayej")
+
 [node name="PowerEater" type="CharacterBody3D" groups=["enemy"]]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 collision_layer = 2
@@ -4840,6 +4859,7 @@ libraries = {
 autoplay = "Running"
 
 [node name="Chew" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_wy6kk")
 volume_db = -10.0
 max_polyphony = 3
 
@@ -4850,3 +4870,10 @@ autoplay = true
 [node name="SparkEffect" parent="." instance=ExtResource("6_rqkqj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.29795e-08, 0, 0.377242)
 emitting = false
+
+[node name="RatBlastSFX" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_mhdkk")
+
+[node name="RatSqeak" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("10_18n73")
+autoplay = true

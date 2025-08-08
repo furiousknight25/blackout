@@ -1,4 +1,5 @@
 extends Node3D
+@onready var music_maker: Node = $MusicMaker
 
 var debug = [
 	"whats up pisser",
@@ -171,12 +172,14 @@ func display_next_character():
 		character_index = 0
 
 func end_dialogue():
+	music_maker.set_tween_blend(1.0)
 	label_3d.text = ""
 	if current_script != final_stage:
 		SignalBus.emit_signal("radioFinished")
+		
 	elif current_script == final_stage:
 		SignalBus.emit_signal("wonGame")
-	
+
 
 func start_new_dialogue():
 	line_index = 0
@@ -189,6 +192,7 @@ func unpause(stage : int):
 	pass
 	
 func nextStage(stage : int):
+	music_maker.set_tween_blend(0.0)
 	character_index = 0
 	line_index = 0
 	

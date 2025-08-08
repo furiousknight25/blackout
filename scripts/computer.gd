@@ -39,6 +39,7 @@ func _input(event: InputEvent) -> void:
 			if event.physical_keycode >= KEY_0 and event.physical_keycode <= KEY_9:
 				keysPressed = keysPressed + char(event.physical_keycode)
 				checkForMatch()
+				
 				resetKeys()
 				SignalBus.emit_signal("set_type", true)
 			
@@ -50,13 +51,16 @@ func _input(event: InputEvent) -> void:
 
 
 func resetKeys():
+	
 	if keysPressed.length() >= 4:
+		
 		keysPressed = ""
 
 
 func checkForMatch():
 	updateColoration()
 	if keysPressed == randNumString:
+		$AcceptedSFX.play()
 		progress_bar.value = clamp(progress_bar.value + percentIncrease, 0, 100)
 		# check for win state
 		checkForWin()
@@ -85,8 +89,8 @@ func updateColoration() -> void:
 	if randNumString.contains(keysPressed):
 		rich_text_label.text = "[outline_size=5]" + "[outline_color=black]" + "[color=lime]" + randNumString.substr(0,keysPressed.length()) + "[/color]" + randNumString.substr(keysPressed.length(), randNumString.length()) + "[/outline_color]" + "[/outline_size]"
 	else:
+		$RejectSFX.play()
 		randomizeNumString()
-
 
 func showUI():
 	rich_text_label.visible = true
@@ -113,6 +117,7 @@ func unpause(_stage : int):
 	pass
 
 func die():
+	
 	randomizeNumString()
 	updateColoration()
 	progress_bar.value = 0

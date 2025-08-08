@@ -34,6 +34,9 @@ func _physics_process(delta: float) -> void:
 func take_damage(damage : int) -> void:
 	if currentHealth > 0:
 		currentHealth -= damage
+	
+	if currentHealth <= 0:
+		$RatBlastSFX.play()
 
 
 func die() -> void: #rip bozo

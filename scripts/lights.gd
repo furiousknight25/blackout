@@ -36,7 +36,7 @@ func flickerOff():
 		else:
 			child.light_energy = 0.0 #turns the lights off
 
-	
+
 func awaitTimer():
 	for child in get_children():
 		var rand = randf_range(0,1.0) #choses an int between 0 and max energy

@@ -1,7 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://38kwueiyjval"]
+[gd_scene load_steps=14 format=3 uid="uid://38kwueiyjval"]
 
 [ext_resource type="Script" uid="uid://b6fp5x67qvxl6" path="res://scripts/radio.gd" id="1_y83x7"]
 [ext_resource type="PackedScene" uid="uid://cufyt808u7jv1" path="res://scenes/ui_popup.tscn" id="2_ldjbc"]
+[ext_resource type="PackedScene" uid="uid://cqg7f03hwrm18" path="res://assets/textures/RadioSet.glb" id="3_7h80l"]
+[ext_resource type="Script" uid="uid://cgnv47vopqik6" path="res://scripts/Music.gd" id="4_3mpwk"]
+[ext_resource type="AudioStream" uid="uid://gtvtw6kqsmsk" path="res://assets/sounds/Ink Clot_Radio Version_01.wav" id="5_hhhqh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ldjbc"]
 size = Vector3(1.12338, 0.64035, 0.398438)
@@ -50,6 +53,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.652059, 0.230859)
 transform = Transform3D(1.83, 0, 0, 0, 1.83, 0, 0, 0, 1.83, 0, 0.205766, 0.574266)
 
 [node name="Placeholder Mesh" type="Node3D" parent="."]
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Placeholder Mesh"]
 mesh = SubResource("BoxMesh_fo3mb")
@@ -72,3 +76,33 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.236
 mesh = SubResource("CylinderMesh_3mpwk")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_hhhqh")
+
+[node name="RadioSet" parent="." instance=ExtResource("3_7h80l")]
+transform = Transform3D(1.26896, 0, 0, 0, 1.26896, 0, 0, 0, 1.26896, 0.282208, -1.60429, 0.970999)
+
+[node name="Radio" parent="RadioSet" index="0"]
+transform = Transform3D(0.432955, 0, 0, 0, 0, -0.277674, 0, 0.432955, 0, -0.21887, 1.18097, -0.56037)
+
+[node name="Table" parent="RadioSet" index="1"]
+transform = Transform3D(0, 0, -1.41466, 0, 1.13496, 0, 1.41466, 0, 0, -0.0890904, 0.541933, -0.788961)
+
+[node name="Light" parent="RadioSet" index="2"]
+transform = Transform3D(0.998679, 0, 0.0513844, 0, 1, 0, -0.0513844, 0, 0.998679, -0.467611, 3.04446, -0.844353)
+
+[node name="Cardboards" parent="RadioSet" index="3"]
+transform = Transform3D(0.660574, 0, 0.429457, 0, 0.787904, 0, -0.429457, 0, 0.660574, -1.77333, 0.201404, -1.01824)
+
+[node name="MusicMaker" type="Node" parent="."]
+script = ExtResource("4_3mpwk")
+
+[node name="MusicSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.478536, 0)
+stream = ExtResource("5_hhhqh")
+volume_db = -80.0
+autoplay = true
+
+[node name="DistortMusicSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
+volume_db = -80.0
+autoplay = true
+
+[editable path="RadioSet"]

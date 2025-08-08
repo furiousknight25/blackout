@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://gtvtw6kqsmsk"
+path="res://.godot/imported/Ink Clot_Radio Version_01.wav-1f7493a0c11ef3d6aced0d8a49a66199.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Ink Clot_Radio Version_01.wav"
+dest_files=["res://.godot/imported/Ink Clot_Radio Version_01.wav-1f7493a0c11ef3d6aced0d8a49a66199.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

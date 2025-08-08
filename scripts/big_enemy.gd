@@ -6,8 +6,12 @@ var movement_speed_modifier : float = 1.0
 var light_speed_modifier : float = 1.0
 var has_mouse: bool = false
 var paused: bool = true
-var spawn_probability = 3
+var spawn_probability = 9
 
+@onready var mesh: Node3D = $"Monster(1)"
+
+@onready var animation_tree: AnimationTree = $"Monster(1)/AnimationTree"
+@onready var animation_player: AnimationPlayer = $"Monster(1)/AnimationPlayer"
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 @onready var player
@@ -15,6 +19,7 @@ var spawn_probability = 3
 @onready var reset_point
 @onready var crouch_sfx: AudioStreamPlayer3D = $Crouch
 @onready var foot_step_freq: Timer = $FootSteps/FootStepFreq
+@onready var foot_steps_sfx: AudioStreamPlayer3D = $FootSteps
 
 
 enum States { WAIT, START, RESET, CROUCH, ATTACK }
@@ -51,10 +56,10 @@ func _ready():
 	navigation_agent_3d.movement_target = reset_point
 
 func _physics_process(_delta):
-	if velocity.length() > .1:
-		foot_step_freq.paused = false
-	else:
-		foot_step_freq.paused = true
+	#if velocity.length() > .1:
+		#foot_step_freq.paused = false
+	#else:
+		#foot_step_freq.paused = true
 	
 	match state:
 		States.RESET:
@@ -63,12 +68,14 @@ func _physics_process(_delta):
 				wait()
 				crawl_over_box.set_deferred("monitorable", true)
 		States.WAIT:
-			pass
+			foot_steps_sfx.volume_db = -80.0
 		States.START:
-			pass
+			foot_steps_sfx.volume_db = 0
+			animation_tree.set("parameters/walk/TimeScale/scale", .5)
 		States.CROUCH:
-			pass
+			animation_tree.set("parameters/walk/TimeScale/scale", 1.0)
 		States.ATTACK:
+			
 			if navigation_agent.is_navigation_finished():
 				state = States.RESET
 				SignalBus.emit_signal("playerHit")
@@ -80,7 +87,7 @@ func wait():
 	if paused:
 		spawn_probability = -1
 	else:
-		spawn_probability = 3
+		spawn_probability = 9
 	
 	movement_speed_modifier = 0.0
 	await get_tree().create_timer(6.0).timeout
@@ -105,20 +112,22 @@ func reset():
 	navigation_agent.movement_target = reset_point
 	movement_speed_modifier = 5.0
 	health = 100.0
-	foot_step_freq.wait_time = .5
+	#foot_step_freq.wait_time = .5
 
 
 func crouch():
 	## TODO: sound cue for incoming attack
 	SignalBus.emit_signal("enemyCrouching")
-	movement_speed_modifier = 0
-	await get_tree().create_timer(3.0).timeout
+	animation_tree.get("parameters/playback").travel("CLIMB_WINDOW")
+	movement_speed_modifier = 1.0
+	await get_tree().create_timer(2.0).timeout
 	state = States.ATTACK
 	attack()
 
 func attack():
+	animation_tree.get("parameters/playback").travel("LUNGE")
 	movement_speed_modifier = 6.0
-	foot_step_freq.wait_time = .2
+	#foot_step_freq.wait_time = .2
 
 func take_damage( damage : int ):
 	$HurtSFX.play()
@@ -126,9 +135,8 @@ func take_damage( damage : int ):
 	if health <= 0:
 		state = States.RESET
 		SignalBus.emit_signal("enemyKilled")
-		foot_step_freq.wait_time = .2
+		#foot_step_freq.wait_time = .2
 		reset()
-		
 
 func generatorLow():
 	spawn_probability = 6
@@ -137,7 +145,6 @@ func generatorLow():
 func generatorHigh():
 	spawn_probability = 3
 	light_speed_modifier = 1.0
-
 
 func pause(_stage : int):
 	paused = true

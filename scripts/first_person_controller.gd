@@ -91,6 +91,7 @@ func _physics_process(delta: float) -> void:
 
 func take_damage():
 	health -= 30
+	$HurtSFX.play()
 	if health <=0:
 		SignalBus.emit_signal("lostGame")
 		
