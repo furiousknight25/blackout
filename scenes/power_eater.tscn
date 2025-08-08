@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://t61g0ki4ru3t"]
+[gd_scene load_steps=10 format=3 uid="uid://t61g0ki4ru3t"]
 
 [ext_resource type="Script" uid="uid://cikd7h66f25vi" path="res://scripts/power_eater.gd" id="1_f12um"]
+[ext_resource type="PackedScene" uid="uid://coq8u3n6g8fpp" path="res://scenes/spark_effect.tscn" id="2_jr2ux"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o53h7"]
 size = Vector3(0.279297, 0.126953, 0.801758)
@@ -59,3 +60,7 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_f12um")
 draw_pass_1 = SubResource("BoxMesh_ir5nk")
+
+[node name="SparkEffect" parent="." instance=ExtResource("2_jr2ux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.03409e-08, 0, 0.461446)
+emitting = false

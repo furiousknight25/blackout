@@ -7,7 +7,7 @@ extends Node
 @onready var idle_start: AudioStreamPlayer3D = $IdleStart
 
 
-var total_power = 10
+var total_power = 100
 var delta_power_decrease = -5
 var delta_power_increase = 20
 var timer : Timer
