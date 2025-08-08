@@ -55,6 +55,9 @@ func checkForMatch():
 			SignalBus.emit_signal("unpauseStage", SignalBus.stage)
 			first_code_is_entered = true
 		randomizeNumString()
+		
+		if progress_bar.value == 100:
+			$FinishSFX.play()
 
 
 func checkForWin():

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bf8wwpglr7adr"
+path="res://.godot/imported/Out Of Ammo_Dry Fire_SFX_01.wav-85c34d117c0de55f9cefa7cee9442474.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Out Of Ammo_Dry Fire_SFX_01.wav"
+dest_files=["res://.godot/imported/Out Of Ammo_Dry Fire_SFX_01.wav-85c34d117c0de55f9cefa7cee9442474.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

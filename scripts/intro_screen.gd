@@ -1,11 +1,10 @@
 extends Node2D
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var coverup_rect: ColorRect = $CoverupRect
-var transTween : Tween
 
 func _ready() -> void:
-	transTween = get_tree().create_tween()
-	transTween.tween_property(coverup_rect, "modulate", Color.TRANSPARENT, 2.0)
+	animation_player.play("FadeIn")
 
 
 func _input(event: InputEvent) -> void:
@@ -15,9 +14,8 @@ func _input(event: InputEvent) -> void:
 
 
 func transition():
-	if !transTween.is_running():
-		transTween = get_tree().create_tween()
-		transTween.tween_property(coverup_rect, "modulate", Color.BLACK, 2.0)
-
-		await transTween.finished
-		get_tree().change_scene_to_file("res://scenes/TestSceneOne.tscn")
+	if !animation_player.is_playing():
+		animation_player.play("FadeOut")
+		
+		await animation_player.animation_finished
+		get_tree().change_scene_to_file("res://scenes/RealMainScene.tscn")
