@@ -5,6 +5,7 @@ extends CharacterBody3D
 
 @onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
 @onready var meshes: Node3D = $TheRat
+@onready var spark_effect: CPUParticles3D = $SparkEffect
 
 @onready var animation_player: AnimationPlayer = $TheRat/AnimationPlayer
 
@@ -39,6 +40,7 @@ func die() -> void: #rip bozo
 	
 	gpu_particles_3d.emitting = true
 	meshes.hide()
+	spark_effect.hide()
 	SignalBus.emit_signal("decreasePowerDrain", powerDrainAmount)
 	SignalBus.emit_signal("resetSpawnTimer")
 	
@@ -49,4 +51,5 @@ func die() -> void: #rip bozo
 func attackGenerator() -> void: #keep the signal but replace the attacking var or add any animation for attacking the gen here
 	SignalBus.emit_signal("increasePowerDrain", powerDrainAmount)
 	attacking = true
+	spark_effect.emitting = true
 	

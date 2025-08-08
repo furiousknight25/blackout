@@ -1,25 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxepa5s7n3dbw"]
+[gd_scene load_steps=2 format=3 uid="uid://cxepa5s7n3dbw"]
 
 [ext_resource type="Script" uid="uid://dejvmjrlbg2v4" path="res://scripts/power_eater_manager.gd" id="1_f4byr"]
-
-[sub_resource type="Curve3D" id="Curve3D_f4byr"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.283416, 0, 1, 0, 0, 0, 0, 0, 0, 0.198617, 0, 2, 0, 0, 0, 0, 0, 0, -0.183958, 0, 3),
-"tilts": PackedFloat32Array(0, 0, 0, 0)
-}
-point_count = 4
 
 [node name="PowerEaterManager" type="Node3D" node_paths=PackedStringArray("followPaths")]
 script = ExtResource("1_f4byr")
 timeToSpawn = 3.0
 followPaths = [null]
-
-[node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00158286, 0.00315154, -0.000250816)
-curve = SubResource("Curve3D_f4byr")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(-0.962084, 0, 0.272672, 0, 0.999999, 0, -0.27267, 0, -0.962093, 0, 0, 0)
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 15.0

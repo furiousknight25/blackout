@@ -15,7 +15,7 @@ var progressSpot : float = 0.5 #this will stop in the middle of the path for the
 var paused: bool = true
 
 func _ready() -> void:
-	
+	paused = false
 	spawn_timer.wait_time = timeToSpawn
 	spawn_timer.start()
 	
@@ -66,5 +66,6 @@ func unpause(stage : int):
 		paused = true
 	elif stage == 2:
 		paused = false
+		spawnPowerEater()
 	elif stage == 3:
 		paused = false
