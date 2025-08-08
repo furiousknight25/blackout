@@ -70,3 +70,5 @@ func unpause(stage : int):
 		paused = false
 	elif stage == 3:
 		paused = false
+	elif stage == 4:
+		paused = true

@@ -92,13 +92,7 @@ func showUI():
 func pause(stage : int):
 	is_paused = true
 	total_power = 100
-	
-	if stage == 1:
-		pass
-	elif stage == 2:
-		pass
-	elif stage == 3:
-		pass
+
 
 func unpause(_stage : int):
 	is_paused = false

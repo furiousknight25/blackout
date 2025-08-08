@@ -133,9 +133,10 @@ func generatorHigh():
 
 
 func pause(_stage : int):
-	reset()
-	visible = false
 	paused = true
+	reset()
+	get_tree().create_timer(3).timeout
+	visible = false
 
 func die():
 	visible = false
@@ -144,35 +145,47 @@ func die():
 	self.queue_free()
 
 func unpause(stage: int):
+	print(stage)
 	if stage == 1:
 		if name == "BigEnemy1":
 			visible = true
 			paused = false
+			print("enemy 1 activated")
 		elif name == "BigEnemy2":
 			visible = false
 			paused = true
+			print("enemy 2 deactivated")
 		else:
 			push_error("One of the enemies is not named properly:\n Rename to either BigEnemy1 or BigEnemy2")
 	elif stage == 2:
 		if name == "BigEnemy1":
 			visible = true
 			paused = false
+			print("enemy 1 activated")
 		elif name == "BigEnemy2":
 			visible = false
 			paused = true
+			print("enemy 2 deactivated")
 		else:
 			push_error("One of the enemies is not named properly:\n Rename to either BigEnemy1 or BigEnemy2")
 	elif stage == 3:
 		if name == "BigEnemy1":
 			visible = true
 			paused = false
+			print("enemy 1 activated")
 		elif name == "BigEnemy2":
 			visible = true
 			paused = false
+			print("enemy 2 activated")
 		else:
 			push_error("One of the enemies is not named properly:\n Rename to either BigEnemy1 or BigEnemy2")
+	else:
+		print("enemies deactivated")
+		visible = false
+		paused = true
+	reset()
 
 func _on_crawl_over_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
-	print(body)
+	#print(body)
 	crawl_over_box.set_deferred("monitorable", false)
 	hit_box.emit()

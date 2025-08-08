@@ -2,7 +2,7 @@ extends Node3D
 
 var debug = [
 	"whats up pisser",
-	"you gotta shit bricks soon thug"
+	"you gotta shit bricks soon"
 ]
 
 var first_stage = [
@@ -10,19 +10,22 @@ var first_stage = [
 	"Hello?",
 	"Hello? Hello?",
 	"Is anyone alive on this channel?",
-	"Hell, this is one-way anyways, why am I asking?",
 	". . .",
 	"If you're alive, listen closely...",
 	"There's been a containment breach.",
 	"Units 3B and 3C are down.",
 	"There's a quarantine on sector 3 until they kill those things",
 	"You wanna keep those lights on...",
-	"otherwise those freaks will gut you.",
+	"otherwise they'll kill you.",
 	"They don't like light,",
-	"that's why those things slashed the breaker box.",
+	"that's why they slashed the breaker box.",
 	"All of sector 3 is in the dark.",
-	"If you have a radio, though, you should have a generator.",
-	"Keep that generator running!",
+	". . .",
+	"Honestly the dark is nice compared to the bright overhead lighting",
+	"I could never stand it, so I can't blame those things.",
+	". . .",
+	"Oh, you should probably have a generator.",
+	"Keep that generator running to keep the lights on.",
 	"Crank it by holding RMB every once in a while.",
 	". . .",
 	"Oh, and if you have a gun, use it.",
@@ -31,12 +34,15 @@ var first_stage = [
 	"Make them count.",
 	"More ammo should be stored nearby.",
 	". . .",
+	"Oh boy, they're really worked up right now.",
+	"Its a good think the shells are only rock salt...",
+	". . .",
 	"Uh... you should probably try to find a way out.",
 	"If there's a computer terminal by you,",
 	"you can release the quarantine blocks on door function.",
-	"I remotely put your terminal into bypass mode.",
+	"In quarantine, the terminals are all put onto the bypass screen.",
 	"You should be able to enter a series of numbers to open the door.",
-	"Remember to... [inaudible]",
+	"Uh... yeah that's it."
 ]
 
 var second_stage = [
@@ -45,25 +51,43 @@ var second_stage = [
 	"Are you alive in 3C still?",
 	"I heard an air vent open just now.",
 	"That's great!",
-	"Well, except for the fact that my sensors see something in the vents...",
-	"But that's besides the point!",
+	"Well, except for the fact that I see something in the vents...",
+	"But that's besides the point.",
 	"You got through the lower-security protocol.",
 	"The next level should unlock a door.",
 	"If you can get that, we can escape.",
 	". . .",
 	"Just deal with those things in the vents and you'll be fine.",
 	"They don't look very big, anyways.",
-	"Maybe they're some rats.",
+	"They're probably just rats.",
+	". . .",
 	"Rats know when there's danger, you know.",
 	". . .",
 	"Just make sure they don't chew through any wires.",
-	"Good luck."
+	"You can't get out of here if you can't keep the lights on.",
+	"By the way I'm pretty stuck in here too...",
+	"Would you kindly open the door for me?"
 ]
 
 var third_stage = [
 	"Shit! You unlocked unit 3A, not the exit door!",
-	"There's another one of those things now.",
+	"There's another one of the boys in here now.",
 	"Just open that door!"
+]
+
+var final_stage = [
+	". . .",
+	"Oh, you actually got it.",
+	"I didn't think you'd actually do it.",
+	"I mean the doors were closed for a reason.",
+	"But I guess you have a strong survival instinct",
+	"and bad foresight.",
+	"My children just ran out, by the way.",
+	"Thanks for getting us out of here.",
+	"I was working on that quarantine lock for hours...",
+	"its hard to get the kids to type for me when they're so worked up.",
+	"Anyways I gotta go.",
+	"Thanks again for opening the door for us."
 ]
 
 var line_index = 0
@@ -88,6 +112,7 @@ func _ready() -> void:
 	SignalBus.connect("unpauseStage", unpause)
 	SignalBus.connect("nextStage", nextStage)
 	SignalBus.connect("lostGame", die)
+	
 	setup()
 
 func setup():
@@ -147,7 +172,11 @@ func display_next_character():
 
 func end_dialogue():
 	label_3d.text = ""
-	SignalBus.emit_signal("radioFinished")
+	if current_script != final_stage:
+		SignalBus.emit_signal("radioFinished")
+	elif current_script == final_stage:
+		SignalBus.emit_signal("wonGame")
+	
 
 func start_new_dialogue():
 	line_index = 0
@@ -169,6 +198,8 @@ func nextStage(stage : int):
 		current_script = second_stage
 	elif stage == 3:
 		current_script = third_stage
+	elif stage == 4:
+		current_script = final_stage
 	
 	setup()
 
