@@ -1,6 +1,6 @@
 extends Node
 
-var stage : int = 1
+var stage : int = 3
 
 ### GENERATOR ###
 #NOTE: Connects from: 
