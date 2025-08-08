@@ -117,7 +117,8 @@ func _input(event: InputEvent) -> void:
 
 func shoot():
 	animation_tree.play_animation('shoot')
-
+	%MuzzleFlare.show()
+	%MuzzleFlareTimer.start()
 	currentAmmo -= 1
 	totalAmmo -= 1
 	

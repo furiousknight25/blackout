@@ -57,12 +57,10 @@ func checkForMatch():
 			first_code_is_entered = true
 		randomizeNumString()
 		
-		if progress_bar.value == 100:
-			$FinishSFX.play()
-
 
 func checkForWin():
 	if progress_bar.value >= 100:
+		$FinishSFX.play()
 		SignalBus.stage += 1
 		SignalBus.emit_signal("nextStage", SignalBus.stage)
 
