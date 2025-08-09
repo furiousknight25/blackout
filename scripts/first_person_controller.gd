@@ -7,6 +7,9 @@ extends CharacterBody3D
 @onready var face_ray_cast: RayCast3D = %Camera3D/Rig/FaceRayCast
 @onready var shoot_sfx: AudioStreamPlayer3D = $ShootSFX
 @onready var health: int = 90
+@onready var smoke_effect: PackedScene = preload("res://scenes/smoke_effect.tscn")
+@onready var smoke_marker: Marker3D = %SmokeMarker
+
 
 var is_reloading = false
 
@@ -123,6 +126,7 @@ func _input(event: InputEvent) -> void:
 
 func shoot():
 	animation_tree.play_animation('shoot')
+	createSmoke()
 	%MuzzleFlare.show()
 	%MuzzleFlareTimer.start()
 	currentAmmo -= 1
@@ -168,3 +172,13 @@ func refillAmmo():
 
 func die():
 	self.queue_free()
+
+
+func createSmoke(): #time for big smoke
+	var newSmoke  = smoke_effect.instantiate()
+	smoke_marker.add_child(newSmoke)
+	newSmoke.emitting = true
+	
+	await get_tree().create_timer(newSmoke.lifetime).timeout
+	newSmoke.emitting = false
+	newSmoke.queue_free()
