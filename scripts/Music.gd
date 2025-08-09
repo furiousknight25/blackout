@@ -18,7 +18,6 @@ func _ready() -> void:
 func lights_off_func(state):
 	if state == true:
 		lights_off = true
-		
 	else:
 		lights_off = false
 
@@ -35,7 +34,7 @@ func _process(delta: float) -> void:
 	if tween_blend == 0.0: regular_blend = -80.0
 	if tween_blend == -1.0: regular_blend = -80.0
 	
-
+	if radio_on: regular_blend = -80.0
 	music_sfx.volume_db = lerp(music_sfx.volume_db, regular_blend, delta * 12)
 	
 	var distort_blend = 0
@@ -43,16 +42,19 @@ func _process(delta: float) -> void:
 	if tween_blend == 0.0: distort_blend = -80.0
 	if tween_blend == 1.0: distort_blend = -80.0
 	
-
+	if radio_on: distort_blend = -80.0
 	distort_music_sfx.volume_db = lerp(distort_music_sfx.volume_db, distort_blend, delta * 40)
 	#print(tween_blend)
 
+var radio_on = false
 func start_music():
 	if !music_sfx.playing and !distort_music_sfx.playing:
 		music_sfx.play()
 		distort_music_sfx.play()
 	tween_blend = 1.0
 	music_sfx.volume_db = base_volume
+
+
 
 func play_scary(state):
 	if state == false:

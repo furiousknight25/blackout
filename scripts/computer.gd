@@ -9,6 +9,7 @@ extends StaticBody3D
 var incrementTimer : float = 2.0 #time it takes to increase a chunk of progress
 var percentIncrease : int = 10 #the amount of progress in percentage is increased
 var currentIncrementTime : float = 0 #The amount of time held down so far
+var power = true
 
 var keysPressed = ""
 var randNumString = ""
@@ -25,6 +26,7 @@ func _ready() -> void:
 	SignalBus.connect("nextStage", pause)
 	SignalBus.connect("hideUI", hideUI)
 	SignalBus.connect("lostGame", die)
+	SignalBus.connect("lightsOff", power_state)
 
 
 func interact(_delta : float):
@@ -95,12 +97,21 @@ func updateColoration() -> void:
 		randomizeNumString()
 
 func showUI():
-	rich_text_label.visible = true
+	if power:
+		rich_text_label.visible = true
+	else:
+		hideUI()
 
 func hideUI():
 	rich_text_label.visible = false
 	SignalBus.emit_signal("set_type", false)
 	$TypingSFX.volume_db = -80.0
+
+func power_state(state):
+	
+	if !state: power = true
+	else: power = false
+		
 
 func radioFinished():
 	radio_is_finished = true

@@ -95,7 +95,7 @@ var final_stage = [
 var line_index = 0
 var character_index = 0
 
-var current_script : Array = first_stage
+var current_script : Array = debug
 var current_line : String = ""
 
 var playing : bool
@@ -123,7 +123,8 @@ func _ready() -> void:
 func setup():
 	# wait for the first physics frame to play
 	$MusicMaker/StaticTransitionToTalkSFX.play()
-	SignalBus.emit_signal("musicPlay", false)
+	music_maker.radio_on = true
+	SignalBus.emit_signal("lightsOff", true)
 	# wait a moment before starting
 	await get_tree().create_timer(2.0).timeout
 	
@@ -187,8 +188,10 @@ func end_dialogue():
 	if !done: 
 		done = true
 		$MusicMaker/StaticTransitionSFX.play()
-		
 		$MusicMaker/TalkSFX.stop()
+		await $MusicMaker/StaticTransitionSFX.finished
+		music_maker.radio_on = false
+		music_maker.start_music()
 	label_3d.text = ""
 	if current_script != final_stage:
 		SignalBus.emit_signal("radioFinished")
