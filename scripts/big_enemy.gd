@@ -58,10 +58,14 @@ func _physics_process(_delta):
 		#foot_step_freq.paused = false
 	#else:
 		#foot_step_freq.paused = true
+	if global_position.distance_to(crawl_over_box.global_position) < 5.0 and paused != true:
+		SignalBus.emit_signal("musicScary", true)
 	
 	match state:
 		States.RESET:
 			if navigation_agent.is_navigation_finished():
+				if paused != true:
+					SignalBus.emit_signal("musicScary", false)
 				state = States.WAIT
 				wait()
 				crawl_over_box.set_deferred("monitorable", true)

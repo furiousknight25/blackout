@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cwdmbwmaovu3y"
+path="res://.godot/imported/Ammo Box_Refill_SFX_01.wav-1ca7578cebc737dd4575dd73eb6bb296.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Ammo Box_Refill_SFX_01.wav"
+dest_files=["res://.godot/imported/Ammo Box_Refill_SFX_01.wav-1ca7578cebc737dd4575dd73eb6bb296.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

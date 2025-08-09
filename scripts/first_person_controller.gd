@@ -18,6 +18,7 @@ var mouse_sensitivity = 0.002
 var friction = .3
 var air_acceleration = .3
 var speed = 1
+var _delta = 0
 
 var spread = 8
 var totalAmmo = 3 #total ammo you can hold
@@ -97,7 +98,7 @@ func take_damage():
 	if health <=0:
 		SignalBus.emit_signal("lostGame")
 		
-var _delta = 0
+
 func sv_airaccelerate(movement_dir, delta):
 	var air_strength = 3 
 	
