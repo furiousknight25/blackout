@@ -9,7 +9,12 @@ extends CharacterBody3D
 @onready var health: int = 90
 
 @onready var dying_animation: AnimationPlayer = $DyingAnimation
+@onready var fade_animation: AnimationPlayer = $FadeAnimation
 
+
+@onready var blood_border_light: Sprite2D = $UI/bloodBorderLight
+@onready var blood_border_heavy: Sprite2D = $UI/bloodBorderHeavy
+@onready var blood_border: Sprite2D = $UI/bloodBorder
 
 
 var is_reloading = false
@@ -41,41 +46,50 @@ func _ready() -> void:
 	SignalBus.connect("set_type", type)
 
 func _physics_process(delta: float) -> void:
-
 	
 	if Input.is_action_just_released("debug_kill"):
 		die()
 	#velocity -= transform.basis.z
 	
 	$UI/Velocity.text = str(snapped((velocity.length()), 0.01))
-	var input = Input.get_vector('left',"right","forward","back")
-	var movement_dir = transform.basis * Vector3(input.x, 0, input.y) * speed #makes sure the forward is the forward you are facing
 	
-	if Input.is_action_just_pressed("shoot") and !is_reloading:
-		if currentAmmo > 0:
-			shoot()
-		else:
-			animation_tree.play_animation('click')
-			$DryFireSFX.play()
+	var input
+	var movement_dir
 	
-	if Input.is_action_pressed("interact") and !is_reloading:
-		if face_ray_cast.is_colliding():
-			if face_ray_cast.get_collider().is_in_group('interact'):
-				face_ray_cast.get_collider().interact(delta)
-	
-	
-	if ( face_ray_cast.is_colliding() and face_ray_cast.get_collider() != null 
-	and (face_ray_cast.get_collider().is_in_group('interact') or face_ray_cast.get_collider().is_in_group('single_interact'))):
-		face_ray_cast.get_collider().showUI()
-
+	if dying:
+		input = Vector3.ZERO
+		movement_dir = transform.basis * Vector3(input.x, 0, input.y) * speed #makes sure the forward is the forward you are facing
+	#region: skips if dying
 	else:
-		SignalBus.emit_signal("hideUI")
-				
+		input = Input.get_vector('left',"right","forward","back")
+		movement_dir = transform.basis * Vector3(input.x, 0, input.y) * speed #makes sure the forward is the forward you are facing
+		
+		if Input.is_action_just_pressed("shoot") and !is_reloading:
+			if currentAmmo > 0:
+				shoot()
+			else:
+				animation_tree.play_animation('click')
+				$DryFireSFX.play()
 	
-	if Input.is_action_just_pressed("interact") and !is_reloading:
-		if face_ray_cast.is_colliding():
-			if face_ray_cast.get_collider().is_in_group('single_interact'):
-				face_ray_cast.get_collider().single_interact()
+		if Input.is_action_pressed("interact") and !is_reloading:
+			if face_ray_cast.is_colliding():
+				if face_ray_cast.get_collider().is_in_group('interact'):
+					face_ray_cast.get_collider().interact(delta)
+		
+		
+		if ( face_ray_cast.is_colliding() and face_ray_cast.get_collider() != null 
+		and (face_ray_cast.get_collider().is_in_group('interact') or face_ray_cast.get_collider().is_in_group('single_interact'))):
+			face_ray_cast.get_collider().showUI()
+
+		else:
+			SignalBus.emit_signal("hideUI")
+					
+		
+		if Input.is_action_just_pressed("interact") and !is_reloading:
+			if face_ray_cast.is_colliding():
+				if face_ray_cast.get_collider().is_in_group('single_interact'):
+					face_ray_cast.get_collider().single_interact()
+	#endregion: skips if dying
 	
 	match cur_state:
 		STATE.GROUNDED:
@@ -96,13 +110,32 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func take_damage():
+	if dying: return
+
 	health -= 30
-	$HurtSFX.play()
 	if health <=0:
 		die()
-		
+	elif health > 70:
+		blood_border_light.visible = false
+		blood_border_heavy.visible = false
+		blood_border.visible = false
+	elif health <= 70 && health > 40:
+		blood_border_light.visible = true
+		blood_border_heavy.visible = false
+		blood_border.visible = false
+	elif health <= 40 && health > 10:
+		blood_border_light.visible = false
+		blood_border_heavy.visible = false
+		blood_border.visible = true
+	elif health <= 10:
+		blood_border_light.visible = false
+		blood_border_heavy.visible = true
+		blood_border.visible = false
+	
+	$HurtSFX.play()
 
 func sv_airaccelerate(movement_dir, delta):
+	
 	var air_strength = 3 
 	
 	movement_dir = movement_dir * air_strength
@@ -122,6 +155,7 @@ func sv_airaccelerate(movement_dir, delta):
 	
 	velocity += accel_speed * movement_dir
 func _input(event: InputEvent) -> void:
+	if dying: return
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		camera_3d.rotate_x(-event.relative.y * mouse_sensitivity)
@@ -173,8 +207,12 @@ func refillAmmo():
 	reload()
 
 func die():
-	dying = true
+	
 	dying_animation.play("die")
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(2.24).timeout
+	dying = true
+	await dying_animation.animation_finished
+	
+	await get_tree().create_timer(2).timeout
 	SignalBus.emit_signal("lostGame")
 	self.queue_free()
