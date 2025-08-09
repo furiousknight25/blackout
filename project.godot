@@ -24,7 +24,6 @@ GameStateManager="*res://game_state_manager.gd"
 [display]
 
 window/stretch/mode="viewport"
-window/stretch/aspect="keep_width"
 
 [file_customization]
 
