@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=4 uid="uid://bcx63mqj80yes"]
+[gd_scene load_steps=74 format=4 uid="uid://bcx63mqj80yes"]
 
 [ext_resource type="Script" uid="uid://cvg1rlmx4awsr" path="res://scripts/first_person_controller.gd" id="1_sjy6i"]
 [ext_resource type="Script" uid="uid://co4o3n67mqa86" path="res://scripts/offset.gd" id="2_0yrm1"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dtkpkry41lik1" path="res://assets/playerHurtPngs/bloodBorderHeavy.png" id="10_2n2le"]
 [ext_resource type="AudioStream" uid="uid://10qjyuml4h57" path="res://assets/sounds/Shotgun_Fire_SFX_01.wav" id="10_vk7aq"]
 [ext_resource type="AudioStream" uid="uid://t4o5aeimj1r8" path="res://assets/sounds/Shotgun_Fire_SFX_02_variation.wav" id="11_awanf"]
+[ext_resource type="Texture2D" uid="uid://c4lnevvwab7e7" path="res://assets/decal_on_wall.png" id="12_2n2le"]
 [ext_resource type="AudioStream" uid="uid://dcpkheuay1vfs" path="res://assets/sounds/Deathstation_Ambience_SFX_03.wav" id="12_awanf"]
 [ext_resource type="AudioStream" uid="uid://bf8wwpglr7adr" path="res://assets/sounds/Out Of Ammo_Dry Fire_SFX_01.wav" id="16_vnnqw"]
 [ext_resource type="AudioStream" uid="uid://dy2enx25w7jj3" path="res://assets/sounds/textures/Enemy_Slash_Contact_SFX_01.wav" id="18_hi2ac"]
@@ -25,15 +26,56 @@
 
 [sub_resource type="Animation" id="Animation_kcr8u"]
 resource_name = "fade"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/fade:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.8),
+"transitions": PackedFloat32Array(2.46229, 0.307786),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_648jk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/fade:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/fade:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l4iwd"]
 _data = {
+&"RESET": SubResource("Animation_648jk"),
 &"fade": SubResource("Animation_kcr8u")
 }
 
 [sub_resource type="Animation" id="Animation_hi2ac"]
 resource_name = "new_animation"
-length = 6.0
+length = 4.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -2663,6 +2705,12 @@ visible = false
 position = Vector2(0, 6)
 scale = Vector2(1.01852, 1.01852)
 texture = ExtResource("3_mphde")
+
+[node name="fade" type="Sprite2D" parent="UI"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(-5.99998, 28)
+scale = Vector2(55.6719, 36.9375)
+texture = ExtResource("12_2n2le")
 
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
 

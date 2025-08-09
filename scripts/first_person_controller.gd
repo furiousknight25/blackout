@@ -41,6 +41,7 @@ func _ready() -> void:
 	SignalBus.connect("refillAmmo", refillAmmo)
 	SignalBus.connect("playerHit", take_damage)
 	#SignalBus.connect("lostGame", die)
+	SignalBus.connect('wonGame', win)
 
 	SignalBus.connect("set_crank", crank)
 	SignalBus.connect("set_type", type)
@@ -212,7 +213,10 @@ func die():
 	await get_tree().create_timer(2.24).timeout
 	dying = true
 	await dying_animation.animation_finished
-	
-	await get_tree().create_timer(2).timeout
+	fade_animation.play('fade')
+	await fade_animation.animation_finished
 	SignalBus.emit_signal("lostGame")
 	self.queue_free()
+
+func win():
+	fade_animation.play('fade')
