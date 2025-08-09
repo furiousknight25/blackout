@@ -1,10 +1,10 @@
 [gd_scene load_steps=243 format=4 uid="uid://dc35dw7c62462"]
 
 [ext_resource type="PackedScene" uid="uid://bcx63mqj80yes" path="res://scenes/FirstPersonController.tscn" id="1_kong4"]
-[ext_resource type="PackedScene" path="res://UVBVAISUDGIUASDGOILASGDYIUASD/world_environment.tscn" id="1_owfn4"]
+[ext_resource type="PackedScene" uid="uid://cxcslhyfqjgmx" path="res://UVBVAISUDGIUASDGOILASGDYIUASD/world_environment.tscn" id="1_owfn4"]
 [ext_resource type="PackedScene" uid="uid://x6vsw1owjg5r" path="res://scenes/BigEnemy.tscn" id="2_7uyjo"]
 [ext_resource type="PackedScene" uid="uid://matvsk3n3cn0" path="res://scenes/generator.tscn" id="4_wedws"]
-[ext_resource type="PackedScene" path="res://UVBVAISUDGIUASDGOILASGDYIUASD/lights.tscn" id="5_cfa20"]
+[ext_resource type="PackedScene" uid="uid://dldv3bliu5hm7" path="res://UVBVAISUDGIUASDGOILASGDYIUASD/lights.tscn" id="5_cfa20"]
 [ext_resource type="PackedScene" uid="uid://38kwueiyjval" path="res://scenes/radio.tscn" id="5_rs2p5"]
 [ext_resource type="PackedScene" uid="uid://cxepa5s7n3dbw" path="res://scenes/power_eater_manager.tscn" id="6_ky7ay"]
 [ext_resource type="PackedScene" uid="uid://c367agvaos08b" path="res://scenes/shell_box.tscn" id="7_s7th5"]
@@ -3536,7 +3536,6 @@ bones/52/rotation = Quaternion(0.803929, -0.514083, -0.221071, -0.201358)
 bones/53/rotation = Quaternion(0.426619, -0.544722, 0.496987, 0.523716)
 bones/54/rotation = Quaternion(0.134233, -0.241872, 0.960679, -0.023997)
 bones/55/rotation = Quaternion(-0.072487, -0.620957, 0.25562, 0.737439)
-bones/56/rotation = Quaternion(0.309447, -0.0128648, -0.0744728, 0.947909)
 bones/57/rotation = Quaternion(0.822865, 0.12856, 0.211484, -0.511508)
 bones/58/rotation = Quaternion(0.798157, 0.0689758, -0.0278968, 0.597838)
 bones/59/rotation = Quaternion(0.910101, 0.0949993, -0.00832639, -0.403263)
@@ -3621,7 +3620,6 @@ bones/52/rotation = Quaternion(0.803929, -0.514083, -0.221071, -0.201358)
 bones/53/rotation = Quaternion(0.426619, -0.544722, 0.496987, 0.523716)
 bones/54/rotation = Quaternion(0.134233, -0.241872, 0.960679, -0.023997)
 bones/55/rotation = Quaternion(-0.072487, -0.620957, 0.25562, 0.737439)
-bones/56/rotation = Quaternion(0.309447, -0.0128648, -0.0744728, 0.947909)
 bones/57/rotation = Quaternion(0.822865, 0.12856, 0.211484, -0.511508)
 bones/58/rotation = Quaternion(0.798157, 0.0689758, -0.0278968, 0.597838)
 bones/59/rotation = Quaternion(0.910101, 0.0949993, -0.00832639, -0.403263)

@@ -60,7 +60,7 @@ func _physics_process(delta: float) -> void:
 		die()
 	#velocity -= transform.basis.z
 	
-	$UI/Velocity.text = str(snapped((velocity.length()), 0.01))
+	#$UI/Velocity.text = str(snapped((velocity.length()), 0.01))
 	
 	var input
 	var movement_dir

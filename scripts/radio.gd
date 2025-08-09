@@ -94,7 +94,7 @@ var final_stage = [
 var line_index = 0
 var character_index = 0
 
-var current_script : Array = debug
+var current_script : Array = first_stage
 var current_line : String = ""
 
 var playing : bool
@@ -161,6 +161,7 @@ func get_next_line():
 		
 		display_next_character()
 	else:
+		talk_sfx.volume_db = -80.0
 		end_dialogue()
 		
 
