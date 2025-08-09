@@ -1,8 +1,7 @@
-[gd_scene load_steps=43 format=4 uid="uid://c367agvaos08b"]
+[gd_scene load_steps=42 format=4 uid="uid://c367agvaos08b"]
 
 [ext_resource type="Script" uid="uid://d3ipx5u7yt8t7" path="res://scripts/shell_box.gd" id="1_mf1tu"]
-[ext_resource type="AudioStream" uid="uid://luyf6dbuap73" path="res://assets/sounds/Shotgun_Reload_SFX_01.wav" id="2_1d02f"]
-[ext_resource type="AudioStream" uid="uid://nptlj1ijbu6o" path="res://assets/sounds/Shotgun_Reload_SFX_02_variation.wav" id="3_f4li5"]
+[ext_resource type="AudioStream" uid="uid://cwdmbwmaovu3y" path="res://assets/sounds/Ammo Box_Refill_SFX_01.wav" id="2_f4li5"]
 [ext_resource type="PackedScene" uid="uid://cufyt808u7jv1" path="res://scenes/ui_popup.tscn" id="4_f4li5"]
 [ext_resource type="Texture2D" uid="uid://qsqcot4o1trr" path="res://assets/sounds/Ammo Box_PixelColorGreenMetal2.png" id="5_6txwc"]
 
@@ -10,9 +9,8 @@
 size = Vector3(0.6, 0.3, 0.4)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6txwc"]
-streams_count = 2
-stream_0/stream = ExtResource("2_1d02f")
-stream_1/stream = ExtResource("3_f4li5")
+streams_count = 1
+stream_0/stream = ExtResource("2_f4li5")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rxcsy"]
 resource_name = "GreenPixelMetal"

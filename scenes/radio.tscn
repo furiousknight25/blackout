@@ -1,10 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://38kwueiyjval"]
+[gd_scene load_steps=17 format=3 uid="uid://38kwueiyjval"]
 
 [ext_resource type="Script" uid="uid://b6fp5x67qvxl6" path="res://scripts/radio.gd" id="1_y83x7"]
 [ext_resource type="PackedScene" uid="uid://cufyt808u7jv1" path="res://scenes/ui_popup.tscn" id="2_ldjbc"]
 [ext_resource type="PackedScene" uid="uid://cqg7f03hwrm18" path="res://assets/textures/RadioSet.glb" id="3_7h80l"]
 [ext_resource type="Script" uid="uid://cgnv47vopqik6" path="res://scripts/Music.gd" id="4_3mpwk"]
-[ext_resource type="AudioStream" uid="uid://gtvtw6kqsmsk" path="res://assets/sounds/Ink Clot_Radio Version_01.wav" id="5_hhhqh"]
+[ext_resource type="AudioStream" uid="uid://cbx80h4bgameu" path="res://assets/sounds/ink clots loop.mp3" id="5_uf7ta"]
+[ext_resource type="AudioStream" uid="uid://c407uxpj4x23j" path="res://assets/sounds/textures/ink clot scary.mp3" id="6_144bg"]
+[ext_resource type="AudioStream" uid="uid://rl2w6ic7oduq" path="res://assets/sounds/Radio_Static_SFX_01.wav" id="6_hhhqh"]
+[ext_resource type="AudioStream" uid="uid://gc2f424wga2d" path="res://assets/sounds/textures/voice.wav" id="6_wvvpt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ldjbc"]
 size = Vector3(1.12338, 0.64035, 0.398438)
@@ -97,12 +100,30 @@ script = ExtResource("4_3mpwk")
 
 [node name="MusicSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.478536, 0)
-stream = ExtResource("5_hhhqh")
+stream = ExtResource("5_uf7ta")
 volume_db = -80.0
-autoplay = true
+
+[node name="TalkSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.478536, 0)
+stream = ExtResource("6_wvvpt")
 
 [node name="DistortMusicSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
+stream = ExtResource("6_144bg")
 volume_db = -80.0
-autoplay = true
+
+[node name="StaticSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
+stream = ExtResource("6_hhhqh")
+pitch_scale = 0.78
+
+[node name="StaticTransitionSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
+stream = ExtResource("6_hhhqh")
+pitch_scale = 0.78
+
+[node name="StaticTransitionToTalkSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
+stream = ExtResource("6_hhhqh")
+pitch_scale = 0.78
+
+[connection signal="finished" from="MusicMaker/StaticTransitionSFX" to="MusicMaker" method="start_music"]
+[connection signal="finished" from="MusicMaker/StaticTransitionToTalkSFX" to="MusicMaker" method="_on_static_transition_to_talk_sfx_finished"]
 
 [editable path="RadioSet"]

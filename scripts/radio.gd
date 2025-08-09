@@ -1,5 +1,7 @@
 extends Node3D
 @onready var music_maker: Node = $MusicMaker
+@onready var static_transition_to_talk_sfx: AudioStreamPlayer3D = $MusicMaker/StaticTransitionToTalkSFX
+
 
 var debug = [
 	"whats up pisser",
@@ -118,11 +120,15 @@ func _ready() -> void:
 
 func setup():
 	# wait for the first physics frame to play
-	
+	$MusicMaker/StaticTransitionToTalkSFX.play()
+	SignalBus.emit_signal("musicPlay", false)
 	# wait a moment before starting
 	await get_tree().create_timer(2.0).timeout
+	
+	SignalBus.emit_signal("musicPlay", false)
 	dialogue_timer.start()
 	get_next_line()
+	done = false
 
 func interact():
 	pass
@@ -155,6 +161,7 @@ func get_next_line():
 		display_next_character()
 	else:
 		end_dialogue()
+		
 
 func display_next_character():
 	# break loop if the player is skipping
@@ -171,8 +178,13 @@ func display_next_character():
 		playing = false
 		character_index = 0
 
+var done = false
 func end_dialogue():
-	music_maker.set_tween_blend(1.0)
+	if !done: 
+		done = true
+		$MusicMaker/StaticTransitionSFX.play()
+		
+		$MusicMaker/TalkSFX.stop()
 	label_3d.text = ""
 	if current_script != final_stage:
 		SignalBus.emit_signal("radioFinished")
@@ -193,6 +205,7 @@ func unpause(stage : int):
 	
 func nextStage(stage : int):
 	music_maker.set_tween_blend(0.0)
+	static_transition_to_talk_sfx.play()
 	character_index = 0
 	line_index = 0
 	

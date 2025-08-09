@@ -16,6 +16,10 @@ extends CharacterBody3D
 @onready var blood_border_heavy: Sprite2D = $UI/bloodBorderHeavy
 @onready var blood_border: Sprite2D = $UI/bloodBorder
 
+@onready var smoke_effect: PackedScene = preload("res://scenes/smoke_effect.tscn")
+@onready var smoke_marker: Marker3D = %SmokeMarker
+
+@onready var skeleton_3d: Skeleton3D = $Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D
 
 var is_reloading = false
 
@@ -26,6 +30,7 @@ var mouse_sensitivity = 0.002
 var friction = .3
 var air_acceleration = .3
 var speed = 1
+var _delta = 0
 
 var spread = 8
 var totalAmmo = 3 #total ammo you can hold
@@ -164,6 +169,8 @@ func _input(event: InputEvent) -> void:
 
 func shoot():
 	animation_tree.play_animation('shoot')
+	createSmoke()
+	animation_tree.set("parameters/StateMachine/shoot/TimeSeek/seek_request", 0.0)
 	%MuzzleFlare.show()
 	%MuzzleFlareTimer.start()
 	currentAmmo -= 1
@@ -220,3 +227,11 @@ func die():
 
 func win():
 	fade_animation.play('fade')
+
+func createSmoke(): #time for big smoke
+	var newSmoke  = smoke_effect.instantiate()
+	smoke_marker.add_child(newSmoke)
+	newSmoke.emitting = true
+	
+	await get_tree().create_timer(newSmoke.lifetime).timeout
+	newSmoke.queue_free()

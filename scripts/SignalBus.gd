@@ -68,6 +68,8 @@ var stage : int = 1
 #NOTE: Connects from: radio
 #NOTE: Connects to: computer
 @warning_ignore("unused_signal") signal radioFinished
+@warning_ignore("unused_signal") signal musicPlay(state)
+@warning_ignore("unused_signal") signal musicScary(state)
 #############
 
 ### COMPUTER ###
