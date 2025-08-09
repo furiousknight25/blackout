@@ -8,8 +8,9 @@ extends CharacterBody3D
 @onready var shoot_sfx: AudioStreamPlayer3D = $ShootSFX
 @onready var health: int = 90
 
-const RAGDOLL_RIGID_BODY = preload("res://scenes/ragdoll_rigid_body.tscn")
-var ragdoll_body = null
+@onready var dying_animation: AnimationPlayer = $DyingAnimation
+
+
 
 var is_reloading = false
 
@@ -40,9 +41,7 @@ func _ready() -> void:
 	SignalBus.connect("set_type", type)
 
 func _physics_process(delta: float) -> void:
-	# this should ONLY RUN if the ragdoll body has been instanced
-	if dying && ragdoll_body != null:
-		camera_3d.position = ragdoll_body.position
+
 	
 	if Input.is_action_just_released("debug_kill"):
 		die()
@@ -174,11 +173,8 @@ func refillAmmo():
 	reload()
 
 func die():
-	ragdoll_body = RAGDOLL_RIGID_BODY.instantiate()
-	ragdoll_body.new_position(camera_3d.position)
-	ragdoll_body.unpause()
-	ragdoll_body.freeze = false
 	dying = true
+	dying_animation.play("die")
 	await get_tree().create_timer(5).timeout
 	SignalBus.emit_signal("lostGame")
 	self.queue_free()
