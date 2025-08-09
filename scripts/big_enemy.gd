@@ -26,8 +26,6 @@ enum States { WAIT, START, RESET, CROUCH, ATTACK }
 
 var state = States.RESET
 
-
-
 @onready var target: Node3D
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
@@ -69,13 +67,14 @@ func _physics_process(_delta):
 				crawl_over_box.set_deferred("monitorable", true)
 		States.WAIT:
 			foot_steps_sfx.volume_db = -80.0
+			animation_tree.set("parameters/CLIMB_WINDOW/WindowTimeScale/scale", 1.0)
 		States.START:
 			foot_steps_sfx.volume_db = 0
 			animation_tree.set("parameters/walk/TimeScale/scale", .5)
 		States.CROUCH:
-			animation_tree.set("parameters/walk/TimeScale/scale", 1.0)
+			animation_tree.set("parameters/walk/TimeScale/scale", 0.0)
 		States.ATTACK:
-			
+			animation_tree.set("parameters/walk/TimeScale/scale", 1.0)
 			if navigation_agent.is_navigation_finished():
 				state = States.RESET
 				SignalBus.emit_signal("playerHit")
@@ -84,6 +83,7 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func wait():
+	$CrawlBack.set_deferred("monitoring", true)
 	if paused:
 		spawn_probability = -1
 	else:
@@ -119,16 +119,17 @@ func crouch():
 	## TODO: sound cue for incoming attack
 	SignalBus.emit_signal("enemyCrouching")
 	animation_tree.get("parameters/playback").travel("CLIMB_WINDOW")
-	movement_speed_modifier = 1.0
+	movement_speed_modifier = 1.5
 	await get_tree().create_timer(2.0).timeout
 	state = States.ATTACK
 	attack()
 
 func attack():
+	animation_tree.set("parameters/walk/TimeScale/scale", 1.0)
 	animation_tree.get("parameters/playback").travel("LUNGE")
 	movement_speed_modifier = 6.0
 	#foot_step_freq.wait_time = .2
-
+	
 func take_damage( damage : int ):
 	$HurtSFX.play()
 	health -= damage
@@ -159,7 +160,6 @@ func die():
 	self.queue_free()
 
 func unpause(stage: int):
-	print(stage)
 	if stage == 1:
 		if name == "BigEnemy1":
 			visible = true
@@ -204,3 +204,15 @@ func _on_crawl_over_body_shape_entered(body_rid: RID, body: Node3D, body_shape_i
 	crouch_sfx.play()
 	crawl_over_box.set_deferred("monitorable", false)
 	hit_box.emit()
+
+func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "CLIMB_WINDOW" and state == States.CROUCH:
+		movement_speed_modifier = 0
+		
+
+func _on_crawl_back_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
+
+	if state == States.RESET:
+		animation_tree.get("parameters/playback").travel("CLIMB_WINDOW")
+		animation_tree.set("parameters/CLIMB_WINDOW/WindowTimeScale/scale", 2.0)
+		$CrawlBack.set_deferred("monitoring", false)

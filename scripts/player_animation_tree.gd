@@ -1,7 +1,7 @@
 extends AnimationTree
 
 var velocity := Vector3.ZERO
-var reload_time = 2.0
+var reload_time = 3.2
 
 func play_animation(animation: String):
 	match animation:
