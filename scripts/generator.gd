@@ -9,6 +9,7 @@ extends Node
 @onready var hold_timer: Timer = $HoldTimer
 
 
+
 var total_power = 100
 const base_drain = -10
 var total_delta = 0

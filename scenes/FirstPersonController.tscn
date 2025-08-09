@@ -3068,9 +3068,9 @@ transform = Transform3D(0.531989, 2.47174e-05, 0.00430039, 2.77278e-05, 0.531967
 modulate = Color(1, 1, 1, 0.0117647)
 texture = ExtResource("5_1vx6w")
 
-[node name="SmokeMarker" type="Marker3D" parent="Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D/BoneAttachment3D2/MuzzleFlare"]
+[node name="SmokeMarker" type="Marker3D" parent="Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D/BoneAttachment3D2"]
 unique_name_in_owner = true
-transform = Transform3D(-0.998042, 0.0625458, -0.000703678, 0.0625458, 0.997789, -0.0224781, -0.000703705, -0.0224781, -0.999747, -0.000792813, -0.00238681, 0.024209)
+transform = Transform3D(1.0648, 0, 0, 0, 1.0648, 0, 0, 0, 1.0648, 0.0133336, 0.0577069, 0.547713)
 
 [node name="WGT-HAND_L_001" type="Node3D" parent="Offset/Camera3D/Rig/ViewmodelStuff"]
 transform = Transform3D(-0.029838, -0.00344939, -0.0397583, -0.0399076, 0.00264922, 0.0297202, 5.64322e-05, 0.0496388, -0.00434896, 0.65801, -0.305517, -0.0492003)
