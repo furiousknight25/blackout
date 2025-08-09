@@ -153,11 +153,10 @@ func generatorHigh():
 	light_speed_modifier = 1.0
 
 func pause(_stage : int):
-	if paused != true:
-		paused = true
-		reset()
-		await get_tree().create_timer(3).timeout
-		visible = false
+	paused = true
+	reset()
+	await get_tree().create_timer(3).timeout
+	visible = false
 
 func die():
 	visible = false
