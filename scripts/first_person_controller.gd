@@ -191,5 +191,4 @@ func createSmoke(): #time for big smoke
 	newSmoke.emitting = true
 	
 	await get_tree().create_timer(newSmoke.lifetime).timeout
-	newSmoke.emitting = false
 	newSmoke.queue_free()
