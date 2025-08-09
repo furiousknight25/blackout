@@ -31,6 +31,7 @@ var state = States.RESET
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
 signal hit_box
+signal hit_player
 
 func _ready():
 	SignalBus.connect("generatorLow", generatorLow)
@@ -70,6 +71,7 @@ func _physics_process(_delta):
 				wait()
 				crawl_over_box.set_deferred("monitorable", true)
 		States.WAIT:
+			fight_hitbox.set_deferred("monitoring", true)
 			foot_steps_sfx.volume_db = -80.0
 			animation_tree.set("parameters/CLIMB_WINDOW/WindowTimeScale/scale", 1.0)
 		States.START:
@@ -79,7 +81,8 @@ func _physics_process(_delta):
 			animation_tree.set("parameters/walk/TimeScale/scale", 0.0)
 		States.ATTACK:
 			animation_tree.set("parameters/walk/TimeScale/scale", 1.0)
-			if navigation_agent.is_navigation_finished():
+			if fight_hitbox.has_overlapping_bodies():
+				fight_hitbox.set_deferred("monitoring", false)
 				state = States.RESET
 				SignalBus.emit_signal("playerHit")
 				reset()
@@ -118,14 +121,12 @@ func reset():
 	health = 100.0
 	#foot_step_freq.wait_time = .5
 
-
 func crouch():
 	## TODO: sound cue for incoming attack
 	SignalBus.emit_signal("enemyCrouching")
 	animation_tree.get("parameters/playback").travel("CLIMB_WINDOW")
 	movement_speed_modifier = 1.5
 	await get_tree().create_timer(2.0).timeout
-	
 	state = States.ATTACK
 	attack()
 
@@ -134,7 +135,7 @@ func attack():
 	animation_tree.get("parameters/playback").travel("LUNGE")
 	movement_speed_modifier = 6.0
 	#foot_step_freq.wait_time = .2
-	
+
 func take_damage( damage : int ):
 	$HurtSFX.play()
 	health -= damage

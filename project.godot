@@ -106,4 +106,5 @@ debug_kill={
 3d_physics/layer_1="environment"
 3d_physics/layer_2="enemy"
 3d_physics/layer_3="player"
+3d_physics/layer_8="player"
 3d_physics/layer_9="antifloor"
