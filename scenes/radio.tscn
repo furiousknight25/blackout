@@ -117,10 +117,12 @@ pitch_scale = 0.78
 
 [node name="StaticTransitionSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
 stream = ExtResource("6_hhhqh")
+volume_db = -10.294
 pitch_scale = 0.78
 
 [node name="StaticTransitionToTalkSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
 stream = ExtResource("6_hhhqh")
+volume_db = -10.735
 pitch_scale = 0.78
 
 [connection signal="finished" from="MusicMaker/StaticTransitionSFX" to="MusicMaker" method="start_music"]
