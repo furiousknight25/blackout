@@ -96,7 +96,7 @@ var final_stage = [
 var line_index = 0
 var character_index = 0
 
-var current_script : Array = debug
+var current_script : Array = final_stage
 var current_line : String = ""
 
 var playing : bool
@@ -204,7 +204,8 @@ func unpause(stage : int):
 	pass
 	
 func nextStage(stage : int):
-	music_maker.set_tween_blend(0.0)
+	if current_script != final_stage:
+		music_maker.set_tween_blend(0.0)
 	static_transition_to_talk_sfx.play()
 	character_index = 0
 	line_index = 0
