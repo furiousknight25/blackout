@@ -7,6 +7,7 @@ extends CharacterBody3D
 @onready var face_ray_cast: RayCast3D = %Camera3D/Rig/FaceRayCast
 @onready var shoot_sfx: AudioStreamPlayer3D = $ShootSFX
 @onready var health: int = 90
+@onready var skeleton_3d: Skeleton3D = $Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D
 
 var is_reloading = false
 
@@ -36,7 +37,8 @@ func _ready() -> void:
 	SignalBus.connect("set_type", type)
 
 func _physics_process(delta: float) -> void:
-	
+	skeleton_3d.rotation = skeleton_3d.rotation.lerp(Vector3.ZERO, delta * 12)
+	_delta = delta
 	if Input.is_action_just_released("debug_kill"):
 		SignalBus.emit_signal("lostGame")
 	#velocity -= transform.basis.z
@@ -49,7 +51,7 @@ func _physics_process(delta: float) -> void:
 		if currentAmmo > 0:
 			shoot()
 		else:
-			animation_tree.play_animation('click')
+			#animation_tree.play_animation('click')
 			$DryFireSFX.play()
 	
 	if Input.is_action_pressed("interact") and !is_reloading:
@@ -95,7 +97,7 @@ func take_damage():
 	if health <=0:
 		SignalBus.emit_signal("lostGame")
 		
-
+var _delta = 0
 func sv_airaccelerate(movement_dir, delta):
 	var air_strength = 3 
 	
@@ -119,10 +121,12 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		camera_3d.rotate_x(-event.relative.y * mouse_sensitivity)
+		skeleton_3d.rotation += Vector3(event.relative.y * _delta * -.1, event.relative.x * _delta  * .1, 0)
 
 
 func shoot():
 	animation_tree.play_animation('shoot')
+	animation_tree.set("parameters/StateMachine/shoot/TimeSeek/seek_request", 0.0)
 	%MuzzleFlare.show()
 	%MuzzleFlareTimer.start()
 	currentAmmo -= 1
@@ -147,7 +151,14 @@ func shoot():
 func reload():
 	currentAmmo = totalAmmo
 	
+	$Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D/shell_1.show()
+	$Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D/shell_2.show()
+	$Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D/shell_3.show()
 	animation_tree.play_animation('reload')
+	await get_tree().create_timer(3.5).timeout 
+	$Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D/shell_1.hide()
+	$Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D/shell_2.hide()
+	$Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D/shell_3.hide()
 
 func type(state):
 	if state == true:
@@ -156,11 +167,11 @@ func type(state):
 		animation_tree.play_animation('b2i')
 
 func crank(state):
-	if state == true:
-		animation_tree.play_animation('crank')
-	else:
-		animation_tree.play_animation('b2i')
-
+	pass
+	#if state == true:
+		#animation_tree.play_animation('crank')
+	#else:
+		#animation_tree.play_animation('b2i')
 
 func refillAmmo():
 	totalAmmo = ammoCapacity

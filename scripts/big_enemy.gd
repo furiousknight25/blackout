@@ -160,7 +160,6 @@ func die():
 	self.queue_free()
 
 func unpause(stage: int):
-	print(stage)
 	if stage == 1:
 		if name == "BigEnemy1":
 			visible = true
@@ -210,11 +209,9 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "CLIMB_WINDOW" and state == States.CROUCH:
 		movement_speed_modifier = 0
 		
-	print(anim_name)
-
 
 func _on_crawl_back_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
-	print(state)
+
 	if state == States.RESET:
 		animation_tree.get("parameters/playback").travel("CLIMB_WINDOW")
 		animation_tree.set("parameters/CLIMB_WINDOW/WindowTimeScale/scale", 2.0)

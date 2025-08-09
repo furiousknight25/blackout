@@ -42,12 +42,14 @@ func _input(event: InputEvent) -> void:
 				
 				resetKeys()
 				SignalBus.emit_signal("set_type", true)
+				$TypingSFX.volume_db = 0.0
 			
 			elif event.physical_keycode >= KEY_KP_0 and event.physical_keycode <= KEY_KP_9:
 				keysPressed = keysPressed + char(event.unicode)
 				checkForMatch()
 				resetKeys()
 				SignalBus.emit_signal("set_type", true)
+				$TypingSFX.volume_db = 0.0
 
 
 func resetKeys():
@@ -98,6 +100,7 @@ func showUI():
 func hideUI():
 	rich_text_label.visible = false
 	SignalBus.emit_signal("set_type", false)
+	$TypingSFX.volume_db = -80.0
 
 func radioFinished():
 	radio_is_finished = true
