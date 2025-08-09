@@ -7,7 +7,15 @@ extends CharacterBody3D
 @onready var face_ray_cast: RayCast3D = %Camera3D/Rig/FaceRayCast
 @onready var shoot_sfx: AudioStreamPlayer3D = $ShootSFX
 @onready var health: int = 90
-@onready var skeleton_3d: Skeleton3D = $Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D
+
+@onready var dying_animation: AnimationPlayer = $DyingAnimation
+@onready var fade_animation: AnimationPlayer = $FadeAnimation
+
+
+@onready var blood_border_light: Sprite2D = $UI/bloodBorderLight
+@onready var blood_border_heavy: Sprite2D = $UI/bloodBorderHeavy
+@onready var blood_border: Sprite2D = $UI/bloodBorder
+
 
 var is_reloading = false
 
@@ -24,6 +32,7 @@ var totalAmmo = 3 #total ammo you can hold
 var ammoCapacity = 3 #how much ammo the shotgun can hold at one time
 var currentAmmo = 3 #how much ammo is currently in the gun
 
+var dying = false
 var current_interact = null
 
 func _ready() -> void:
@@ -31,47 +40,57 @@ func _ready() -> void:
 	
 	SignalBus.connect("refillAmmo", refillAmmo)
 	SignalBus.connect("playerHit", take_damage)
-	SignalBus.connect("lostGame", die)
+	#SignalBus.connect("lostGame", die)
+	SignalBus.connect('wonGame', win)
 
 	SignalBus.connect("set_crank", crank)
 	SignalBus.connect("set_type", type)
 
 func _physics_process(delta: float) -> void:
-	skeleton_3d.rotation = skeleton_3d.rotation.lerp(Vector3.ZERO, delta * 12)
-	_delta = delta
+	
 	if Input.is_action_just_released("debug_kill"):
-		SignalBus.emit_signal("lostGame")
+		die()
 	#velocity -= transform.basis.z
 	
 	$UI/Velocity.text = str(snapped((velocity.length()), 0.01))
-	var input = Input.get_vector('left',"right","forward","back")
-	var movement_dir = transform.basis * Vector3(input.x, 0, input.y) * speed #makes sure the forward is the forward you are facing
 	
-	if Input.is_action_just_pressed("shoot") and !is_reloading:
-		if currentAmmo > 0:
-			shoot()
-		else:
-			#animation_tree.play_animation('click')
-			$DryFireSFX.play()
+	var input
+	var movement_dir
 	
-	if Input.is_action_pressed("interact") and !is_reloading:
-		if face_ray_cast.is_colliding():
-			if face_ray_cast.get_collider().is_in_group('interact'):
-				face_ray_cast.get_collider().interact(delta)
-	
-	
-	if ( face_ray_cast.is_colliding() and face_ray_cast.get_collider() != null 
-	and (face_ray_cast.get_collider().is_in_group('interact') or face_ray_cast.get_collider().is_in_group('single_interact'))):
-		face_ray_cast.get_collider().showUI()
-
+	if dying:
+		input = Vector3.ZERO
+		movement_dir = transform.basis * Vector3(input.x, 0, input.y) * speed #makes sure the forward is the forward you are facing
+	#region: skips if dying
 	else:
-		SignalBus.emit_signal("hideUI")
-				
+		input = Input.get_vector('left',"right","forward","back")
+		movement_dir = transform.basis * Vector3(input.x, 0, input.y) * speed #makes sure the forward is the forward you are facing
+		
+		if Input.is_action_just_pressed("shoot") and !is_reloading:
+			if currentAmmo > 0:
+				shoot()
+			else:
+				animation_tree.play_animation('click')
+				$DryFireSFX.play()
 	
-	if Input.is_action_just_pressed("interact") and !is_reloading:
-		if face_ray_cast.is_colliding():
-			if face_ray_cast.get_collider().is_in_group('single_interact'):
-				face_ray_cast.get_collider().single_interact()
+		if Input.is_action_pressed("interact") and !is_reloading:
+			if face_ray_cast.is_colliding():
+				if face_ray_cast.get_collider().is_in_group('interact'):
+					face_ray_cast.get_collider().interact(delta)
+		
+		
+		if ( face_ray_cast.is_colliding() and face_ray_cast.get_collider() != null 
+		and (face_ray_cast.get_collider().is_in_group('interact') or face_ray_cast.get_collider().is_in_group('single_interact'))):
+			face_ray_cast.get_collider().showUI()
+
+		else:
+			SignalBus.emit_signal("hideUI")
+					
+		
+		if Input.is_action_just_pressed("interact") and !is_reloading:
+			if face_ray_cast.is_colliding():
+				if face_ray_cast.get_collider().is_in_group('single_interact'):
+					face_ray_cast.get_collider().single_interact()
+	#endregion: skips if dying
 	
 	match cur_state:
 		STATE.GROUNDED:
@@ -92,13 +111,32 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func take_damage():
+	if dying: return
+
 	health -= 30
-	$HurtSFX.play()
 	if health <=0:
-		SignalBus.emit_signal("lostGame")
-		
-var _delta = 0
+		die()
+	elif health > 70:
+		blood_border_light.visible = false
+		blood_border_heavy.visible = false
+		blood_border.visible = false
+	elif health <= 70 && health > 40:
+		blood_border_light.visible = true
+		blood_border_heavy.visible = false
+		blood_border.visible = false
+	elif health <= 40 && health > 10:
+		blood_border_light.visible = false
+		blood_border_heavy.visible = false
+		blood_border.visible = true
+	elif health <= 10:
+		blood_border_light.visible = false
+		blood_border_heavy.visible = true
+		blood_border.visible = false
+	
+	$HurtSFX.play()
+
 func sv_airaccelerate(movement_dir, delta):
+	
 	var air_strength = 3 
 	
 	movement_dir = movement_dir * air_strength
@@ -118,15 +156,14 @@ func sv_airaccelerate(movement_dir, delta):
 	
 	velocity += accel_speed * movement_dir
 func _input(event: InputEvent) -> void:
+	if dying: return
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		camera_3d.rotate_x(-event.relative.y * mouse_sensitivity)
-		skeleton_3d.rotation += Vector3(event.relative.y * _delta * -.1, event.relative.x * _delta  * .1, 0)
 
 
 func shoot():
 	animation_tree.play_animation('shoot')
-	animation_tree.set("parameters/StateMachine/shoot/TimeSeek/seek_request", 0.0)
 	%MuzzleFlare.show()
 	%MuzzleFlareTimer.start()
 	currentAmmo -= 1
@@ -151,14 +188,7 @@ func shoot():
 func reload():
 	currentAmmo = totalAmmo
 	
-	$Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D/shell_1.show()
-	$Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D/shell_2.show()
-	$Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D/shell_3.show()
 	animation_tree.play_animation('reload')
-	await get_tree().create_timer(3.5).timeout 
-	$Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D/shell_1.hide()
-	$Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D/shell_2.hide()
-	$Offset/Camera3D/Rig/ViewmodelStuff/ARMS_SK/Skeleton3D/shell_3.hide()
 
 func type(state):
 	if state == true:
@@ -167,15 +197,26 @@ func type(state):
 		animation_tree.play_animation('b2i')
 
 func crank(state):
-	pass
-	#if state == true:
-		#animation_tree.play_animation('crank')
-	#else:
-		#animation_tree.play_animation('b2i')
+	if state == true:
+		animation_tree.play_animation('crank')
+	else:
+		animation_tree.play_animation('b2i')
+
 
 func refillAmmo():
 	totalAmmo = ammoCapacity
 	reload()
 
 func die():
+	
+	dying_animation.play("die")
+	await get_tree().create_timer(2.24).timeout
+	dying = true
+	await dying_animation.animation_finished
+	fade_animation.play('fade')
+	await fade_animation.animation_finished
+	SignalBus.emit_signal("lostGame")
 	self.queue_free()
+
+func win():
+	fade_animation.play('fade')
