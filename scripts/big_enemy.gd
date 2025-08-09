@@ -6,7 +6,7 @@ var movement_speed_modifier : float = 1.0
 var light_speed_modifier : float = 1.0
 var has_mouse: bool = false
 var paused: bool = true
-var spawn_probability = 9
+var spawn_probability = 3
 
 @onready var mesh: Node3D = $"Monster(1)"
 
@@ -20,6 +20,7 @@ var spawn_probability = 9
 @onready var crouch_sfx: AudioStreamPlayer3D = $Crouch
 @onready var foot_step_freq: Timer = $FootSteps/FootStepFreq
 @onready var foot_steps_sfx: AudioStreamPlayer3D = $FootSteps
+@onready var fight_hitbox: Area3D = $FightHitbox
 
 
 enum States { WAIT, START, RESET, CROUCH, ATTACK }
@@ -50,7 +51,6 @@ func _ready():
 	else:
 		push_error("One of the enemies is not named properly:\n Rename to either BigEnemy1 or BigEnemy2")
 	
-	
 	navigation_agent_3d.movement_target = reset_point
 
 func _physics_process(_delta):
@@ -58,7 +58,7 @@ func _physics_process(_delta):
 		#foot_step_freq.paused = false
 	#else:
 		#foot_step_freq.paused = true
-	if global_position.distance_to(crawl_over_box.global_position) < 5.0 and paused != true:
+	if global_position.distance_to(crawl_over_box.global_position) < 6.0 and paused != true:
 		SignalBus.emit_signal("musicScary", true)
 	
 	match state:
@@ -125,6 +125,7 @@ func crouch():
 	animation_tree.get("parameters/playback").travel("CLIMB_WINDOW")
 	movement_speed_modifier = 1.5
 	await get_tree().create_timer(2.0).timeout
+	
 	state = States.ATTACK
 	attack()
 
@@ -140,7 +141,6 @@ func take_damage( damage : int ):
 	if health <= 0:
 		state = States.RESET
 		SignalBus.emit_signal("enemyKilled")
-		#foot_step_freq.wait_time = .2
 		reset()
 
 func generatorLow():
@@ -152,10 +152,11 @@ func generatorHigh():
 	light_speed_modifier = 1.0
 
 func pause(_stage : int):
-	paused = true
-	reset()
-	get_tree().create_timer(3).timeout
-	visible = false
+	if paused != true:
+		paused = true
+		reset()
+		await get_tree().create_timer(3).timeout
+		visible = false
 
 func die():
 	visible = false
@@ -204,10 +205,10 @@ func unpause(stage: int):
 	reset()
 
 func _on_crawl_over_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
-	#print(body)
-	crouch_sfx.play()
-	crawl_over_box.set_deferred("monitorable", false)
-	hit_box.emit()
+	if state == States.START:
+		crouch_sfx.play()
+		crawl_over_box.set_deferred("monitorable", false)
+		hit_box.emit()
 
 func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "CLIMB_WINDOW" and state == States.CROUCH:

@@ -61,14 +61,20 @@ func selectFollowPath():
 
 func pause(stage : int):
 	paused = true
+	
 
 func unpause(stage : int):
+	
 	if stage == 1:
 		paused = true
+		print('rats deactivated')
 	elif stage == 2:
 		paused = false
 		spawnPowerEater()
+		print('rats activated')
 	elif stage == 3:
 		paused = false
+		spawnPowerEater()
+		print('rats activated')
 	elif stage == 4:
 		paused = true

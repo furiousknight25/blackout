@@ -24,7 +24,7 @@ func _process(delta: float) -> void:
 	if tween_blend == 0.0: distort_blend = -80.0
 	if tween_blend == 1.0: distort_blend = -80.0
 	distort_music_sfx.volume_db = lerp(distort_music_sfx.volume_db, distort_blend, delta * 40)
-	print(tween_blend)
+	#print(tween_blend)
 
 func start_music():
 	if !music_sfx.playing and !distort_music_sfx.playing:
@@ -52,4 +52,3 @@ func set_tween_blend(blend):
 
 func _on_static_transition_to_talk_sfx_finished() -> void:
 	talk_sfx.play()
-	print('asd')
