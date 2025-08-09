@@ -13,7 +13,7 @@ config_version=5
 config/name="basic diverting"
 run/main_scene="uid://baeq60k8137t"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="uid://bn56nhnf4pqx3"
+config/icon="uid://b2a710wuek07x"
 
 [autoload]
 
