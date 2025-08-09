@@ -1,6 +1,4 @@
 extends Node3D
-@onready var music_maker: Node = $MusicMaker
-@onready var static_transition_to_talk_sfx: AudioStreamPlayer3D = $MusicMaker/StaticTransitionToTalkSFX
 
 
 var debug = [
@@ -105,6 +103,9 @@ var skipping: bool
 @onready var ui_popup: UIPopup = $"UI Popup"
 @onready var label_3d: Label3D = $Label3D
 @onready var dialogue_timer: Timer = $DialogueTimer
+@onready var music_maker: Node = $MusicMaker
+@onready var static_transition_to_talk_sfx: AudioStreamPlayer3D = $MusicMaker/StaticTransitionToTalkSFX
+@onready var talk_sfx: AudioStreamPlayer3D = $MusicMaker/TalkSFX
 
 
 ## TODO: Fix bug where clicking rapidly causes the text to not go to the next line but also not
@@ -151,7 +152,7 @@ func get_next_line():
 	# break loop if the player is skipping
 	if skipping == true:
 		return
-		
+	talk_sfx.volume_db = 0.0
 	line_index += 1
 	
 	if line_index < current_script.size():
@@ -176,6 +177,7 @@ func display_next_character():
 		display_next_character()
 	else:
 		playing = false
+		talk_sfx.volume_db = -80.0
 		character_index = 0
 
 var done = false
