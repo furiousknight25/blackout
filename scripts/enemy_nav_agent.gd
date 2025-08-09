@@ -31,6 +31,7 @@ func _physics_process(_delta: float) -> void:
 	# set nav agent target
 	target_position = movement_target_position
 	
+	
 	# exit this funcion if the enemy has already reached its goal
 	if is_navigation_finished():
 		#print('nav finished')
