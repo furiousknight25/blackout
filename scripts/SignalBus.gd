@@ -70,6 +70,7 @@ var stage : int = 1
 @warning_ignore("unused_signal") signal radioFinished
 @warning_ignore("unused_signal") signal musicPlay(state)
 @warning_ignore("unused_signal") signal musicScary(state)
+@warning_ignore("unused_signal") signal lightsOff(state)
 #############
 
 ### COMPUTER ###

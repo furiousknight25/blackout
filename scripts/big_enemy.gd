@@ -90,6 +90,7 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func wait():
+	SignalBus.emit_signal("musicScary", false)
 	$CrawlBack.set_deferred("monitoring", true)
 	if paused:
 		spawn_probability = -1
@@ -104,6 +105,7 @@ func wait():
 		state = States.START
 		start()
 	else:
+		
 		wait()
 
 func start():
@@ -119,6 +121,7 @@ func reset():
 	navigation_agent.movement_target = reset_point
 	movement_speed_modifier = 5.0
 	health = 100.0
+	SignalBus.emit_signal("musicScary", false)
 	#foot_step_freq.wait_time = .5
 
 func crouch():

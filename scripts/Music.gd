@@ -8,21 +8,42 @@ extends Node
 
 var base_volume = -10.0
 
+var lights_off = false
+
 func _ready() -> void:
 	SignalBus.connect("musicPlay", play_music)
 	SignalBus.connect("musicScary", play_scary)
-	
+	SignalBus.connect("lightsOff", lights_off_func)
+
+func lights_off_func(state):
+	if state == true:
+		lights_off = true
+		
+	else:
+		lights_off = false
+
 func _process(delta: float) -> void:
+	if lights_off:
+		music_sfx.pitch_scale = lerp(music_sfx.pitch_scale, 0.01, delta)
+		distort_music_sfx.pitch_scale = lerp(distort_music_sfx.pitch_scale, 0.01, delta)
+	else:
+		music_sfx.pitch_scale = lerp(music_sfx.pitch_scale, 1.0, delta)
+		distort_music_sfx.pitch_scale = lerp(distort_music_sfx.pitch_scale, 1.0, delta)
+	
 	var regular_blend = base_volume
 	if tween_blend == 1.0: regular_blend = base_volume 
 	if tween_blend == 0.0: regular_blend = -80.0
 	if tween_blend == -1.0: regular_blend = -80.0
+	
+
 	music_sfx.volume_db = lerp(music_sfx.volume_db, regular_blend, delta * 12)
 	
 	var distort_blend = 0
 	if tween_blend == -1.0: distort_blend = base_volume
 	if tween_blend == 0.0: distort_blend = -80.0
 	if tween_blend == 1.0: distort_blend = -80.0
+	
+
 	distort_music_sfx.volume_db = lerp(distort_music_sfx.volume_db, distort_blend, delta * 40)
 	#print(tween_blend)
 
@@ -45,7 +66,7 @@ func play_music(state):
 		$StaticTransitionSFX.play()
 	elif state == false:
 		tween_blend = 0.0
-	
+		
 
 func set_tween_blend(blend):
 	tween_blend = blend

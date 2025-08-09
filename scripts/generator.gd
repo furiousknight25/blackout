@@ -64,12 +64,15 @@ func _on_timer_timeout(): #reducing power on here
 		is_gen_off = true
 		idle_loop_sfx.stop()
 		idle_start.stop()
+		SignalBus.emit_signal("lightsOff", true)
 	
 	if total_power > 0 and is_gen_off == true:
 		is_gen_off = false
 		scary_music.stop() 
+		SignalBus.emit_signal("lightsOff", false)
 		idle_start.play()
 	if total_power > 0:
+		SignalBus.emit_signal("lightsOff", false)
 		scary_music.stop() 
 	
 	# emit signal if gen crosses 25% threshold

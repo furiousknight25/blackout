@@ -52,7 +52,10 @@ func _ready() -> void:
 	SignalBus.connect("set_type", type)
 
 func _physics_process(delta: float) -> void:
-	
+	if is_reloading:
+		face_ray_cast.enabled = false
+	else:
+		face_ray_cast.enabled = true
 	if Input.is_action_just_released("debug_kill"):
 		die()
 	#velocity -= transform.basis.z
@@ -120,6 +123,7 @@ func take_damage():
 
 	health -= 30
 	if health <=0:
+		
 		die()
 	elif health > 70:
 		blood_border_light.visible = false
