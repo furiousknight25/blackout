@@ -236,7 +236,7 @@ volume_db = -30.0
 
 [node name="RejectSFX" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("8_o4fko")
-volume_db = -30.0
+volume_db = -10.0
 
 [node name="TypingSFX" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("9_o4fko")

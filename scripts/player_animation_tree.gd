@@ -8,8 +8,15 @@ func play_animation(animation: String):
 		"reload":
 			get("parameters/StateMachine/playback").travel("reload")
 			$"../../../..".is_reloading = true
+			$"../ViewmodelStuff/ARMS_SK/Skeleton3D/shell_1".show()
+			$"../ViewmodelStuff/ARMS_SK/Skeleton3D/shell_2".show()
+			$"../ViewmodelStuff/ARMS_SK/Skeleton3D/shell_3".show()
 			await get_tree().create_timer(reload_time).timeout
 			$"../../../..".is_reloading = false
+			await get_tree().create_timer(.5).timeout
+			$"../ViewmodelStuff/ARMS_SK/Skeleton3D/shell_1".hide()
+			$"../ViewmodelStuff/ARMS_SK/Skeleton3D/shell_2".hide()
+			$"../ViewmodelStuff/ARMS_SK/Skeleton3D/shell_3".hide()
 			
 		"shoot":
 			get("parameters/StateMachine/playback").travel("shoot")
@@ -18,7 +25,7 @@ func play_animation(animation: String):
 		"type":
 			tween_to_state(1.0)
 		"crank":
-			tween_to_state(-1.0)
+			pass
 		"b2i":
 			tween_to_state(0.0)
 		
