@@ -8,6 +8,9 @@ var has_mouse: bool = false
 var paused: bool = true
 var spawn_probability = 3
 
+var attack_threshold
+var wait_counter = 0
+
 @onready var mesh: Node3D = $"Monster(1)"
 
 @onready var animation_tree: AnimationTree = $"Monster(1)/AnimationTree"
@@ -46,9 +49,11 @@ func _ready():
 	var main = get_tree().root.get_node("Node3D")
 	player = main.get_node("Player")
 	if name == "BigEnemy1":
+		attack_threshold = 6
 		reset_point = main.get_node("EnemyStuff").get_node("Reset1")
 	elif name == "BigEnemy2":
 		reset_point = main.get_node("EnemyStuff").get_node("Reset2")
+		attack_threshold = 9
 	else:
 		push_error("One of the enemies is not named properly:\n Rename to either BigEnemy1 or BigEnemy2")
 	
@@ -91,22 +96,33 @@ func _physics_process(_delta):
 
 func wait():
 	SignalBus.emit_signal("musicScary", false)
-	$CrawlBack.set_deferred("monitoring", true)
-	if paused:
-		spawn_probability = -1
-	else:
-		spawn_probability = 9
-	
+	print(name, " is waiting")
 	movement_speed_modifier = 0.0
+	$CrawlBack.set_deferred("monitoring", true)
+	
 	await get_tree().create_timer(6.0).timeout
 	
-	if randi_range(0, 9) < spawn_probability:
+	if paused:
+		spawn_probability = -1
+		wait()
+		return
+	else:
 		spawn_probability = 3
+	
+	if randi_range(0, 9) < spawn_probability:
 		state = States.START
 		start()
 	else:
+
+		if wait_counter < attack_threshold:
+			wait_counter += 1
+			print(name, "'s wait counter: ", wait_counter)
+			wait()
+		else:
+			print(name, " hit attack threshold")
+			wait_counter = 0
+			start()
 		
-		wait()
 
 func start():
 	SignalBus.emit_signal("enemyStarting")
@@ -122,9 +138,14 @@ func reset():
 	movement_speed_modifier = 5.0
 	health = 100.0
 	SignalBus.emit_signal("musicScary", false)
+	print(name, " resetting to ", reset_point.name)
+	if not paused:
+		await get_tree().create_timer(20).timeout
+		wait()
 	#foot_step_freq.wait_time = .5
 
 func crouch():
+	print(name, " is crouching")
 	## TODO: sound cue for incoming attack
 	SignalBus.emit_signal("enemyCrouching")
 	animation_tree.get("parameters/playback").travel("CLIMB_WINDOW")
@@ -134,6 +155,7 @@ func crouch():
 	attack()
 
 func attack():
+	print(name, " is attacking")
 	animation_tree.set("parameters/walk/TimeScale/scale", 1.0)
 	animation_tree.get("parameters/playback").travel("LUNGE")
 	movement_speed_modifier = 6.0
@@ -156,6 +178,8 @@ func generatorHigh():
 	light_speed_modifier = 1.0
 
 func pause(_stage : int):
+	if paused != true:
+		pass
 	paused = true
 	reset()
 	await get_tree().create_timer(3).timeout
@@ -172,43 +196,37 @@ func unpause(stage: int):
 		if name == "BigEnemy1":
 			visible = true
 			paused = false
-			print("enemy 1 activated")
+			#reset()
 		elif name == "BigEnemy2":
-			visible = false
-			paused = true
-			print("enemy 2 deactivated")
-		else:
-			push_error("One of the enemies is not named properly:\n Rename to either BigEnemy1 or BigEnemy2")
+			#visible = false
+			#paused = true
+			pass
+	
 	elif stage == 2:
 		if name == "BigEnemy1":
 			visible = true
 			paused = false
-			print("enemy 1 activated")
+			#reset()
 		elif name == "BigEnemy2":
-			visible = false
-			paused = true
-			print("enemy 2 deactivated")
-		else:
-			push_error("One of the enemies is not named properly:\n Rename to either BigEnemy1 or BigEnemy2")
+			#visible = false
+			#paused = true
+			pass
+	
 	elif stage == 3:
 		if name == "BigEnemy1":
 			visible = true
 			paused = false
-			print("enemy 1 activated")
+			#reset()
+			
 		elif name == "BigEnemy2":
 			visible = true
 			paused = false
-			print("enemy 2 activated")
-		else:
-			push_error("One of the enemies is not named properly:\n Rename to either BigEnemy1 or BigEnemy2")
-	else:
-		print("enemies deactivated")
-		visible = false
-		paused = true
+			#reset()
 	reset()
+	
 
 func _on_crawl_over_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
-	if state == States.START:
+	if state != States.RESET:
 		crouch_sfx.play()
 		crawl_over_box.set_deferred("monitorable", false)
 		hit_box.emit()
@@ -220,7 +238,7 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 
 func _on_crawl_back_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
 
-	if state == States.RESET:
-		animation_tree.get("parameters/playback").travel("CLIMB_WINDOW")
-		animation_tree.set("parameters/CLIMB_WINDOW/WindowTimeScale/scale", 2.0)
-		$CrawlBack.set_deferred("monitoring", false)
+	#if state == States.RESET:
+	animation_tree.get("parameters/playback").travel("CLIMB_WINDOW")
+	animation_tree.set("parameters/CLIMB_WINDOW/WindowTimeScale/scale", 2.0)
+	$CrawlBack.set_deferred("monitoring", false)

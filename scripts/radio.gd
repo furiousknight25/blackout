@@ -152,7 +152,7 @@ func get_next_line():
 	# break loop if the player is skipping
 	if skipping == true:
 		return
-	talk_sfx.volume_db = 0.0
+	talk_sfx.volume_db = -10.0
 	line_index += 1
 	
 	if line_index < current_script.size():

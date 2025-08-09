@@ -44,8 +44,8 @@ func _physics_process(_delta: float) -> void:
 	var next_path_position: Vector3 = get_next_path_position()
 
 	# set velocity to the next position
-	if enemy.paused == false:
-		enemy.velocity = ( current_agent_position.direction_to(next_path_position) 
+	#if enemy.paused == false:
+	enemy.velocity = ( current_agent_position.direction_to(next_path_position) 
 							* enemy.movement_speed * enemy.movement_speed_modifier
 							* enemy.light_speed_modifier )
 

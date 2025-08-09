@@ -6,7 +6,7 @@ extends Node
 
 @export var tween_blend = 0.0 #-1-1 use -0 to shutoff music
 
-var base_volume = -10.0
+var base_volume = -15.0
 
 var lights_off = false
 
