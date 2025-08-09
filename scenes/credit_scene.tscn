@@ -1,8 +1,44 @@
-[gd_scene load_steps=10 format=3 uid="uid://by1h8vrubek5c"]
+[gd_scene load_steps=14 format=3 uid="uid://by1h8vrubek5c"]
 
 [ext_resource type="Script" uid="uid://elfn8newqjwx" path="res://scripts/credit_scene.gd" id="1_cyc8d"]
 [ext_resource type="Texture2D" uid="uid://bkh16yjafjvje" path="res://assets/textures/radio2.png" id="2_12owj"]
 [ext_resource type="FontFile" uid="uid://p61maj0aujl6" path="res://assets/Fonts/Versa-Versa.otf" id="3_12owj"]
+[ext_resource type="AudioStream" uid="uid://gtvtw6kqsmsk" path="res://assets/sounds/Ink Clot_Radio Version_01.wav" id="4_f4eow"]
+
+[sub_resource type="Animation" id="Animation_jk1qb"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fade2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tbmy8"]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fade2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5dd4i"]
+_data = {
+&"RESET": SubResource("Animation_jk1qb"),
+&"fadeIn": SubResource("Animation_tbmy8")
+}
 
 [sub_resource type="Animation" id="Animation_f4eow"]
 length = 0.001
@@ -95,6 +131,11 @@ _data = {
 [node name="CreditScene" type="Node2D"]
 script = ExtResource("1_cyc8d")
 
+[node name="Fade" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5dd4i")
+}
+
 [node name="BackgroundPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_8q0x2")
@@ -126,9 +167,8 @@ text = "Thank you!"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = 3.0
-offset_top = 600.0
 offset_right = 1148.0
-offset_bottom = 1248.0
+offset_bottom = 648.0
 color = Color(1, 1, 1, 0)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ColorRect"]
@@ -151,6 +191,16 @@ Phoenix: Programmer
 [Monorchid: Animator]
 [cordus: concept artist]
 Sedeth: 3D modeler"
+
+[node name="MusicSFX" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 0.478536)
+stream = ExtResource("4_f4eow")
+volume_db = -80.0
+
+[node name="Fade2" type="ColorRect" parent="."]
+offset_right = 1171.0
+offset_bottom = 670.0
+color = Color(0, 0, 0, 1)
 
 [connection signal="animation_finished" from="BackgroundPlayer" to="." method="_on_background_player_animation_finished"]
 [connection signal="animation_finished" from="CreditScroll" to="." method="_on_credit_scroll_animation_finished"]

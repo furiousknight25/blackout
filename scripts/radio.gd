@@ -172,7 +172,8 @@ func display_next_character():
 		character_index = 0
 
 func end_dialogue():
-	music_maker.set_tween_blend(1.0)
+	if current_script != final_stage:
+		music_maker.set_tween_blend(1.0)
 	label_3d.text = ""
 	if current_script != final_stage:
 		SignalBus.emit_signal("radioFinished")

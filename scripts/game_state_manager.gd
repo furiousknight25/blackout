@@ -7,7 +7,7 @@ func _ready() -> void:
 
 
 func win():
-	await get_tree().create_timer(8).timeout
+	await get_tree().create_timer(4).timeout
 	get_tree().change_scene_to_file.bind("res://scenes/credit_scene.tscn").call_deferred()
 
 func lose():
