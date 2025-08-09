@@ -4,10 +4,10 @@ extends Node2D
 @onready var credit_scroll: AnimationPlayer = $CreditScroll
 @onready var music_sfx: AudioStreamPlayer2D = $MusicSFX
 @onready var fade: AnimationPlayer = $Fade
+@onready var fade_2: ColorRect = $Fade2
 
 
 func _ready() -> void:
-	
 	music_sfx.volume_db = -80.0
 	music_sfx.playing = true
 	background_player.play("background movement")
@@ -22,3 +22,7 @@ func _on_background_player_animation_finished(anim_name: StringName) -> void:
 
 func _on_credit_scroll_animation_finished(anim_name: StringName) -> void:
 	credit_scroll.play("scroll")
+
+
+func _on_fade_animation_finished(anim_name: StringName) -> void:
+	fade_2.color = Color.TRANSPARENT

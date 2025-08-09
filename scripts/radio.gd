@@ -94,7 +94,7 @@ var final_stage = [
 var line_index = 0
 var character_index = 0
 
-var current_script : Array = debug
+var current_script : Array = final_stage
 var current_line : String = ""
 
 var playing : bool
