@@ -204,7 +204,8 @@ func unpause(stage : int):
 	pass
 	
 func nextStage(stage : int):
-	music_maker.set_tween_blend(0.0)
+	if current_script != final_stage:
+		music_maker.set_tween_blend(0.0)
 	static_transition_to_talk_sfx.play()
 	character_index = 0
 	line_index = 0
