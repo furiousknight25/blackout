@@ -43,6 +43,7 @@ var first_stage = [
 	"you can release the quarantine blocks on door function.",
 	"In quarantine, the terminals are all put onto the bypass screen.",
 	"You should be able to enter a series of numbers to open the door.",
+	"Type those numbers into the computer.",
 	"Uh... yeah that's it."
 ]
 

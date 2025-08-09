@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8wcn3nafmak3"]
+[gd_scene load_steps=10 format=3 uid="uid://b8wcn3nafmak3"]
 
 [ext_resource type="Script" uid="uid://6wrp1xgmum2t" path="res://scripts/intro_screen.gd" id="1_2i7sm"]
 [ext_resource type="FontFile" uid="uid://1k7oe6a13b8l" path="res://assets/BadPixelFont.ttf" id="1_q1oon"]
 [ext_resource type="Texture2D" uid="uid://bd803tnda478x" path="res://assets/Icon-RightMouseButton.png" id="2_2i7sm"]
 [ext_resource type="Texture2D" uid="uid://ml30g2qrvqpi" path="res://assets/Icon-LeftMouseButton.png" id="3_hukxe"]
+[ext_resource type="Texture2D" uid="uid://dekad24qjgi7c" path="res://assets/Icon-Number_1.png" id="5_hukxe"]
 
 [sub_resource type="Animation" id="Animation_2i7sm"]
 resource_name = "FadeIn"
@@ -144,9 +145,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -32.0
-offset_right = 32.0
-offset_bottom = 8.0
+offset_left = 32.0
+offset_top = 8.0
+offset_right = 96.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_q1oon")
@@ -162,16 +164,33 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = 40.0
-offset_right = 32.0
-offset_bottom = 48.0
+offset_left = -62.0
+offset_top = 48.0
+offset_right = 62.0
+offset_bottom = 56.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_q1oon")
 theme_override_font_sizes/font_size = 8
 text = "press  any key  to  continue..."
 horizontal_alignment = 1
+
+[node name="NumberKeys" type="Label" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -86.0
+offset_top = 28.0
+offset_right = 3.0
+offset_bottom = 37.0
+theme_override_fonts/font = ExtResource("1_q1oon")
+theme_override_font_sizes/font_size = 8
+text = "number keys to type"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Icon-number1" type="Sprite2D" parent="Control/NumberKeys"]
+position = Vector2(44, 17)
+texture = ExtResource("5_hukxe")
 
 [node name="CoverupRect" type="ColorRect" parent="."]
 anchors_preset = 8
