@@ -68,7 +68,7 @@ func _on_timer_timeout(): #reducing power on here
 	
 	if total_power > 0 and is_gen_off == true:
 		is_gen_off = false
-		scary_music.stop() 
+		scary_music.stop()
 		SignalBus.emit_signal("lightsOff", false)
 		idle_start.play()
 	if total_power > 0:

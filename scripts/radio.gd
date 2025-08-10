@@ -95,7 +95,7 @@ var final_stage = [
 var line_index = 0
 var character_index = 0
 
-var current_script : Array = debug
+var current_script : Array = first_stage
 var current_line : String = ""
 
 var playing : bool
@@ -118,6 +118,12 @@ func _ready() -> void:
 	SignalBus.connect("nextStage", nextStage)
 	SignalBus.connect("lostGame", die)
 	
+	if SignalBus.stage == 1:
+		current_script = first_stage
+	elif SignalBus.stage == 2:
+		current_script = second_stage
+	elif SignalBus.stage == 3:
+		current_script = third_stage
 	setup()
 
 func setup():
