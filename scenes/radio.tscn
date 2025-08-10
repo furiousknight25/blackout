@@ -99,28 +99,32 @@ transform = Transform3D(0.660574, 0, 0.429457, 0, 0.787904, 0, -0.429457, 0, 0.6
 script = ExtResource("4_3mpwk")
 
 [node name="MusicSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.478536, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4024, 0.478536, -4.51714)
 stream = ExtResource("5_uf7ta")
 volume_db = -80.0
 
 [node name="TalkSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.478536, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4024, 0.478536, -4.51714)
 stream = ExtResource("6_wvvpt")
 
 [node name="DistortMusicSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4024, 0, -4.51714)
 stream = ExtResource("6_144bg")
 volume_db = -80.0
 
 [node name="StaticSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4024, 0, -4.51714)
 stream = ExtResource("6_hhhqh")
 pitch_scale = 0.78
 
 [node name="StaticTransitionSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4024, 0, -4.51714)
 stream = ExtResource("6_hhhqh")
 volume_db = -15.244
 pitch_scale = 0.78
 
 [node name="StaticTransitionToTalkSFX" type="AudioStreamPlayer3D" parent="MusicMaker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4024, 0, -4.51714)
 stream = ExtResource("6_hhhqh")
 volume_db = -15.244
 pitch_scale = 0.78
