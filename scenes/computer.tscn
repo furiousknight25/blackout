@@ -222,8 +222,9 @@ offset_bottom = 100.0
 scale = Vector2(6.48, 6.48)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("4_tjrug")
+theme_override_font_sizes/normal_font_size = 14
 bbcode_enabled = true
-text = "up right down left"
+text = "up up [br]down left"
 horizontal_alignment = 1
 vertical_alignment = 1
 

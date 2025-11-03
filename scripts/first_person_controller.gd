@@ -7,6 +7,7 @@ extends CharacterBody3D
 @onready var face_ray_cast: RayCast3D = %Camera3D/Rig/FaceRayCast
 @onready var shoot_sfx: AudioStreamPlayer3D = $ShootSFX
 @onready var health: int = 90
+@onready var reload_sfx: AudioStreamPlayer3D = $ReloadSFX
 
 @onready var dying_animation: AnimationPlayer = $DyingAnimation
 @onready var fade_animation: AnimationPlayer = $FadeAnimation
@@ -39,8 +40,8 @@ var currentAmmo = 3 #how much ammo is currently in the gun
 
 var dying = false
 var current_interact = null
-@export var horizontal_sensitivity = 1.5
-@export var vertical_sensitivity = 1.5
+@export var horizontal_sensitivity = 3
+@export var vertical_sensitivity = 3
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
@@ -208,7 +209,7 @@ func shoot():
 	
 	shoot_sfx.play()
 	for i : RayCast3D in gun_ray_casts:
-		i.rotation = Vector3(randf_range(-0.1,0.1), randf_range(-0.1,0.1), 0.0)
+		i.rotation = Vector3(randf_range(-0.2,0.2), randf_range(-0.2,0.2), 0.0)
 		if i.get_collider():
 			if i.get_collider().is_in_group('enemy'):
 				if i.get_collider().has_method("take_damage"):
@@ -224,7 +225,7 @@ func shoot():
 
 func reload():
 	currentAmmo = totalAmmo
-	
+	reload_sfx.play()
 	animation_tree.play_animation('reload')
 
 func type(state):

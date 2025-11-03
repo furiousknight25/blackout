@@ -97,20 +97,37 @@ func checkForWin():
 
 func randomizeNumString():
 	randNumString = ""
+	var first_half = ""
+	var last_half = ""
 	for i in range(0, 4):
 		var random_dir_num = str(randi_range(0, 3))
-		randNumString = randNumString + random_dir_num
+		if i < 2:
+			first_half = first_half + random_dir_num
+			#randNumString = randNumString + random_dir_num
+		else:
+			last_half = last_half + random_dir_num
 	
-	var new_reg = ""
-	for i : String in randNumString:
-		
+	randNumString = first_half + last_half
+	
+	var final_reg = ""
+	var first_reg = ""
+	var last_reg = ""
+	for i : String in first_half:
 		match i:
-			'0': new_reg = new_reg + "up "
-			'1': new_reg = new_reg + "right "
-			"2": new_reg = new_reg + "down "
-			"3": new_reg = new_reg + "left "
-	rich_text_label.text = "[outline_size=5]" + "[outline_color=black]" + new_reg + "[/outline_color]" + "[/outline_size]"
-	print(new_reg)
+			'0': first_reg = first_reg + "up "
+			'1': first_reg = first_reg + "right "
+			"2": first_reg = first_reg + "down "
+			"3": first_reg = first_reg + "left "
+			
+	for i : String in last_half:
+		match i:
+			'0': last_reg = last_reg + "up "
+			'1': last_reg = last_reg + "right "
+			"2": last_reg = last_reg + "down "
+			"3": last_reg = last_reg + "left "
+	#final_reg = first_reg + "[br]"+ last_reg
+	rich_text_label.text = "[outline_size=5]" + "[outline_color=black]" + first_reg + last_reg + "[/outline_color]" + "[/outline_size]"
+	#print(final_reg)
 	
 	keysPressed = ""
 	key_length = 0

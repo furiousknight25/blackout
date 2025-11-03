@@ -6,7 +6,7 @@ var movement_speed_modifier : float = 1.0
 var light_speed_modifier : float = 1.0
 var has_mouse: bool = false
 var paused: bool = true
-var spawn_probability = 3
+var spawn_probability = 2
 
 var attack_threshold
 var wait_counter = 0
@@ -88,6 +88,8 @@ func _physics_process(_delta):
 		States.CROUCH:
 			animation_tree.set("parameters/walk/TimeScale/scale", 0.0)
 		States.ATTACK:
+			if fight_hitbox.monitoring == false:
+				fight_hitbox.set_deferred("monitoring", true)
 			animation_tree.set("parameters/walk/TimeScale/scale", 1.0)
 			if fight_hitbox.has_overlapping_bodies():
 				fight_hitbox.set_deferred("monitoring", false)
@@ -111,7 +113,7 @@ func wait():
 		wait()
 		return
 	else:
-		spawn_probability = 3
+		spawn_probability = 2
 	
 	if randi_range(0, 9) < spawn_probability:
 		state = States.START
@@ -140,7 +142,7 @@ func start():
 func reset():
 	navigation_agent.movement_target = reset_point
 	movement_speed_modifier = 5.0
-	health = 100.0
+	health = 1
 	SignalBus.emit_signal("musicScary", false)
 	$"../../Generator/Lights".close = false
 	print(name, " resetting to ", reset_point.name)
@@ -175,11 +177,11 @@ func take_damage( damage : int ):
 		reset()
 
 func generatorLow():
-	spawn_probability = 6
+	spawn_probability = 4
 	light_speed_modifier = 1.5
 
 func generatorHigh():
-	spawn_probability = 3
+	spawn_probability = 2
 	light_speed_modifier = 1.0
 
 func pause(_stage : int):

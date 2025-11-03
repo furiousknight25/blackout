@@ -14,8 +14,9 @@
 [ext_resource type="AudioStream" uid="uid://kuhivh1lfk2o" path="res://assets/sounds/RatBlaster_5000_SFX_01.wav" id="9_yayej"]
 [ext_resource type="AudioStream" uid="uid://dw8gnxifv0l4a" path="res://assets/sounds/Rats_Squeaking_SFX_01.wav" id="10_18n73"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_o53h7"]
-size = Vector3(0.279297, 0.126953, 0.801758)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y4imf"]
+radius = 0.32910156
+height = 0.9519043
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f12um"]
 direction = Vector3(0, 1, 0)
@@ -2842,7 +2843,8 @@ collision_layer = 2
 script = ExtResource("1_f12um")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_o53h7")
+transform = Transform3D(1, 0, -3.821371e-15, -3.821371e-15, 4.371139e-08, -1, 0, 1, 4.371139e-08, 0, 0.10694575, -0.08483887)
+shape = SubResource("CapsuleShape3D_y4imf")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
