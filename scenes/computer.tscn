@@ -208,7 +208,7 @@ text = "0123"
 font = ExtResource("4_tjrug")
 
 [node name="Numbers" type="Sprite3D" parent="."]
-transform = Transform3D(0.23, 0, 0, 0, -1.00536e-08, 0.23, 0, -0.23, -1.00536e-08, -0.0406542, 0.0333445, -0.181073)
+transform = Transform3D(0.0847728, 0, 0, 0, -3.70553e-09, 0.0847728, 0, -0.0847728, -3.70553e-09, -0.0572032, 0.0333445, -0.198581)
 texture = SubResource("ViewportTexture_tjrug")
 
 [node name="SubViewport" type="SubViewport" parent="Numbers"]
@@ -223,7 +223,7 @@ scale = Vector2(6.48, 6.48)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("4_tjrug")
 bbcode_enabled = true
-text = "0123"
+text = "up right down left"
 horizontal_alignment = 1
 vertical_alignment = 1
 

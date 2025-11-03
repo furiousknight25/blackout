@@ -39,7 +39,8 @@ var currentAmmo = 3 #how much ammo is currently in the gun
 
 var dying = false
 var current_interact = null
-
+@export var horizontal_sensitivity = 1.5
+@export var vertical_sensitivity = 1.5
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
@@ -52,6 +53,14 @@ func _ready() -> void:
 	SignalBus.connect("set_type", type)
 
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("upsense"): 
+		vertical_sensitivity += .2
+		horizontal_sensitivity += .2
+	if Input.is_action_just_pressed("downsense"): 
+		vertical_sensitivity += -.2
+		horizontal_sensitivity += -.2
+	
+	
 	if is_reloading:
 		face_ray_cast.enabled = false
 	else:
@@ -64,12 +73,26 @@ func _physics_process(delta: float) -> void:
 	
 	var input
 	var movement_dir
+	var joy_input = Input.get_vector("lleft", "lright", "lup", "ldown")
+	
 	
 	if dying:
 		input = Vector3.ZERO
+		joy_input = Vector2.ZERO
 		movement_dir = transform.basis * Vector3(input.x, 0, input.y) * speed #makes sure the forward is the forward you are facing
 	#region: skips if dying
 	else:
+			# Horizontal rotation (left/right)
+		var yaw = joy_input.x * horizontal_sensitivity
+		rotate_y(deg_to_rad(-yaw))
+
+		# Vertical rotation (up/down)
+		var pitch = joy_input.y * vertical_sensitivity
+		camera_3d.rotate_x(deg_to_rad(-pitch))
+
+		camera_3d.rotation.x = clamp(camera_3d.rotation.x, deg_to_rad(-89.0), deg_to_rad(89.0))
+		
+		
 		input = Input.get_vector('left',"right","forward","back")
 		movement_dir = transform.basis * Vector3(input.x, 0, input.y) * speed #makes sure the forward is the forward you are facing
 		
@@ -164,13 +187,16 @@ func sv_airaccelerate(movement_dir, delta):
 		accel_speed = add_speed
 	
 	velocity += accel_speed * movement_dir
+
+
+
 func _input(event: InputEvent) -> void:
 	if dying: return
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		camera_3d.rotate_x(-event.relative.y * mouse_sensitivity)
-
-
+	
+	
 func shoot():
 	animation_tree.play_animation('shoot')
 	createSmoke()

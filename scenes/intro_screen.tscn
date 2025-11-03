@@ -1,10 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8wcn3nafmak3"]
+[gd_scene load_steps=16 format=3 uid="uid://b8wcn3nafmak3"]
 
 [ext_resource type="Script" uid="uid://6wrp1xgmum2t" path="res://scripts/intro_screen.gd" id="1_2i7sm"]
 [ext_resource type="FontFile" uid="uid://1k7oe6a13b8l" path="res://assets/BadPixelFont.ttf" id="1_q1oon"]
-[ext_resource type="Texture2D" uid="uid://bd803tnda478x" path="res://assets/Icon-RightMouseButton.png" id="2_2i7sm"]
-[ext_resource type="Texture2D" uid="uid://ml30g2qrvqpi" path="res://assets/Icon-LeftMouseButton.png" id="3_hukxe"]
+[ext_resource type="Texture2D" uid="uid://d0wrajupav101" path="res://assets/controllericons/tile_0634.png" id="3_0qdbj"]
+[ext_resource type="Texture2D" uid="uid://c8jdn1jkanmob" path="res://assets/controllericons/tile_0633.png" id="4_puarp"]
 [ext_resource type="Texture2D" uid="uid://dekad24qjgi7c" path="res://assets/Icon-Number_1.png" id="5_hukxe"]
+[ext_resource type="Texture2D" uid="uid://cajlxiuq4c8ep" path="res://assets/controllericons/tile_0423.png" id="5_j5a1a"]
+[ext_resource type="Texture2D" uid="uid://bg2vrqoj7a1i5" path="res://assets/controllericons/tile_0491.png" id="6_j81ti"]
+[ext_resource type="Texture2D" uid="uid://b3sgbgj6q0i6w" path="res://assets/controllericons/tile_0035.png" id="8_la641"]
+[ext_resource type="Texture2D" uid="uid://dcmsism6xiy0u" path="res://assets/controllericons/tile_0036.png" id="9_whlul"]
+[ext_resource type="Texture2D" uid="uid://b5vsyaqpqr1kk" path="res://assets/controllericons/tile_0037.png" id="10_68jmn"]
+[ext_resource type="Texture2D" uid="uid://dt8mcaljdcu8b" path="res://assets/controllericons/tile_0038.png" id="11_xowom"]
 
 [sub_resource type="Animation" id="Animation_2i7sm"]
 resource_name = "FadeIn"
@@ -86,9 +92,9 @@ grow_vertical = 2
 z_index = -1
 layout_mode = 0
 offset_left = -100.0
-offset_top = -52.0
+offset_top = -50.0
 offset_right = 140.0
-offset_bottom = 92.0
+offset_bottom = 94.0
 color = Color(0, 0, 0, 1)
 
 [node name="LeftMouseText" type="Label" parent="Control"]
@@ -99,20 +105,20 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -104.0
+offset_left = -111.0
 offset_top = -40.0
-offset_right = -19.0
-offset_bottom = -24.0
+offset_right = -11.0
+offset_bottom = -31.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_q1oon")
 theme_override_font_sizes/font_size = 8
-text = "left click to shoot"
+text = "right trigger to shoot"
 horizontal_alignment = 1
 
-[node name="RightMouseButton" type="Sprite2D" parent="Control/LeftMouseText"]
-position = Vector2(168, 24)
-texture = ExtResource("2_2i7sm")
+[node name="LeftMouseButton" type="Sprite2D" parent="Control/LeftMouseText"]
+position = Vector2(51, 22)
+texture = ExtResource("3_0qdbj")
 
 [node name="RightMouseText" type="Label" parent="Control"]
 texture_filter = 1
@@ -122,20 +128,20 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 8.0
+offset_left = 2.0
 offset_top = -40.0
-offset_right = 113.0
+offset_right = 114.0
 offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_q1oon")
 theme_override_font_sizes/font_size = 8
-text = "right click to interact"
+text = "left trigger to interact"
 horizontal_alignment = 1
 
-[node name="LeftMouseButton" type="Sprite2D" parent="Control/RightMouseText"]
-position = Vector2(-72, 24)
-texture = ExtResource("3_hukxe")
+[node name="RightMouseButton" type="Sprite2D" parent="Control/RightMouseText"]
+position = Vector2(54, 23)
+texture = ExtResource("4_puarp")
 
 [node name="WASD" type="Label" parent="Control"]
 texture_filter = 1
@@ -145,16 +151,24 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 32.0
+offset_left = 1.0
 offset_top = 8.0
-offset_right = 96.0
+offset_right = 104.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_q1oon")
 theme_override_font_sizes/font_size = 8
-text = "wasd to move"
+text = "sticks to move and look"
 horizontal_alignment = 1
+
+[node name="Tile0423" type="Sprite2D" parent="Control/WASD"]
+position = Vector2(43.5, 21)
+texture = ExtResource("5_j5a1a")
+
+[node name="Tile0491" type="Sprite2D" parent="Control/WASD"]
+position = Vector2(65.5, 21)
+texture = ExtResource("6_j81ti")
 
 [node name="Continue" type="Label" parent="Control"]
 texture_filter = 1
@@ -172,7 +186,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_q1oon")
 theme_override_font_sizes/font_size = 8
-text = "press  any key  to  continue..."
+text = "press  left trigger to  continue..."
 horizontal_alignment = 1
 
 [node name="NumberKeys" type="Label" parent="Control"]
@@ -184,13 +198,30 @@ offset_right = 3.0
 offset_bottom = 37.0
 theme_override_fonts/font = ExtResource("1_q1oon")
 theme_override_font_sizes/font_size = 8
-text = "number keys to type"
+text = "d-pad to type"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Icon-number1" type="Sprite2D" parent="Control/NumberKeys"]
+visible = false
 position = Vector2(44, 17)
 texture = ExtResource("5_hukxe")
+
+[node name="Tile0035" type="Sprite2D" parent="Control/NumberKeys"]
+position = Vector2(14, 18)
+texture = ExtResource("8_la641")
+
+[node name="Tile0036" type="Sprite2D" parent="Control/NumberKeys"]
+position = Vector2(34, 18)
+texture = ExtResource("9_whlul")
+
+[node name="Tile0037" type="Sprite2D" parent="Control/NumberKeys"]
+position = Vector2(53, 18)
+texture = ExtResource("10_68jmn")
+
+[node name="Tile0038" type="Sprite2D" parent="Control/NumberKeys"]
+position = Vector2(72, 18)
+texture = ExtResource("11_xowom")
 
 [node name="CoverupRect" type="ColorRect" parent="."]
 anchors_preset = 8

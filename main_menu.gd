@@ -16,6 +16,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	music_sfx.volume_db = lerp(music_sfx.volume_db, 0.0, delta * 1.5)
+	if Input.is_action_just_pressed("interact"):
+		transition()
 
 func transition():
 	fade.play("fadeOut")
