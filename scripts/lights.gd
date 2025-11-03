@@ -1,8 +1,31 @@
 extends Node
 
 @onready var lights = get_children()
+
 var power = 0
 var on = true
+
+var org_colors := []
+const scary_color : Color = Color(0.5,0,0,0.0)
+
+var close = false
+func _ready() -> void:
+	for i : Light3D in lights:
+		org_colors += [i.light_color]
+
+func _process(delta: float) -> void:
+	print(close)
+	if close:
+		var index = 0
+		for i:Light3D in lights:
+			i.light_color = lerp(i.light_color, scary_color.lerp(org_colors[index], .65), delta * .5)
+			index += 1
+	else:
+		var index = 0
+		for i :Light3D in lights:
+			i.light_color = lerp(i.light_color, org_colors[index], delta)
+			index += 1
+
 func _on_generator_power_changed(current_power: Variant) -> void:
 	if current_power != 0:
 		current_power /= 100

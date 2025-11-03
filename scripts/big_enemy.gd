@@ -66,12 +66,15 @@ func _physics_process(_delta):
 		#foot_step_freq.paused = true
 	if global_position.distance_to(crawl_over_box.global_position) < 6.0 and paused != true:
 		SignalBus.emit_signal("musicScary", true)
+		$"../../Generator/Lights".close = true
+		
 	
 	match state:
 		States.RESET:
 			if navigation_agent.is_navigation_finished():
 				if paused != true:
 					SignalBus.emit_signal("musicScary", false)
+					$"../../Generator/Lights".close = false
 				state = States.WAIT
 				wait()
 				crawl_over_box.set_deferred("monitorable", true)
@@ -96,6 +99,7 @@ func _physics_process(_delta):
 
 func wait():
 	SignalBus.emit_signal("musicScary", false)
+	$"../../Generator/Lights".close = false
 	print(name, " is waiting")
 	movement_speed_modifier = 0.0
 	$CrawlBack.set_deferred("monitoring", true)
@@ -138,6 +142,7 @@ func reset():
 	movement_speed_modifier = 5.0
 	health = 100.0
 	SignalBus.emit_signal("musicScary", false)
+	$"../../Generator/Lights".close = false
 	print(name, " resetting to ", reset_point.name)
 	if not paused:
 		await get_tree().create_timer(20).timeout
