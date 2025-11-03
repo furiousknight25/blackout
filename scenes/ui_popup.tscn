@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cufyt808u7jv1"]
 
 [ext_resource type="Script" uid="uid://dv4a8oivju3lc" path="res://scripts/ui_popup.gd" id="1_2k1c8"]
-[ext_resource type="Texture2D" uid="uid://bd803tnda478x" path="res://assets/Icon-RightMouseButton.png" id="1_55qji"]
+[ext_resource type="Texture2D" uid="uid://c8jdn1jkanmob" path="res://assets/controllericons/tile_0633.png" id="2_2k1c8"]
 
 [node name="UI Popup" type="Node3D"]
 script = ExtResource("1_2k1c8")
@@ -10,4 +10,4 @@ script = ExtResource("1_2k1c8")
 modulate = Color(1, 1, 1, 0)
 billboard = 1
 texture_filter = 2
-texture = ExtResource("1_55qji")
+texture = ExtResource("2_2k1c8")

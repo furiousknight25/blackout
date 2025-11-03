@@ -8,8 +8,9 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.is_pressed():
+	if event is InputEventKey and event.is_pressed() or Input.is_action_just_pressed("interact"):
 		transition()
+	
 	
 
 
