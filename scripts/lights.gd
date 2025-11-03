@@ -14,7 +14,6 @@ func _ready() -> void:
 		org_colors += [i.light_color]
 
 func _process(delta: float) -> void:
-	print(close)
 	if close:
 		var index = 0
 		for i:Light3D in lights:
