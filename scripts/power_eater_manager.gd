@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var timeToSpawn : float = 15.0
+@export var timeToSpawn : float = 20.0
 
 ## Give a PathFollow3D node to be used as the route the enemy will follow (Remember that a PathFollow3D node needs a Path3D as a parent)
 @export var followPaths : Array[PathFollow3D] #give the follow path/s for the manager to use to spawn Power Eaters on
@@ -36,7 +36,8 @@ func spawnPowerEater() -> void:
 		moveTween.tween_property(followPath, "progress_ratio", progressSpot, progressSpot)
 		
 		await moveTween.finished
-		await get_tree().create_timer(1).timeout
+		## VVV THIS IS HOW TO MAKE THE RATS EASIER !!! increase the timer
+		await get_tree().create_timer(2).timeout
 		SignalBus.emit_signal("attackGenerator")
 
 

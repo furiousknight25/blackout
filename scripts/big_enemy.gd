@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-var health : int = 100
+var health : int = 1
 var movement_speed: float = 1.3
 var movement_speed_modifier : float = 1.0
 var light_speed_modifier : float = 1.0

@@ -1,95 +1,73 @@
 extends Node3D
 
-
-var debug = [
-	"whats up pisser",
-	"you gotta shit bricks soon"
-]
-
 var first_stage = [
-	"...",
-	"Hello?",
-	"Hello? Hello?",
-	"Is anyone alive on this channel?",
 	". . .",
-	"If you're alive, listen closely...",
+	"Oh good, you're up.",
 	"There's been a containment breach.",
-	"Units 3B and 3C are down.",
-	"There's a quarantine on sector 3 until they kill those things",
-	"You wanna keep those lights on...",
-	"otherwise they'll kill you.",
-	"They don't like light,",
-	"that's why they slashed the breaker box.",
-	"All of sector 3 is in the dark.",
-	". . .",
-	"Honestly the dark is nice compared to the bright overhead lighting",
-	"I could never stand it, so I can't blame those things.",
-	". . .",
-	"Oh, you should probably have a generator.",
-	"Keep that generator running to keep the lights on.",
-	"Crank it by holding RMB every once in a while.",
-	". . .",
-	"Oh, and if you have a gun, use it.",
-	"Keep track of your ammo, though.",
-	"The standard-issue shotgun only has three shots.",
-	"Make them count.",
-	"More ammo should be stored nearby.",
-	". . .",
-	"Oh boy, they're really worked up right now.",
-	"Its a good think the shells are only rock salt...",
-	". . .",
-	"Uh... you should probably try to find a way out.",
+	"You were knocked out when the lights went dark.",
+	"The company enacted a quarantine on sector 3",
+	"There are blocks on door function to keep those things in.",
 	"If there's a computer terminal by you,",
-	"you can release the quarantine blocks on door function.",
-	"In quarantine, the terminals are all put onto the bypass screen.",
-	"You should be able to enter a series of numbers to open the door.",
-	"Type those numbers into the computer.",
-	"Uh... yeah that's it."
+	"you can open the doors.",
+	"Enter the series of numbers to open the door.",
+	"Do it quickly, but you need to keep the lights on.",
+	"They like the dark.",
+	"There's generator near you.",
+	"Keep it running by holding RMB every once in a while.",
+	". . .",
+	"If you have a gun, use it.",
+	"Your shotgun only has three shots.",
+	"Make them count, I've seen what those things can do.",
+	"More ammo should be stored nearby.",
+	"Its only rock salt, though,",
+	"So make sure they get close before you hit them.",
+	". . .",
+	"I really need to get out of here.",
+	"I did a lot of work keeping them away from you.",
+	"Would you kindly open the door?",
+	"Neither of us want to die here."
 ]
 
 var second_stage = [
 	". . .",
 	"Holy shit...",
-	"Are you alive in 3C still?",
 	"I heard an air vent open just now.",
 	"That's great!",
-	"Well, except for the fact that I see something in the vents...",
-	"But that's besides the point.",
 	"You got through the lower-security protocol.",
 	"The next level should unlock a door.",
 	"If you can get that, we can escape.",
 	". . .",
-	"Just deal with those things in the vents and you'll be fine.",
-	"They don't look very big, anyways.",
+	"Looks like you opened a vent.",
+	"I can see something moving in there.",
+	"They don't look very big.",
 	"They're probably just rats.",
 	". . .",
 	"Rats know when there's danger, you know.",
-	". . .",
+	"I can see them scurrying around.",
 	"Just make sure they don't chew through any wires.",
-	"You can't get out of here if you can't keep the lights on.",
-	"By the way I'm pretty stuck in here too...",
-	"Would you kindly open the door for me?"
+	"You can't get us out of here if you can't keep the lights on.",
 ]
 
 var third_stage = [
-	"Shit! You unlocked unit 3A, not the exit door!",
-	"There's another one of the boys in here now.",
+	". . .",
+	"You idiot, you unlocked a containment unit, not the exit door!",
+	"There's another one of them in there with you now.",
 	"Just open that door!"
 ]
 
 var final_stage = [
 	". . .",
 	"Oh, you actually got it.",
-	"I didn't think you'd actually do it.",
+	"I didn't think you would do it.",
 	"I mean the doors were closed for a reason.",
 	"But I guess you have a strong survival instinct",
 	"and bad foresight.",
-	"My children just ran out, by the way.",
-	"Thanks for getting us out of here.",
+	". . .",
 	"I was working on that quarantine lock for hours...",
-	"its hard to get the kids to type for me when they're so worked up.",
-	"Anyways I gotta go.",
-	"Thanks again for opening the door for us."
+	"its hard to type without hands.",
+	"And the others are too dumb to know you're helping us.",
+	"It was hard to keep you safe.",
+	"Thanks for opening the door for us."
 ]
 
 var line_index = 0
@@ -100,6 +78,7 @@ var current_line : String = ""
 
 var playing : bool
 var skipping: bool
+var done = false
 
 @onready var ui_popup: UIPopup = $"UI Popup"
 @onready var label_3d: Label3D = $Label3D
@@ -189,7 +168,7 @@ func display_next_character():
 		talk_sfx.volume_db = -80.0
 		character_index = 0
 
-var done = false
+
 func end_dialogue():
 	if !done: 
 		done = true

@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var powerDrainAmount : int = 5
+@export var powerDrainAmount : int = 3
 @export var maxHealth : int = 1
 
 @onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D

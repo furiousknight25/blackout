@@ -8,7 +8,6 @@ var movement_target_position: Vector3
 @warning_ignore("unused_signal") signal movement_target_reached(target: Node3D)
 
 func _ready() -> void:
-
 	# Make sure to not await during _ready.
 	actor_setup.call_deferred()
 
