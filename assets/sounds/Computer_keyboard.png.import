@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bk53hwhkd36ln"
 path.s3tc="res://.godot/imported/Computer_keyboard.png-f7a723715e3f2165cc69c2498849be9b.s3tc.ctex"
+path.etc2="res://.godot/imported/Computer_keyboard.png-f7a723715e3f2165cc69c2498849be9b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/sounds/Computer_keyboard.png"
-dest_files=["res://.godot/imported/Computer_keyboard.png-f7a723715e3f2165cc69c2498849be9b.s3tc.ctex"]
+dest_files=["res://.godot/imported/Computer_keyboard.png-f7a723715e3f2165cc69c2498849be9b.s3tc.ctex", "res://.godot/imported/Computer_keyboard.png-f7a723715e3f2165cc69c2498849be9b.etc2.ctex"]
 
 [params]
 

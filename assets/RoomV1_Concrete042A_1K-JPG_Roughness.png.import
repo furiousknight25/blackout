@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://d3a8vkt44urgp"
 path.s3tc="res://.godot/imported/RoomV1_Concrete042A_1K-JPG_Roughness.png-bb1f90a3d156d7fa7032178248bbe880.s3tc.ctex"
+path.etc2="res://.godot/imported/RoomV1_Concrete042A_1K-JPG_Roughness.png-bb1f90a3d156d7fa7032178248bbe880.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/RoomV1_Concrete042A_1K-JPG_Roughness.png"
-dest_files=["res://.godot/imported/RoomV1_Concrete042A_1K-JPG_Roughness.png-bb1f90a3d156d7fa7032178248bbe880.s3tc.ctex"]
+dest_files=["res://.godot/imported/RoomV1_Concrete042A_1K-JPG_Roughness.png-bb1f90a3d156d7fa7032178248bbe880.s3tc.ctex", "res://.godot/imported/RoomV1_Concrete042A_1K-JPG_Roughness.png-bb1f90a3d156d7fa7032178248bbe880.etc2.ctex"]
 
 [params]
 

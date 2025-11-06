@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://kfol7r18jx3b"
 path.s3tc="res://.godot/imported/shotgun_Material.001_Metallic-shotgun_Material.001_Roughness.png-1b43005599e39189563c44e72d03f3d4.s3tc.ctex"
+path.etc2="res://.godot/imported/shotgun_Material.001_Metallic-shotgun_Material.001_Roughness.png-1b43005599e39189563c44e72d03f3d4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://assets/textures/shotgun_Material.001_Metallic-shotgun_Material.001_Roughness.png"
-dest_files=["res://.godot/imported/shotgun_Material.001_Metallic-shotgun_Material.001_Roughness.png-1b43005599e39189563c44e72d03f3d4.s3tc.ctex"]
+dest_files=["res://.godot/imported/shotgun_Material.001_Metallic-shotgun_Material.001_Roughness.png-1b43005599e39189563c44e72d03f3d4.s3tc.ctex", "res://.godot/imported/shotgun_Material.001_Metallic-shotgun_Material.001_Roughness.png-1b43005599e39189563c44e72d03f3d4.etc2.ctex"]
 
 [params]
 

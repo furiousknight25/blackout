@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bltvhcyklcy4c"
 path.s3tc="res://.godot/imported/RadioSet_pxRS.png-17a7502f2d4904cddcb807b7bbc0a168.s3tc.ctex"
+path.etc2="res://.godot/imported/RadioSet_pxRS.png-17a7502f2d4904cddcb807b7bbc0a168.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/textures/RadioSet_pxRS.png"
-dest_files=["res://.godot/imported/RadioSet_pxRS.png-17a7502f2d4904cddcb807b7bbc0a168.s3tc.ctex"]
+dest_files=["res://.godot/imported/RadioSet_pxRS.png-17a7502f2d4904cddcb807b7bbc0a168.s3tc.ctex", "res://.godot/imported/RadioSet_pxRS.png-17a7502f2d4904cddcb807b7bbc0a168.etc2.ctex"]
 
 [params]
 

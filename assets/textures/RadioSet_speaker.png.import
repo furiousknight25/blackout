@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://v2a44ysaf6hd"
 path.s3tc="res://.godot/imported/RadioSet_speaker.png-7c3648281840ed0f91e678611818dc38.s3tc.ctex"
+path.etc2="res://.godot/imported/RadioSet_speaker.png-7c3648281840ed0f91e678611818dc38.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/textures/RadioSet_speaker.png"
-dest_files=["res://.godot/imported/RadioSet_speaker.png-7c3648281840ed0f91e678611818dc38.s3tc.ctex"]
+dest_files=["res://.godot/imported/RadioSet_speaker.png-7c3648281840ed0f91e678611818dc38.s3tc.ctex", "res://.godot/imported/RadioSet_speaker.png-7c3648281840ed0f91e678611818dc38.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bscy21fvrsj27"
 path.s3tc="res://.godot/imported/RoomV1_worn_plaster_wall_rough_1k.png-cdf5c71e0edb6d4ff88a1264ca3ccc91.s3tc.ctex"
+path.etc2="res://.godot/imported/RoomV1_worn_plaster_wall_rough_1k.png-cdf5c71e0edb6d4ff88a1264ca3ccc91.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/RoomV1_worn_plaster_wall_rough_1k.png"
-dest_files=["res://.godot/imported/RoomV1_worn_plaster_wall_rough_1k.png-cdf5c71e0edb6d4ff88a1264ca3ccc91.s3tc.ctex"]
+dest_files=["res://.godot/imported/RoomV1_worn_plaster_wall_rough_1k.png-cdf5c71e0edb6d4ff88a1264ca3ccc91.s3tc.ctex", "res://.godot/imported/RoomV1_worn_plaster_wall_rough_1k.png-cdf5c71e0edb6d4ff88a1264ca3ccc91.etc2.ctex"]
 
 [params]
 

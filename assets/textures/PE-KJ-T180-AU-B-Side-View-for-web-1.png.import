@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bm0ff8dx26rp2"
 path.s3tc="res://.godot/imported/PE-KJ-T180-AU-B-Side-View-for-web-1.png-0aff38c7d124c5faec070ab38d6b7c18.s3tc.ctex"
+path.etc2="res://.godot/imported/PE-KJ-T180-AU-B-Side-View-for-web-1.png-0aff38c7d124c5faec070ab38d6b7c18.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/PE-KJ-T180-AU-B-Side-View-for-web-1.png"
-dest_files=["res://.godot/imported/PE-KJ-T180-AU-B-Side-View-for-web-1.png-0aff38c7d124c5faec070ab38d6b7c18.s3tc.ctex"]
+dest_files=["res://.godot/imported/PE-KJ-T180-AU-B-Side-View-for-web-1.png-0aff38c7d124c5faec070ab38d6b7c18.s3tc.ctex", "res://.godot/imported/PE-KJ-T180-AU-B-Side-View-for-web-1.png-0aff38c7d124c5faec070ab38d6b7c18.etc2.ctex"]
 
 [params]
 

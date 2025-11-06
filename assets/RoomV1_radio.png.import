@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dbyop8jxigned"
 path.s3tc="res://.godot/imported/RoomV1_radio.png-a8bcc856323659c2fbf6dd0b949c51f8.s3tc.ctex"
+path.etc2="res://.godot/imported/RoomV1_radio.png-a8bcc856323659c2fbf6dd0b949c51f8.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/RoomV1_radio.png"
-dest_files=["res://.godot/imported/RoomV1_radio.png-a8bcc856323659c2fbf6dd0b949c51f8.s3tc.ctex"]
+dest_files=["res://.godot/imported/RoomV1_radio.png-a8bcc856323659c2fbf6dd0b949c51f8.s3tc.ctex", "res://.godot/imported/RoomV1_radio.png-a8bcc856323659c2fbf6dd0b949c51f8.etc2.ctex"]
 
 [params]
 

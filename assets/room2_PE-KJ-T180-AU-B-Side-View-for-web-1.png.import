@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvktnyl3sfr5j"
 path.s3tc="res://.godot/imported/room2_PE-KJ-T180-AU-B-Side-View-for-web-1.png-59705a2c3f00086c533cfe15091be89e.s3tc.ctex"
+path.etc2="res://.godot/imported/room2_PE-KJ-T180-AU-B-Side-View-for-web-1.png-59705a2c3f00086c533cfe15091be89e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/room2_PE-KJ-T180-AU-B-Side-View-for-web-1.png"
-dest_files=["res://.godot/imported/room2_PE-KJ-T180-AU-B-Side-View-for-web-1.png-59705a2c3f00086c533cfe15091be89e.s3tc.ctex"]
+dest_files=["res://.godot/imported/room2_PE-KJ-T180-AU-B-Side-View-for-web-1.png-59705a2c3f00086c533cfe15091be89e.s3tc.ctex", "res://.godot/imported/room2_PE-KJ-T180-AU-B-Side-View-for-web-1.png-59705a2c3f00086c533cfe15091be89e.etc2.ctex"]
 
 [params]
 

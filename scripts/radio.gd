@@ -13,7 +13,7 @@ var first_stage = [
 	"Do it quickly, but you need to keep the lights on.",
 	"They like the dark.",
 	"There's generator near you.",
-	"Keep it running by holding RMB every once in a while.",
+	"Keep it running by holding left trigger.",
 	". . .",
 	"If you have a gun, use it.",
 	"Your shotgun only has three shots.",

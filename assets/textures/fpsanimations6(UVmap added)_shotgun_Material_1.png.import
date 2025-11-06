@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bvvclf0v7xs7v"
 path.s3tc="res://.godot/imported/fpsanimations6(UVmap added)_shotgun_Material_1.png-412722a3e2ebe7a666b7ac040e25b852.s3tc.ctex"
+path.etc2="res://.godot/imported/fpsanimations6(UVmap added)_shotgun_Material_1.png-412722a3e2ebe7a666b7ac040e25b852.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/textures/fpsanimations6(UVmap added)_shotgun_Material_1.png"
-dest_files=["res://.godot/imported/fpsanimations6(UVmap added)_shotgun_Material_1.png-412722a3e2ebe7a666b7ac040e25b852.s3tc.ctex"]
+dest_files=["res://.godot/imported/fpsanimations6(UVmap added)_shotgun_Material_1.png-412722a3e2ebe7a666b7ac040e25b852.s3tc.ctex", "res://.godot/imported/fpsanimations6(UVmap added)_shotgun_Material_1.png-412722a3e2ebe7a666b7ac040e25b852.etc2.ctex"]
 
 [params]
 

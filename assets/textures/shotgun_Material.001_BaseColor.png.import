@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b8x34ru8bu75k"
 path.s3tc="res://.godot/imported/shotgun_Material.001_BaseColor.png-2429016a67689b8fe3829b26e4d3f2f0.s3tc.ctex"
+path.etc2="res://.godot/imported/shotgun_Material.001_BaseColor.png-2429016a67689b8fe3829b26e4d3f2f0.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://assets/textures/shotgun_Material.001_BaseColor.png"
-dest_files=["res://.godot/imported/shotgun_Material.001_BaseColor.png-2429016a67689b8fe3829b26e4d3f2f0.s3tc.ctex"]
+dest_files=["res://.godot/imported/shotgun_Material.001_BaseColor.png-2429016a67689b8fe3829b26e4d3f2f0.s3tc.ctex", "res://.godot/imported/shotgun_Material.001_BaseColor.png-2429016a67689b8fe3829b26e4d3f2f0.etc2.ctex"]
 
 [params]
 
